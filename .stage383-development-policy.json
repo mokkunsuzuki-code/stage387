@@ -1,0 +1,89 @@
+{
+  "stage": 383,
+  "stage_name": "Policy-Bound Recovery Orchestration & Formal Acceptance Eligibility Gate",
+  "source_stage": 382,
+  "development_only": true,
+  "formal_acceptance_eligible": false,
+  "formal_acceptance_issued": false,
+  "formal_acceptance": false,
+  "pipeline_completed": false,
+  "public_release_allowed": false,
+  "verification_mode": "policy_bound_recovery_orchestration_and_formal_acceptance_eligibility",
+  "requirements": {
+    "stage382_preserved": true,
+    "stage377_completion_required": true,
+    "stage377_verified_proof_count_required": 2,
+    "stage377_effective_final_acceptance_required": true,
+    "stage377_dual_timestamp_decision_required": "dual_timestamp_final_acceptance_verified",
+    "stage377_existing_evidence_reused": true,
+    "new_timestamp_proof_generation_allowed": false,
+    "stage378_reverification_required": true,
+    "stage379_reverification_required": true,
+    "stage380_reverification_required": true,
+    "stage381_cross_platform_reverification_required": true,
+    "stage382_policy_reverification_required": true,
+    "single_recovery_session_required": true,
+    "deterministic_recovery_session_id_required": true,
+    "mixed_workflow_run_artifacts_allowed": false,
+    "stage_skip_allowed": false,
+    "automatic_formal_acceptance_issuance_allowed": false,
+    "manual_or_verified_issuance_transition_required": true
+  },
+  "required_reverification_order": [
+    "stage377",
+    "stage378",
+    "stage379",
+    "stage380",
+    "stage381",
+    "stage382",
+    "stage383"
+  ],
+  "pending_behavior": {
+    "decision": "upstream_finalization_pending",
+    "recovery_phase": "waiting_for_stage377",
+    "formal_acceptance_eligible": false,
+    "formal_acceptance_issued": false,
+    "formal_acceptance": false,
+    "pipeline_completed": false,
+    "fail_closed": true
+  },
+  "eligibility_behavior": {
+    "decision": "formal_acceptance_eligible",
+    "recovery_phase": "eligibility_verified",
+    "formal_acceptance_eligible": true,
+    "formal_acceptance_issued": false,
+    "formal_acceptance": false,
+    "pipeline_completed": false,
+    "manual_or_verified_issuance_transition_required": true
+  },
+  "failure_behavior": {
+    "decision": "fail_closed",
+    "formal_acceptance_eligible": false,
+    "formal_acceptance_issued": false,
+    "formal_acceptance": false,
+    "pipeline_completed": false,
+    "fail_closed": true
+  },
+  "security_boundary": {
+    "fail_closed": true,
+    "scope_reduction_allowed": false,
+    "private_core_publication_allowed": false,
+    "private_directory_publication_allowed": false,
+    "secret_publication_allowed": false,
+    "key_publication_allowed": false,
+    "raw_qkd_key_publication_allowed": false,
+    "raw_timestamp_binary_publication_allowed": false,
+    "credential_publication_allowed": false,
+    "token_publication_allowed": false
+  },
+  "preservation_boundary": {
+    "stage377_result_must_not_be_overwritten": true,
+    "stage378_result_must_not_be_overwritten": true,
+    "stage379_result_must_not_be_overwritten": true,
+    "stage380_result_must_not_be_overwritten": true,
+    "stage381_result_must_not_be_overwritten": true,
+    "stage382_result_must_not_be_overwritten": true,
+    "stage383_does_not_fabricate_upstream_completion": true,
+    "stage383_does_not_issue_formal_acceptance": true
+  }
+}

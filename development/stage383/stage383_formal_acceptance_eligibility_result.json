@@ -1,0 +1,868 @@
+{
+  "check_count": 88,
+  "checks": [
+    {
+      "actual": false,
+      "category": "safety",
+      "critical": true,
+      "expected": false,
+      "name": "automatic_formal_acceptance_issuance_forbidden",
+      "passed": true
+    },
+    {
+      "actual": [
+        "stage377",
+        "stage378",
+        "stage379",
+        "stage380",
+        "stage381",
+        "stage382",
+        "stage383"
+      ],
+      "category": "contract",
+      "critical": true,
+      "expected": [
+        "stage377",
+        "stage378",
+        "stage379",
+        "stage380",
+        "stage381",
+        "stage382",
+        "stage383"
+      ],
+      "name": "contract_required_order_valid",
+      "passed": true
+    },
+    {
+      "actual": "development/stage383/stage383_recovery_orchestration_contract.json",
+      "category": "integrity",
+      "critical": true,
+      "expected": "development/stage383/stage383_recovery_orchestration_contract.json",
+      "name": "contract_sha256_record_path_valid",
+      "passed": true
+    },
+    {
+      "actual": "686b4567f2ae2fd94d8a3592aaa4e8183a3656cec0a05934f0842903a206f4c1",
+      "category": "integrity",
+      "critical": true,
+      "expected": "686b4567f2ae2fd94d8a3592aaa4e8183a3656cec0a05934f0842903a206f4c1",
+      "name": "contract_sha256_valid",
+      "passed": true
+    },
+    {
+      "actual": 382,
+      "category": "contract",
+      "critical": true,
+      "expected": 382,
+      "name": "contract_source_stage_valid",
+      "passed": true
+    },
+    {
+      "actual": 383,
+      "category": "contract",
+      "critical": true,
+      "expected": 383,
+      "name": "contract_stage_valid",
+      "passed": true
+    },
+    {
+      "actual": [
+        "stage377",
+        "stage378",
+        "stage379",
+        "stage380",
+        "stage381",
+        "stage382",
+        "stage383"
+      ],
+      "category": "policy",
+      "critical": true,
+      "expected": [
+        "stage377",
+        "stage378",
+        "stage379",
+        "stage380",
+        "stage381",
+        "stage382",
+        "stage383"
+      ],
+      "name": "development_policy_required_order_valid",
+      "passed": true
+    },
+    {
+      "actual": 382,
+      "category": "policy",
+      "critical": true,
+      "expected": 382,
+      "name": "development_policy_source_stage_valid",
+      "passed": true
+    },
+    {
+      "actual": 383,
+      "category": "policy",
+      "critical": true,
+      "expected": 383,
+      "name": "development_policy_stage_valid",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "category": "safety",
+      "critical": true,
+      "expected": false,
+      "name": "mixed_workflow_artifacts_forbidden",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "category": "safety",
+      "critical": true,
+      "expected": false,
+      "name": "new_timestamp_proof_generation_forbidden",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "integrity",
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:.stage383-development-policy.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "integrity",
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:development/stage379/stage379_scoped_total_verification_result.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "integrity",
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:development/stage380/stage380_independent_verification_result.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "integrity",
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "integrity",
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.sha256",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "integrity",
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:development/stage382/stage382_policy_activation_manifest.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "integrity",
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:development/stage382/stage382_upstream_finalization_result.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "integrity",
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:development/stage383/stage383_recovery_orchestration_contract.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "integrity",
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:development/stage383/stage383_recovery_orchestration_contract.sha256",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "integrity",
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:docs/qkd/stage378_qkd_safety_metadata_binding_result.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "integrity",
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "integrity",
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:docs/verification/stage381/stage381_cross_platform_verification_package_result.json",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage377_decision_complete",
+      "passed": false
+    },
+    {
+      "actual": "03135b9fe51b055c356179fdb927ad45317393f94b01b27250c1dd06312d098f",
+      "category": "integrity",
+      "critical": true,
+      "expected": "64-character lowercase hexadecimal SHA-256",
+      "name": "stage377_declared_result_sha256_well_formed",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage377_effective_final_acceptance_complete",
+      "passed": false
+    },
+    {
+      "actual": "03135b9fe51b055c356179fdb927ad45317393f94b01b27250c1dd06312d098f",
+      "category": "session_binding",
+      "critical": true,
+      "expected": "03135b9fe51b055c356179fdb927ad45317393f94b01b27250c1dd06312d098f",
+      "name": "stage377_manifest_embedded_sha256_matches",
+      "passed": true
+    },
+    {
+      "actual": "74288a3c2556de86699259c93f9a8de9b38c6f30ee0a7a0ba031bebbc55b7cdc",
+      "category": "session_binding",
+      "critical": true,
+      "expected": "74288a3c2556de86699259c93f9a8de9b38c6f30ee0a7a0ba031bebbc55b7cdc",
+      "name": "stage377_manifest_file_sha256_matches",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage377_opentimestamps_verified",
+      "passed": false
+    },
+    {
+      "actual": true,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage377_rfc3161_verified",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage377_stage_valid",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage377_timestamp_verified",
+      "passed": false
+    },
+    {
+      "actual": false,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage377_verified_proof_count_complete",
+      "passed": false
+    },
+    {
+      "actual": "5c67a4160b06efb06e7608acfcf7e46d27895adeb3d69cd8a7fe216ba95ef86e",
+      "category": "integrity",
+      "critical": true,
+      "expected": "64-character lowercase hexadecimal SHA-256",
+      "name": "stage378_declared_result_sha256_well_formed",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "safety",
+      "critical": true,
+      "expected": true,
+      "name": "stage378_forbidden_public_files_empty",
+      "passed": true
+    },
+    {
+      "actual": "5c67a4160b06efb06e7608acfcf7e46d27895adeb3d69cd8a7fe216ba95ef86e",
+      "category": "session_binding",
+      "critical": true,
+      "expected": "5c67a4160b06efb06e7608acfcf7e46d27895adeb3d69cd8a7fe216ba95ef86e",
+      "name": "stage378_manifest_embedded_sha256_matches",
+      "passed": true
+    },
+    {
+      "actual": "deb30c486d3569701ef87cdd0b08bb65bb136808b6ef88d5d3e61c181d03dfbc",
+      "category": "session_binding",
+      "critical": true,
+      "expected": "deb30c486d3569701ef87cdd0b08bb65bb136808b6ef88d5d3e61c181d03dfbc",
+      "name": "stage378_manifest_file_sha256_matches",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "safety",
+      "critical": true,
+      "expected": true,
+      "name": "stage378_private_material_not_detected",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage378_qkd_metadata_bound",
+      "passed": false
+    },
+    {
+      "actual": true,
+      "category": "safety",
+      "critical": true,
+      "expected": true,
+      "name": "stage378_raw_qkd_key_not_published",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage378_stage377_final_acceptance_verified",
+      "passed": false
+    },
+    {
+      "actual": true,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage378_stage377_hash_valid",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage378_stage_valid",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage379_critical_integrity_valid",
+      "passed": false
+    },
+    {
+      "actual": "1da749df88d09366f911dac82e2180ecd468a1f39a8feddd0e93088dc5809df9",
+      "category": "integrity",
+      "critical": true,
+      "expected": "64-character lowercase hexadecimal SHA-256",
+      "name": "stage379_declared_result_sha256_well_formed",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage379_formal_acceptance",
+      "passed": false
+    },
+    {
+      "actual": "1da749df88d09366f911dac82e2180ecd468a1f39a8feddd0e93088dc5809df9",
+      "category": "session_binding",
+      "critical": true,
+      "expected": "1da749df88d09366f911dac82e2180ecd468a1f39a8feddd0e93088dc5809df9",
+      "name": "stage379_manifest_embedded_sha256_matches",
+      "passed": true
+    },
+    {
+      "actual": "b0c43c5969190b19a86fee800c17fa4b62ef5726d848003c8213c74311b1c15e",
+      "category": "session_binding",
+      "critical": true,
+      "expected": "b0c43c5969190b19a86fee800c17fa4b62ef5726d848003c8213c74311b1c15e",
+      "name": "stage379_manifest_file_sha256_matches",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage379_pipeline_completed",
+      "passed": false
+    },
+    {
+      "actual": true,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage379_stage_valid",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "integrity",
+      "critical": true,
+      "expected": true,
+      "name": "stage380_critical_failure_count_zero",
+      "passed": true
+    },
+    {
+      "actual": "f9ee8d519c9f922960743c7f77ec801d90144b43a8e0b562e99379252920580a",
+      "category": "integrity",
+      "critical": true,
+      "expected": "f9ee8d519c9f922960743c7f77ec801d90144b43a8e0b562e99379252920580a",
+      "name": "stage380_embedded_result_sha256_valid",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage380_formal_independent_verification",
+      "passed": false
+    },
+    {
+      "actual": "f9ee8d519c9f922960743c7f77ec801d90144b43a8e0b562e99379252920580a",
+      "category": "session_binding",
+      "critical": true,
+      "expected": "f9ee8d519c9f922960743c7f77ec801d90144b43a8e0b562e99379252920580a",
+      "name": "stage380_manifest_embedded_sha256_matches",
+      "passed": true
+    },
+    {
+      "actual": "f0169f77e5b1093c0e49df20ec69b9f598ac7b94e0b63e52ed5dedd0006ba2e3",
+      "category": "session_binding",
+      "critical": true,
+      "expected": "f0169f77e5b1093c0e49df20ec69b9f598ac7b94e0b63e52ed5dedd0006ba2e3",
+      "name": "stage380_manifest_file_sha256_matches",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "integrity",
+      "critical": true,
+      "expected": true,
+      "name": "stage380_package_integrity_verified",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage380_stage_valid",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "integrity",
+      "critical": true,
+      "expected": true,
+      "name": "stage381_critical_failure_count_zero",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage381_cross_platform_reverification_verified",
+      "passed": true
+    },
+    {
+      "actual": "89b081d8676a921ca6ca8a6821b7e3911747002a1555587798d54c50eca5c885",
+      "category": "integrity",
+      "critical": true,
+      "expected": "89b081d8676a921ca6ca8a6821b7e3911747002a1555587798d54c50eca5c885",
+      "name": "stage381_embedded_result_sha256_valid",
+      "passed": true
+    },
+    {
+      "actual": "89b081d8676a921ca6ca8a6821b7e3911747002a1555587798d54c50eca5c885",
+      "category": "session_binding",
+      "critical": true,
+      "expected": "89b081d8676a921ca6ca8a6821b7e3911747002a1555587798d54c50eca5c885",
+      "name": "stage381_manifest_embedded_sha256_matches",
+      "passed": true
+    },
+    {
+      "actual": "b9f91738555219d50f1e2b91e6260fc3e2096e38f6378fed0bc928705df6dabe",
+      "category": "session_binding",
+      "critical": true,
+      "expected": "b9f91738555219d50f1e2b91e6260fc3e2096e38f6378fed0bc928705df6dabe",
+      "name": "stage381_manifest_file_sha256_matches",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "integrity",
+      "critical": true,
+      "expected": true,
+      "name": "stage381_package_integrity_verified",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage381_same_canonical_result_sha256_verified",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage381_same_decision_verified",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage381_same_exit_code_verified",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage381_same_input_same_output_verified",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage381_same_stage380_result_sha256_verified",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage381_stage_valid",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "safety",
+      "critical": true,
+      "expected": true,
+      "name": "stage382_automatic_acceptance_not_performed",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "safety",
+      "critical": true,
+      "expected": true,
+      "name": "stage382_critical_failure_count_zero",
+      "passed": true
+    },
+    {
+      "actual": "5f77a568edd697673b36adc9fc8b0af484fbb1412c9a2970de56038a3267ab90",
+      "category": "integrity",
+      "critical": true,
+      "expected": "5f77a568edd697673b36adc9fc8b0af484fbb1412c9a2970de56038a3267ab90",
+      "name": "stage382_manifest_embedded_sha256_valid",
+      "passed": true
+    },
+    {
+      "actual": "qsp-dual-timestamp-final-acceptance-v1",
+      "category": "policy_binding",
+      "critical": true,
+      "expected": "qsp-dual-timestamp-final-acceptance-v1",
+      "name": "stage382_manifest_policy_name_matches",
+      "passed": true
+    },
+    {
+      "actual": "1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5",
+      "category": "policy_binding",
+      "critical": true,
+      "expected": "1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5",
+      "name": "stage382_manifest_policy_sha256_matches",
+      "passed": true
+    },
+    {
+      "actual": "2dba79a183d0f9283a4416311f3edadfe052f106aecbfb4e4a9dfce5dd1ed5b0",
+      "category": "session_binding",
+      "critical": true,
+      "expected": "2dba79a183d0f9283a4416311f3edadfe052f106aecbfb4e4a9dfce5dd1ed5b0",
+      "name": "stage382_manifest_result_embedded_sha256_matches",
+      "passed": true
+    },
+    {
+      "actual": "36b316b900ddcd304c48cad3a2d4b9db20b791aff418cd16f58c49262fbda5d6",
+      "category": "session_binding",
+      "critical": true,
+      "expected": "36b316b900ddcd304c48cad3a2d4b9db20b791aff418cd16f58c49262fbda5d6",
+      "name": "stage382_manifest_result_file_sha256_matches",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "category": "safety",
+      "critical": true,
+      "expected": true,
+      "name": "stage382_new_timestamp_proof_not_generated",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage382_policy_activated",
+      "passed": false
+    },
+    {
+      "actual": "qsp-dual-timestamp-final-acceptance-v1",
+      "category": "policy",
+      "critical": true,
+      "expected": "qsp-dual-timestamp-final-acceptance-v1",
+      "name": "stage382_policy_profile_name_valid",
+      "passed": true
+    },
+    {
+      "actual": "development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.json",
+      "category": "integrity",
+      "critical": true,
+      "expected": "development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.json",
+      "name": "stage382_policy_sha256_record_path_valid",
+      "passed": true
+    },
+    {
+      "actual": "1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5",
+      "category": "integrity",
+      "critical": true,
+      "expected": "1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5",
+      "name": "stage382_policy_sha256_valid",
+      "passed": true
+    },
+    {
+      "actual": "2dba79a183d0f9283a4416311f3edadfe052f106aecbfb4e4a9dfce5dd1ed5b0",
+      "category": "integrity",
+      "critical": true,
+      "expected": "2dba79a183d0f9283a4416311f3edadfe052f106aecbfb4e4a9dfce5dd1ed5b0",
+      "name": "stage382_result_embedded_result_sha256_valid",
+      "passed": true
+    },
+    {
+      "actual": "qsp-dual-timestamp-final-acceptance-v1",
+      "category": "policy_binding",
+      "critical": true,
+      "expected": "qsp-dual-timestamp-final-acceptance-v1",
+      "name": "stage382_result_policy_name_matches",
+      "passed": true
+    },
+    {
+      "actual": "1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5",
+      "category": "policy_binding",
+      "critical": true,
+      "expected": "1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5",
+      "name": "stage382_result_policy_sha256_matches",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage382_stage377_complete",
+      "passed": false
+    },
+    {
+      "actual": false,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage382_stage378_ready",
+      "passed": false
+    },
+    {
+      "actual": true,
+      "category": "eligibility",
+      "critical": false,
+      "expected": true,
+      "name": "stage382_stage_valid",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "category": "safety",
+      "critical": true,
+      "expected": false,
+      "name": "stage_skip_forbidden",
+      "passed": true
+    }
+  ],
+  "contract": {
+    "file_sha256": "686b4567f2ae2fd94d8a3592aaa4e8183a3656cec0a05934f0842903a206f4c1",
+    "name": "Stage383 Policy-Bound Recovery Orchestration & Formal Acceptance Eligibility Contract",
+    "path": "development/stage383/stage383_recovery_orchestration_contract.json",
+    "sha256_record_path": "development/stage383/stage383_recovery_orchestration_contract.sha256",
+    "version": "1.0.0-development"
+  },
+  "critical_failure_count": 0,
+  "critical_failures": [],
+  "decision": "upstream_finalization_pending",
+  "development_only": true,
+  "eligibility_failure_count": 14,
+  "eligibility_failures": [
+    "stage377_decision_complete",
+    "stage377_effective_final_acceptance_complete",
+    "stage377_opentimestamps_verified",
+    "stage377_timestamp_verified",
+    "stage377_verified_proof_count_complete",
+    "stage378_qkd_metadata_bound",
+    "stage378_stage377_final_acceptance_verified",
+    "stage379_critical_integrity_valid",
+    "stage379_formal_acceptance",
+    "stage379_pipeline_completed",
+    "stage380_formal_independent_verification",
+    "stage382_policy_activated",
+    "stage382_stage377_complete",
+    "stage382_stage378_ready"
+  ],
+  "engine": "Stage383 Policy-Bound Recovery Orchestration & Formal Acceptance Eligibility Gate",
+  "errors": [],
+  "execution_mode": "development",
+  "fail_closed": true,
+  "formal_acceptance": false,
+  "formal_acceptance_eligible": false,
+  "formal_acceptance_issued": false,
+  "input_bindings": {
+    "stage377": {
+      "embedded_result_sha256": "03135b9fe51b055c356179fdb927ad45317393f94b01b27250c1dd06312d098f",
+      "file_sha256": "74288a3c2556de86699259c93f9a8de9b38c6f30ee0a7a0ba031bebbc55b7cdc",
+      "path": "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json"
+    },
+    "stage378": {
+      "embedded_result_sha256": "5c67a4160b06efb06e7608acfcf7e46d27895adeb3d69cd8a7fe216ba95ef86e",
+      "file_sha256": "deb30c486d3569701ef87cdd0b08bb65bb136808b6ef88d5d3e61c181d03dfbc",
+      "path": "docs/qkd/stage378_qkd_safety_metadata_binding_result.json"
+    },
+    "stage379": {
+      "embedded_result_sha256": "1da749df88d09366f911dac82e2180ecd468a1f39a8feddd0e93088dc5809df9",
+      "file_sha256": "b0c43c5969190b19a86fee800c17fa4b62ef5726d848003c8213c74311b1c15e",
+      "path": "development/stage379/stage379_scoped_total_verification_result.json"
+    },
+    "stage380": {
+      "embedded_result_sha256": "f9ee8d519c9f922960743c7f77ec801d90144b43a8e0b562e99379252920580a",
+      "file_sha256": "f0169f77e5b1093c0e49df20ec69b9f598ac7b94e0b63e52ed5dedd0006ba2e3",
+      "path": "development/stage380/stage380_independent_verification_result.json"
+    },
+    "stage381": {
+      "embedded_result_sha256": "89b081d8676a921ca6ca8a6821b7e3911747002a1555587798d54c50eca5c885",
+      "file_sha256": "b9f91738555219d50f1e2b91e6260fc3e2096e38f6378fed0bc928705df6dabe",
+      "path": "docs/verification/stage381/stage381_cross_platform_verification_package_result.json"
+    },
+    "stage382_manifest": {
+      "embedded_manifest_sha256": "5f77a568edd697673b36adc9fc8b0af484fbb1412c9a2970de56038a3267ab90",
+      "file_sha256": "70813e1923b305c37689659fc07ff749b0bf02213e81ff3e10d0c131305670c8",
+      "path": "development/stage382/stage382_policy_activation_manifest.json"
+    },
+    "stage382_result": {
+      "embedded_result_sha256": "2dba79a183d0f9283a4416311f3edadfe052f106aecbfb4e4a9dfce5dd1ed5b0",
+      "file_sha256": "36b316b900ddcd304c48cad3a2d4b9db20b791aff418cd16f58c49262fbda5d6",
+      "path": "development/stage382/stage382_upstream_finalization_result.json"
+    }
+  },
+  "manual_or_verified_issuance_transition_required": true,
+  "network_access_required": false,
+  "pipeline_completed": false,
+  "policy_profile": {
+    "name": "qsp-dual-timestamp-final-acceptance-v1",
+    "path": "development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.json",
+    "sha256": "1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5",
+    "sha256_record_path": "development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.sha256",
+    "version": "1.0.0"
+  },
+  "public_release_allowed": false,
+  "recovery_phase": "waiting_for_stage377",
+  "recovery_session": {
+    "components": {
+      "contract_sha256": "686b4567f2ae2fd94d8a3592aaa4e8183a3656cec0a05934f0842903a206f4c1",
+      "stage377_result_sha256": "74288a3c2556de86699259c93f9a8de9b38c6f30ee0a7a0ba031bebbc55b7cdc",
+      "stage382_policy_sha256": "1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5"
+    },
+    "deterministic": true,
+    "mixed_workflow_run_artifacts_allowed": false,
+    "out_of_order_execution_allowed": false,
+    "required_order": [
+      "stage377",
+      "stage378",
+      "stage379",
+      "stage380",
+      "stage381",
+      "stage382",
+      "stage383"
+    ],
+    "session_id": "stage383-66bce0a526782ef0e49221e70bcc939268f0d04e6e2e86e34aea9aed6caf5505",
+    "stage_skip_allowed": false
+  },
+  "result_sha256": "6cf1884934ad37f26489722261a7606c3ab5560f13ea4fb42e276e81c038182c",
+  "reverification_state": {
+    "all_required_stages_reverified": false,
+    "stage378_ready": false,
+    "stage379_ready": false,
+    "stage380_ready": false,
+    "stage381_ready": true,
+    "stage382_ready": false
+  },
+  "source_stage": 382,
+  "stage": 383,
+  "statement": "Stage383 verifies one deterministic, policy-bound recovery session across Stage377 through Stage382. It does not issue formal acceptance, declare pipeline completion, generate a replacement timestamp proof, or overwrite an upstream record.",
+  "upstream_state": {
+    "stage377_complete": false,
+    "stage377_decision": "rfc3161_verified_opentimestamps_pending",
+    "stage377_effective_final_acceptance": false,
+    "stage377_embedded_result_sha256": "03135b9fe51b055c356179fdb927ad45317393f94b01b27250c1dd06312d098f",
+    "stage377_file_sha256": "74288a3c2556de86699259c93f9a8de9b38c6f30ee0a7a0ba031bebbc55b7cdc",
+    "stage377_verified_proof_count": 1
+  },
+  "verification_mode": "policy_bound_recovery_orchestration_and_formal_acceptance_eligibility",
+  "verification_status": "verified_pending_upstream"
+}

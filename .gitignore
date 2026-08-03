@@ -338,3 +338,20 @@ development/stage382/policy-profiles/*
 
 # Stage382 public workflow
 !.github/workflows/stage382-upstream-finalization-recovery.yml
+
+# Stage383 public policy-bound recovery orchestration package
+!development/stage383/
+development/stage383/*
+
+!development/stage383/README.md
+!development/stage383/stage383_recovery_orchestration_contract.json
+!development/stage383/stage383_recovery_orchestration_contract.sha256
+!development/stage383/stage383_recovery_session_manifest.json
+!development/stage383/stage383_recovery_session_manifest.sha256
+!development/stage383/verify_stage383_recovery_chain.py
+!development/stage383/test_stage383_fail_closed.py
+!development/stage383/stage383_formal_acceptance_eligibility_result.json
+!development/stage383/stage383_formal_acceptance_eligibility_result.sha256
+
+# Stage383 public recovery orchestration workflow
+!.github/workflows/stage383-policy-bound-recovery-orchestration.yml

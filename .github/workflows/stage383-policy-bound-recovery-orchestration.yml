@@ -1,0 +1,507 @@
+name: Stage383 Policy-Bound Recovery Orchestration
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".stage383-development-policy.json"
+      - "development/stage383/**"
+      - "development/stage382/**"
+      - "development/stage381/**"
+      - "development/stage380/**"
+      - "development/stage379/**"
+      - "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json"
+      - "docs/qkd/stage378_qkd_safety_metadata_binding_result.json"
+      - "docs/verification/stage381/**"
+      - ".github/workflows/stage383-policy-bound-recovery-orchestration.yml"
+      - "README.md"
+      - "LICENSE"
+
+permissions:
+  contents: read
+
+env:
+  PYTHONUTF8: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+
+jobs:
+  stage383-policy-bound-recovery:
+    name: Validate Stage383 recovery eligibility
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Display environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          python --version
+          git --version
+          pwd
+
+      - name: Validate required files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          required_files=(
+            ".stage383-development-policy.json"
+            "LICENSE"
+            "development/stage383/README.md"
+            "development/stage383/stage383_recovery_orchestration_contract.json"
+            "development/stage383/stage383_recovery_orchestration_contract.sha256"
+            "development/stage383/verify_stage383_recovery_chain.py"
+            "development/stage383/test_stage383_fail_closed.py"
+            "development/stage383/stage383_formal_acceptance_eligibility_result.json"
+            "development/stage383/stage383_formal_acceptance_eligibility_result.sha256"
+            "development/stage383/stage383_recovery_session_manifest.json"
+            "development/stage383/stage383_recovery_session_manifest.sha256"
+            "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json"
+            "docs/qkd/stage378_qkd_safety_metadata_binding_result.json"
+            "development/stage379/stage379_scoped_total_verification_result.json"
+            "development/stage380/stage380_independent_verification_result.json"
+            "docs/verification/stage381/stage381_cross_platform_verification_package_result.json"
+            "development/stage382/stage382_upstream_finalization_result.json"
+            "development/stage382/stage382_policy_activation_manifest.json"
+          )
+
+          for path in "${required_files[@]}"; do
+            if [ ! -f "$path" ]; then
+              echo "ERROR: missing required file: $path"
+              exit 1
+            fi
+
+            echo "OK: $path"
+          done
+
+      - name: Validate Python syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python -m py_compile \
+            development/stage383/verify_stage383_recovery_chain.py \
+            development/stage383/test_stage383_fail_closed.py
+
+      - name: Validate Stage383 JSON files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python -m json.tool \
+            .stage383-development-policy.json \
+            > /dev/null
+
+          python -m json.tool \
+            development/stage383/stage383_recovery_orchestration_contract.json \
+            > /dev/null
+
+          python -m json.tool \
+            development/stage383/stage383_formal_acceptance_eligibility_result.json \
+            > /dev/null
+
+          python -m json.tool \
+            development/stage383/stage383_recovery_session_manifest.json \
+            > /dev/null
+
+          echo "OK: Stage383 JSON files are valid"
+
+      - name: Validate Stage383 README
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path(
+              "development/stage383/README.md"
+          )
+
+          text = path.read_text(
+              encoding="utf-8"
+          )
+
+          required = (
+              "# Stage383: Policy-Bound Recovery Orchestration & Formal Acceptance Eligibility Gate",
+              "## Purpose",
+              "## Required Recovery Order",
+              "## Current State",
+              "## Stage377 Trigger Conditions",
+              "## Deterministic Recovery Session",
+              "## Stage-Specific Integrity Validation",
+              "## Decision Model",
+              "## Formal-Acceptance Boundary",
+              "## Verification Files",
+              "## Local Verification",
+              "## Fail-Closed Tests",
+              "## Preservation Boundary",
+              "## Security and Publication Boundary",
+              "## Current Limitations",
+              "## License",
+              "MIT License",
+          )
+
+          missing = [
+              item
+              for item in required
+              if item not in text
+          ]
+
+          fence_count = text.count("```")
+
+          if fence_count % 2 != 0:
+              raise SystemExit(
+                  "ERROR: Markdown fences are unbalanced"
+              )
+
+          if missing:
+              raise SystemExit(
+                  "ERROR: README content missing: "
+                  + ", ".join(missing)
+              )
+
+          print(
+              "OK: Stage383 README is valid"
+          )
+          PY
+
+      - name: Verify Stage383 contract SHA-256
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+
+          source = Path(
+              "development/stage383/"
+              "stage383_recovery_orchestration_contract.json"
+          )
+
+          record = Path(
+              "development/stage383/"
+              "stage383_recovery_orchestration_contract.sha256"
+          )
+
+          parts = record.read_text(
+              encoding="utf-8"
+          ).strip().split(maxsplit=1)
+
+          if len(parts) != 2:
+              raise SystemExit(
+                  "ERROR: invalid contract SHA-256 record"
+              )
+
+          recorded_hash, recorded_path = parts
+          actual_hash = hashlib.sha256(
+              source.read_bytes()
+          ).hexdigest()
+
+          if recorded_hash != actual_hash:
+              raise SystemExit(
+                  "ERROR: contract SHA-256 mismatch"
+              )
+
+          if recorded_path != source.as_posix():
+              raise SystemExit(
+                  "ERROR: contract path mismatch"
+              )
+
+          print(
+              "OK: Stage383 contract SHA-256 verified"
+          )
+          PY
+
+      - name: Run Stage383 Fail-Closed tests
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python \
+            development/stage383/test_stage383_fail_closed.py
+
+      - name: Run Stage383 verifier
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python \
+            development/stage383/verify_stage383_recovery_chain.py
+
+      - name: Validate Stage383 current decision
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path(
+              "development/stage383/"
+              "stage383_formal_acceptance_eligibility_result.json"
+          )
+
+          result = json.loads(
+              path.read_text(encoding="utf-8")
+          )
+
+          allowed_decisions = {
+              "upstream_finalization_pending",
+              "formal_acceptance_eligible",
+          }
+
+          decision = result.get("decision")
+
+          if decision not in allowed_decisions:
+              raise SystemExit(
+                  "ERROR: Stage383 returned an invalid "
+                  f"decision: {decision}"
+              )
+
+          if result.get(
+              "critical_failure_count"
+          ) != 0:
+              raise SystemExit(
+                  "ERROR: Stage383 critical failure detected"
+              )
+
+          if result.get(
+              "formal_acceptance_issued"
+          ) is not False:
+              raise SystemExit(
+                  "ERROR: Stage383 issued formal acceptance"
+              )
+
+          if result.get(
+              "formal_acceptance"
+          ) is not False:
+              raise SystemExit(
+                  "ERROR: formal_acceptance must remain false"
+              )
+
+          if result.get(
+              "pipeline_completed"
+          ) is not False:
+              raise SystemExit(
+                  "ERROR: pipeline_completed must remain false"
+              )
+
+          print("decision =", decision)
+          print(
+              "verification_status =",
+              result.get("verification_status"),
+          )
+          print(
+              "recovery_phase =",
+              result.get("recovery_phase"),
+          )
+          print(
+              "formal_acceptance_eligible =",
+              result.get(
+                  "formal_acceptance_eligible"
+              ),
+          )
+          print(
+              "formal_acceptance_issued =",
+              result.get(
+                  "formal_acceptance_issued"
+              ),
+          )
+          print(
+              "critical_failure_count =",
+              result.get(
+                  "critical_failure_count"
+              ),
+          )
+          PY
+
+      - name: Rebuild Stage383 result SHA-256 record
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+
+          result = Path(
+              "development/stage383/"
+              "stage383_formal_acceptance_eligibility_result.json"
+          )
+
+          record = Path(
+              "development/stage383/"
+              "stage383_formal_acceptance_eligibility_result.sha256"
+          )
+
+          digest = hashlib.sha256(
+              result.read_bytes()
+          ).hexdigest()
+
+          record.write_text(
+              f"{digest}  {result.as_posix()}\n",
+              encoding="utf-8",
+              newline="\n",
+          )
+
+          print(
+              "OK: Stage383 result SHA-256 record rebuilt"
+          )
+          print(
+              "result_file_sha256=" + digest
+          )
+          PY
+
+      - name: Validate recovery session manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          manifest_path = Path(
+              "development/stage383/"
+              "stage383_recovery_session_manifest.json"
+          )
+
+          record_path = Path(
+              "development/stage383/"
+              "stage383_recovery_session_manifest.sha256"
+          )
+
+          data = json.loads(
+              manifest_path.read_text(
+                  encoding="utf-8"
+              )
+          )
+
+          declared_hash = data.pop(
+              "manifest_sha256",
+              None,
+          )
+
+          canonical = json.dumps(
+              data,
+              ensure_ascii=False,
+              sort_keys=True,
+              separators=(",", ":"),
+          ).encode("utf-8")
+
+          actual_embedded_hash = hashlib.sha256(
+              canonical
+          ).hexdigest()
+
+          if declared_hash != actual_embedded_hash:
+              raise SystemExit(
+                  "ERROR: manifest embedded SHA-256 mismatch"
+              )
+
+          parts = record_path.read_text(
+              encoding="utf-8"
+          ).strip().split(maxsplit=1)
+
+          if len(parts) != 2:
+              raise SystemExit(
+                  "ERROR: invalid manifest SHA-256 record"
+              )
+
+          recorded_hash, recorded_path = parts
+          actual_file_hash = hashlib.sha256(
+              manifest_path.read_bytes()
+          ).hexdigest()
+
+          if recorded_hash != actual_file_hash:
+              raise SystemExit(
+                  "ERROR: manifest file SHA-256 mismatch"
+              )
+
+          if recorded_path != manifest_path.as_posix():
+              raise SystemExit(
+                  "ERROR: manifest path mismatch"
+              )
+
+          print(
+              "OK: Stage383 recovery session manifest verified"
+          )
+          PY
+
+      - name: Verify publication boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import subprocess
+
+          forbidden = {
+              "core",
+              "private_core",
+              "private",
+              "secrets",
+              "keys",
+              "imported",
+          }
+
+          tracked = subprocess.run(
+              ["git", "ls-files"],
+              check=True,
+              capture_output=True,
+              text=True,
+          ).stdout.splitlines()
+
+          violations = []
+
+          for path in tracked:
+              parts = [
+                  part
+                  for part in path.replace("\\", "/").split("/")
+                  if part
+              ]
+
+              if any(
+                  part in forbidden
+                  for part in parts
+              ):
+                  violations.append(path)
+
+          if violations:
+              raise SystemExit(
+                  "ERROR: forbidden tracked paths: "
+                  + ", ".join(violations)
+              )
+
+          print(
+              "OK: no forbidden paths are tracked"
+          )
+          PY
+
+      - name: Upload Stage383 verification package
+        uses: actions/upload-artifact@v6
+        with:
+          name: stage383-policy-bound-recovery-package
+          if-no-files-found: error
+          retention-days: 30
+          path: |
+            .stage383-development-policy.json
+            development/stage383/README.md
+            development/stage383/stage383_recovery_orchestration_contract.json
+            development/stage383/stage383_recovery_orchestration_contract.sha256
+            development/stage383/stage383_formal_acceptance_eligibility_result.json
+            development/stage383/stage383_formal_acceptance_eligibility_result.sha256
+            development/stage383/stage383_recovery_session_manifest.json
+            development/stage383/stage383_recovery_session_manifest.sha256

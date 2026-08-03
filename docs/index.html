@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="google" content="notranslate">
-  <title>Stage382: Upstream Finalization Recovery &amp; Policy Activation Gate</title>
+  <title>Stage383: Policy-Bound Recovery Orchestration &amp; Formal Acceptance Eligibility Gate</title>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; background: #f6f8fa; color: #24292f; }
     header { background: #0d1117; color: white; padding: 44px 32px; }
@@ -27,6 +27,51 @@
 <body>
 
 
+
+<!-- STAGE383_CURRENT_PAGE_HEADER_START -->
+<script>
+  document.title =
+    "Stage383: Policy-Bound Recovery Orchestration & Formal Acceptance Eligibility Gate";
+</script>
+
+<section
+  id="stage383-current-page-header"
+  aria-label="Stage383 current stage"
+>
+  <h1>Stage383</h1>
+
+  <h2>
+    Policy-Bound Recovery Orchestration
+    &amp; Formal Acceptance Eligibility Gate
+  </h2>
+
+  <p>
+    Stage382までの検証結果を変更せず、
+    Stage377からStage382までの回復再検証を、
+    1つの決定論的リカバリーセッションへ結合します。
+  </p>
+
+  <p>
+    Stage383は正式承認を発行するゲートではありません。
+    Stage377の完了後に、Stage378、Stage379、Stage380、
+    Stage381、Stage382が正しい順序で再検証されたかを確認し、
+    正式承認の発行条件を満たしたかだけを判定します。
+  </p>
+
+  <p>
+    <strong>Current decision:</strong>
+    <code>upstream_finalization_pending</code>
+  </p>
+
+  <p>
+    <strong>Recovery phase:</strong>
+    <code>waiting_for_stage377</code>
+    /
+    <strong>Critical failures:</strong>
+    <code>0</code>
+  </p>
+</section>
+<!-- STAGE383_CURRENT_PAGE_HEADER_END -->
 
 <!-- STAGE382_CURRENT_PAGE_HEADER_START -->
 <script>
@@ -3312,5 +3357,196 @@ Verified / Pending / Block</pre>
 </section>
 <!-- STAGE382_APPEND_ONLY_END -->
 
+<!-- STAGE383_APPEND_ONLY_START -->
+<section class="card" id="stage383">
+  <h2>
+    Stage383: Policy-Bound Recovery Orchestration
+    &amp; Formal Acceptance Eligibility Gate
+  </h2>
+
+  <p>
+    Stage383は、Stage377からStage382までの既存検証記録を
+    上書きせず、1つの決定論的リカバリーセッションへ結合します。
+  </p>
+
+  <p>
+    正式承認を自動発行するのではなく、
+    正式承認を発行できる条件がすべて満たされたかを
+    Fail-Closedで判定します。
+  </p>
+
+  <h3>Required Recovery Order</h3>
+
+  <p>
+    Stage377 dual-timestamp final acceptance<br>
+    ↓<br>
+    Stage378 QKD safety metadata reverification<br>
+    ↓<br>
+    Stage379 scoped total verification<br>
+    ↓<br>
+    Stage380 deterministic offline verification<br>
+    ↓<br>
+    Stage381 cross-platform reverification<br>
+    ↓<br>
+    Stage382 policy-bound verification<br>
+    ↓<br>
+    Stage383 formal-acceptance eligibility decision
+  </p>
+
+  <h3>Current State</h3>
+
+  <ul>
+    <li>
+      Stage377 decision:
+      <code>rfc3161_verified_opentimestamps_pending</code>
+    </li>
+    <li>
+      Stage377 verified proof count:
+      <code>1</code>
+    </li>
+    <li>
+      Stage377 effective final acceptance:
+      <code>false</code>
+    </li>
+    <li>
+      Stage383 decision:
+      <code>upstream_finalization_pending</code>
+    </li>
+    <li>
+      Verification status:
+      <code>verified_pending_upstream</code>
+    </li>
+    <li>
+      Recovery phase:
+      <code>waiting_for_stage377</code>
+    </li>
+    <li>
+      Critical failure count:
+      <code>0</code>
+    </li>
+  </ul>
+
+  <p>
+    これは意図されたFail-Closed待機状態です。
+    Stage377のOpenTimestamps検証が完了するまで、
+    Stage383は正式承認適格性を成立させません。
+  </p>
+
+  <h3>Deterministic Recovery Session</h3>
+
+  <p>
+    Current recovery-session identifier:
+  </p>
+
+  <pre>stage383-66bce0a526782ef0e49221e70bcc939268f0d04e6e2e86e34aea9aed6caf5505</pre>
+
+  <p>
+    このIDは固定入力から決定論的に生成され、
+    実行時刻、乱数、ホスト名、ユーザー名、
+    ローカル絶対パスを判定材料に使用しません。
+  </p>
+
+  <h3>Eligibility and Issuance Boundary</h3>
+
+  <ul>
+    <li>
+      Formal acceptance eligible:
+      <code>false</code>
+    </li>
+    <li>
+      Formal acceptance issued:
+      <code>false</code>
+    </li>
+    <li>
+      Formal acceptance:
+      <code>false</code>
+    </li>
+    <li>
+      Pipeline completed:
+      <code>false</code>
+    </li>
+    <li>
+      Public release allowed:
+      <code>false</code>
+    </li>
+  </ul>
+
+  <p>
+    <code>formal_acceptance_eligible</code>と
+    <code>formal_acceptance_issued</code>は別の状態です。
+    Stage383は適格性を検証しますが、
+    正式承認証明書を自動発行しません。
+  </p>
+
+  <h3>Verified Local State</h3>
+
+  <ul>
+    <li>Python syntax validation: passed</li>
+    <li>Fail-Closed tests: 10 passed</li>
+    <li>Verifier exit code: 0</li>
+    <li>Contract SHA-256: valid</li>
+    <li>Result SHA-256: valid</li>
+    <li>Recovery-session manifest SHA-256: valid</li>
+    <li>Public evidence matches source files: true</li>
+  </ul>
+
+  <h3>Public Stage383 Evidence</h3>
+
+  <ul>
+    <li>
+      <a href="./verification/stage383/stage383_recovery_orchestration_contract.json">
+        Stage383 Recovery Orchestration Contract
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage383/stage383_recovery_orchestration_contract.sha256">
+        Stage383 Contract SHA-256 Record
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage383/stage383_formal_acceptance_eligibility_result.json">
+        Stage383 Formal-Acceptance Eligibility Result
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage383/stage383_formal_acceptance_eligibility_result.sha256">
+        Stage383 Result SHA-256 Record
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage383/stage383_recovery_session_manifest.json">
+        Stage383 Recovery Session Manifest
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage383/stage383_recovery_session_manifest.sha256">
+        Stage383 Manifest SHA-256 Record
+      </a>
+    </li>
+  </ul>
+
+  <h3>Preservation Boundary</h3>
+
+  <p>
+    Stage383は、Stage377からStage382までの既存結果を
+    変更、削除、置換、上書きしません。
+  </p>
+
+  <h3>Publication Boundary</h3>
+
+  <ul>
+    <li>No private core is published.</li>
+    <li>No private directory is published.</li>
+    <li>No secret, credential, token, or private key is published.</li>
+    <li>No raw QKD secret material is published.</li>
+    <li>No raw timestamp proof binary is published.</li>
+    <li>Only reviewed public verification records are published.</li>
+  </ul>
+
+  <p>
+    <strong>License:</strong> MIT License
+  </p>
+</section>
+<!-- STAGE383_APPEND_ONLY_END -->
 </body>
 </html>

@@ -1,3 +1,178 @@
+<!-- STAGE383_ROOT_README_START -->
+# Stage383: Policy-Bound Recovery Orchestration & Formal Acceptance Eligibility Gate
+
+Stage383 extends Stage382 by binding the existing Stage377 through Stage382
+verification records to one deterministic recovery session.
+
+It evaluates whether the complete recovery chain satisfies the requirements
+for formal-acceptance eligibility.
+
+Stage383 does not issue formal acceptance and does not declare pipeline
+completion.
+
+## What Stage383 Adds
+
+Stage383 adds the following public verification capabilities:
+
+1. A fixed recovery-orchestration contract
+2. A deterministic recovery-session identifier
+3. Stage377 through Stage382 input and hash binding
+4. Fixed-order downstream reverification requirements
+5. Detection of missing, mixed, skipped, stale, or tampered artifacts
+6. Formal-acceptance eligibility evaluation
+7. Separation of eligibility from certificate issuance
+8. Ten automated Fail-Closed tests
+9. A GitHub Actions verification workflow
+10. Public verification evidence under `docs/verification/stage383/`
+
+## Required Recovery Order
+
+Stage377 dual-timestamp final acceptance
+        |
+        v
+Stage378 QKD safety metadata reverification
+        |
+        v
+Stage379 scoped total verification
+        |
+        v
+Stage380 deterministic offline verification
+        |
+        v
+Stage381 cross-platform reverification
+        |
+        v
+Stage382 policy-bound verification
+        |
+        v
+Stage383 formal-acceptance eligibility decision
+
+The order is fixed.
+
+Stage skipping, out-of-order execution, mixed workflow-run artifacts, and
+automatic formal-acceptance issuance are prohibited.
+
+## Current Stage383 State
+
+The current Stage377 result remains:
+
+decision = rfc3161_verified_opentimestamps_pending
+verified_proof_count = 1
+effective_final_acceptance = false
+
+Therefore, Stage383 currently reports:
+
+decision = upstream_finalization_pending
+verification_status = verified_pending_upstream
+recovery_phase = waiting_for_stage377
+critical_failure_count = 0
+
+Formal-acceptance boundary:
+
+formal_acceptance_eligible = false
+formal_acceptance_issued = false
+formal_acceptance = false
+pipeline_completed = false
+public_release_allowed = false
+
+This is an intended Fail-Closed waiting state.
+
+Stage383 does not fabricate Stage377 completion and does not convert the
+pending OpenTimestamps proof into a verified proof.
+
+## Deterministic Recovery Session
+
+Current recovery-session identifier:
+
+stage383-66bce0a526782ef0e49221e70bcc939268f0d04e6e2e86e34aea9aed6caf5505
+
+The identifier is derived from fixed verification inputs and excludes runtime
+timestamps, random values, usernames, hostnames, and absolute local paths.
+
+## Verification and Test State
+
+The current local Stage383 validation reports:
+
+Python syntax validation = passed
+Fail-Closed tests = 10 passed
+Stage383 verifier exit code = 0
+critical_failure_count = 0
+contract SHA-256 = valid
+result SHA-256 = valid
+manifest SHA-256 = valid
+public source/evidence hashes = identical
+## Public Stage383 Evidence
+
+The public verification files are located at:
+
+docs/verification/stage383/
+├── stage383_recovery_orchestration_contract.json
+├── stage383_recovery_orchestration_contract.sha256
+├── stage383_formal_acceptance_eligibility_result.json
+├── stage383_formal_acceptance_eligibility_result.sha256
+├── stage383_recovery_session_manifest.json
+└── stage383_recovery_session_manifest.sha256
+
+The Stage383 GitHub Actions workflow is:
+
+.github/workflows/stage383-policy-bound-recovery-orchestration.yml
+## Formal-Acceptance Boundary
+
+Stage383 distinguishes between:
+
+formal_acceptance_eligible
+
+and:
+
+formal_acceptance_issued
+
+Eligibility does not equal issuance.
+
+Even when every eligibility condition is eventually satisfied, Stage383
+requires a separate manual or independently verified issuance transition.
+
+Stage383 itself does not issue the final production certificate.
+
+## Preservation Boundary
+
+Stage383 does not replace, modify, or overwrite the established Stage377
+through Stage382 verification records.
+
+The complete Stage382 README and all inherited earlier documentation remain
+preserved below this Stage383 section.
+
+## Security and Publication Boundary
+
+The following directories must remain private and must not be pushed to GitHub:
+
+core/
+private_core/
+private/
+secrets/
+keys/
+imported/
+
+Stage383 publishes no private key, secret, credential, token, raw QKD key,
+derived QKD secret, raw timestamp binary, private runner output, or
+confidential evidence.
+
+Only reviewed public source code, verification metadata, SHA-256 records,
+results, manifests, and documentation may be published.
+
+## License
+
+This project is licensed under the MIT License.
+
+See the repository-level LICENSE file for the complete license text.
+
+The MIT License does not override confidentiality requirements, publication
+boundaries, security controls, private-material restrictions, upstream
+evidence restrictions, or third-party licenses.
+
+<!-- STAGE383_ROOT_README_END -->
+
+## Preserved Stage382 Foundation
+
 # Stage382: Upstream Finalization Recovery & Policy Activation Gate
 
 日本語：

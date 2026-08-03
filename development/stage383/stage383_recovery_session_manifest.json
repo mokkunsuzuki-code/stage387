@@ -1,0 +1,144 @@
+{
+  "development_only": true,
+  "development_policy": {
+    "file_sha256": "2cbad8a9baacb356dcd447acc2b789117c411e10b02956ccad8ed6ef15151366",
+    "path": ".stage383-development-policy.json",
+    "required_reverification_order": [
+      "stage377",
+      "stage378",
+      "stage379",
+      "stage380",
+      "stage381",
+      "stage382",
+      "stage383"
+    ],
+    "source_stage": 382,
+    "stage": 383
+  },
+  "eligibility_result": {
+    "critical_failure_count": 0,
+    "decision": "upstream_finalization_pending",
+    "eligibility_failure_count": 14,
+    "embedded_result_sha256": "6cf1884934ad37f26489722261a7606c3ab5560f13ea4fb42e276e81c038182c",
+    "file_sha256": "45a84cdc2bc772d5ac76ceab2f4cc5fe5959f74aa1b944c5f46b6b23e08fa4ad",
+    "path": "development/stage383/stage383_formal_acceptance_eligibility_result.json",
+    "recovery_phase": "waiting_for_stage377",
+    "sha256_record_path": "development/stage383/stage383_formal_acceptance_eligibility_result.sha256",
+    "verification_status": "verified_pending_upstream"
+  },
+  "execution_mode": "development",
+  "fail_closed": true,
+  "formal_acceptance_boundary": {
+    "formal_acceptance": false,
+    "formal_acceptance_eligible": false,
+    "formal_acceptance_issued": false,
+    "manual_or_verified_issuance_transition_required": true,
+    "pipeline_completed": false,
+    "public_release_allowed": false
+  },
+  "input_bindings": {
+    "stage377": {
+      "embedded_result_sha256": "03135b9fe51b055c356179fdb927ad45317393f94b01b27250c1dd06312d098f",
+      "file_sha256": "74288a3c2556de86699259c93f9a8de9b38c6f30ee0a7a0ba031bebbc55b7cdc",
+      "path": "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json"
+    },
+    "stage378": {
+      "embedded_result_sha256": "5c67a4160b06efb06e7608acfcf7e46d27895adeb3d69cd8a7fe216ba95ef86e",
+      "file_sha256": "deb30c486d3569701ef87cdd0b08bb65bb136808b6ef88d5d3e61c181d03dfbc",
+      "path": "docs/qkd/stage378_qkd_safety_metadata_binding_result.json"
+    },
+    "stage379": {
+      "embedded_result_sha256": "1da749df88d09366f911dac82e2180ecd468a1f39a8feddd0e93088dc5809df9",
+      "file_sha256": "b0c43c5969190b19a86fee800c17fa4b62ef5726d848003c8213c74311b1c15e",
+      "path": "development/stage379/stage379_scoped_total_verification_result.json"
+    },
+    "stage380": {
+      "embedded_result_sha256": "f9ee8d519c9f922960743c7f77ec801d90144b43a8e0b562e99379252920580a",
+      "file_sha256": "f0169f77e5b1093c0e49df20ec69b9f598ac7b94e0b63e52ed5dedd0006ba2e3",
+      "path": "development/stage380/stage380_independent_verification_result.json"
+    },
+    "stage381": {
+      "embedded_result_sha256": "89b081d8676a921ca6ca8a6821b7e3911747002a1555587798d54c50eca5c885",
+      "file_sha256": "b9f91738555219d50f1e2b91e6260fc3e2096e38f6378fed0bc928705df6dabe",
+      "path": "docs/verification/stage381/stage381_cross_platform_verification_package_result.json"
+    },
+    "stage382_manifest": {
+      "embedded_manifest_sha256": "5f77a568edd697673b36adc9fc8b0af484fbb1412c9a2970de56038a3267ab90",
+      "file_sha256": "70813e1923b305c37689659fc07ff749b0bf02213e81ff3e10d0c131305670c8",
+      "path": "development/stage382/stage382_policy_activation_manifest.json"
+    },
+    "stage382_result": {
+      "embedded_result_sha256": "2dba79a183d0f9283a4416311f3edadfe052f106aecbfb4e4a9dfce5dd1ed5b0",
+      "file_sha256": "36b316b900ddcd304c48cad3a2d4b9db20b791aff418cd16f58c49262fbda5d6",
+      "path": "development/stage382/stage382_upstream_finalization_result.json"
+    }
+  },
+  "manifest_name": "Stage383 Policy-Bound Recovery Session Manifest",
+  "manifest_sha256": "3e3ea2d197931a09c423a1e46a28d527bbbf47d75dc4833daced109f4b8154a1",
+  "manifest_version": "1.0.0-development",
+  "policy_profile": {
+    "name": "qsp-dual-timestamp-final-acceptance-v1",
+    "path": "development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.json",
+    "sha256": "1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5",
+    "sha256_record_path": "development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.sha256",
+    "version": "1.0.0"
+  },
+  "preservation_statement": "Stage383 binds the Stage377 through Stage382 verification records to one deterministic recovery session. It does not overwrite an upstream record, generate a replacement timestamp proof, issue formal acceptance, or declare pipeline completion.",
+  "recovery_contract": {
+    "file_sha256": "686b4567f2ae2fd94d8a3592aaa4e8183a3656cec0a05934f0842903a206f4c1",
+    "name": "Stage383 Policy-Bound Recovery Orchestration & Formal Acceptance Eligibility Contract",
+    "path": "development/stage383/stage383_recovery_orchestration_contract.json",
+    "sha256_record_path": "development/stage383/stage383_recovery_orchestration_contract.sha256",
+    "version": "1.0.0-development"
+  },
+  "recovery_session": {
+    "components": {
+      "contract_sha256": "686b4567f2ae2fd94d8a3592aaa4e8183a3656cec0a05934f0842903a206f4c1",
+      "stage377_result_sha256": "74288a3c2556de86699259c93f9a8de9b38c6f30ee0a7a0ba031bebbc55b7cdc",
+      "stage382_policy_sha256": "1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5"
+    },
+    "deterministic": true,
+    "mixed_workflow_run_artifacts_allowed": false,
+    "out_of_order_execution_allowed": false,
+    "required_order": [
+      "stage377",
+      "stage378",
+      "stage379",
+      "stage380",
+      "stage381",
+      "stage382",
+      "stage383"
+    ],
+    "session_id": "stage383-66bce0a526782ef0e49221e70bcc939268f0d04e6e2e86e34aea9aed6caf5505",
+    "stage_skip_allowed": false
+  },
+  "reverification_state": {
+    "all_required_stages_reverified": false,
+    "stage378_ready": false,
+    "stage379_ready": false,
+    "stage380_ready": false,
+    "stage381_ready": true,
+    "stage382_ready": false
+  },
+  "security_boundary": {
+    "credential_publication_allowed": false,
+    "key_publication_allowed": false,
+    "private_core_publication_allowed": false,
+    "private_directory_publication_allowed": false,
+    "raw_qkd_key_publication_allowed": false,
+    "raw_timestamp_binary_publication_allowed": false,
+    "secret_publication_allowed": false,
+    "token_publication_allowed": false
+  },
+  "source_stage": 382,
+  "stage": 383,
+  "upstream_state": {
+    "stage377_complete": false,
+    "stage377_decision": "rfc3161_verified_opentimestamps_pending",
+    "stage377_effective_final_acceptance": false,
+    "stage377_embedded_result_sha256": "03135b9fe51b055c356179fdb927ad45317393f94b01b27250c1dd06312d098f",
+    "stage377_file_sha256": "74288a3c2556de86699259c93f9a8de9b38c6f30ee0a7a0ba031bebbc55b7cdc",
+    "stage377_verified_proof_count": 1
+  },
+  "verification_mode": "policy_bound_recovery_orchestration_and_formal_acceptance_eligibility"
+}
