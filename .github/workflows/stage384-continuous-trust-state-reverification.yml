@@ -1,0 +1,249 @@
+name: Stage384 Continuous Trust-State Reverification
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "0 0 * * *"
+
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/stage384-continuous-trust-state-reverification.yml"
+      - ".github/workflows/stage383-policy-bound-recovery-orchestration.yml"
+      - ".stage382-development-policy.json"
+      - ".stage383-development-policy.json"
+      - ".stage384-development-policy.json"
+      - "development/stage382/**"
+      - "development/stage383/**"
+      - "development/stage384/**"
+      - "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json"
+      - "docs/qkd/stage378_qkd_safety_metadata_binding_result.json"
+
+permissions:
+  contents: read
+
+env:
+  PYTHONUTF8: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+
+jobs:
+  continuous-trust-state-reverification:
+    name: Reverify Stage384 trust state
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Display environment
+        run: |
+          python --version
+          echo "runner_os=${{ runner.os }}"
+          echo "event_name=${{ github.event_name }}"
+          echo "commit=${{ github.sha }}"
+
+      - name: Validate Python syntax
+        run: |
+          python -m py_compile \
+            development/stage384/verify_stage384_continuous_trust_state.py \
+            development/stage384/test_stage384_fail_closed.py
+
+      - name: Validate Stage384 JSON inputs
+        run: |
+          python -m json.tool \
+            .stage384-development-policy.json \
+            >/dev/null
+
+          python -m json.tool \
+            development/stage384/stage384_continuous_verification_policy.json \
+            >/dev/null
+
+          python -m json.tool \
+            development/stage384/stage384_trust_state_baseline.json \
+            >/dev/null
+
+          python -m json.tool \
+            development/stage384/stage384_change_detection_result.json \
+            >/dev/null
+
+          python -m json.tool \
+            development/stage384/stage384_continuous_verification_manifest.json \
+            >/dev/null
+
+      - name: Validate fixed SHA-256 records
+        run: |
+          shasum -a 256 -c \
+            development/stage384/stage384_continuous_verification_policy.sha256
+
+          shasum -a 256 -c \
+            development/stage384/stage384_trust_state_baseline.sha256
+
+          shasum -a 256 -c \
+            development/stage384/stage384_change_detection_result.sha256
+
+          shasum -a 256 -c \
+            development/stage384/stage384_continuous_verification_manifest.sha256
+
+      - name: Run Stage384 continuous reverification
+        run: |
+          python \
+            development/stage384/verify_stage384_continuous_trust_state.py
+
+      - name: Validate deterministic Stage384 result
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          result_path = Path(
+              "development/stage384/"
+              "stage384_change_detection_result.json"
+          )
+
+          result = json.loads(
+              result_path.read_text(encoding="utf-8")
+          )
+
+          expected = {
+              "stage": 384,
+              "decision": (
+                  "continuous_trust_state_verified_"
+                  "upstream_pending"
+              ),
+              "verification_status": (
+                  "verified_unchanged_upstream_pending"
+              ),
+              "change_detected": False,
+              "detected_change_count": 0,
+              "material_change_count": 0,
+              "critical_change_count": 0,
+              "reverification_required": False,
+              "eligibility_invalidated": False,
+              "formal_acceptance_eligible": False,
+              "formal_acceptance_issued": False,
+              "formal_acceptance": False,
+              "pipeline_completed": False,
+              "public_release_allowed": False,
+              "critical_failure_count": 0,
+          }
+
+          failures = []
+
+          for key, expected_value in expected.items():
+              actual_value = result.get(key)
+
+              if actual_value != expected_value:
+                  failures.append(
+                      f"{key}: expected={expected_value!r}, "
+                      f"actual={actual_value!r}"
+                  )
+
+          embedded_hash = result.get("result_sha256")
+          result_without_hash = dict(result)
+          result_without_hash.pop("result_sha256", None)
+
+          recalculated_hash = hashlib.sha256(
+              json.dumps(
+                  result_without_hash,
+                  ensure_ascii=False,
+                  sort_keys=True,
+                  separators=(",", ":"),
+              ).encode("utf-8")
+          ).hexdigest()
+
+          if embedded_hash != recalculated_hash:
+              failures.append(
+                  "embedded result SHA-256 mismatch"
+              )
+
+          if failures:
+              print("ERROR: Stage384 result validation failed")
+
+              for failure in failures:
+                  print("-", failure)
+
+              raise SystemExit(1)
+
+          print("OK: Stage384 deterministic result is valid")
+          print("decision =", result["decision"])
+          print("result_sha256 =", embedded_hash)
+          PY
+
+      - name: Run Stage384 Fail-Closed tests
+        run: |
+          python \
+            development/stage384/test_stage384_fail_closed.py
+
+      - name: Re-run verifier after tests
+        run: |
+          python \
+            development/stage384/verify_stage384_continuous_trust_state.py
+
+      - name: Verify result file remains deterministic
+        run: |
+          shasum -a 256 -c \
+            development/stage384/stage384_change_detection_result.sha256
+
+      - name: Verify publication boundary
+        run: |
+          forbidden_paths="$(
+            git ls-files \
+              | grep -E \
+                '(^|/)(core|private_core|private|secrets|keys|imported)(/|$)' \
+              || true
+          )"
+
+          if [ -n "$forbidden_paths" ]; then
+            echo "ERROR: forbidden tracked paths detected"
+            printf '%s\n' "$forbidden_paths"
+            exit 1
+          fi
+
+          echo "OK: no forbidden tracked paths"
+
+      - name: Scan public Stage384 package for forbidden filenames
+        run: |
+          forbidden_names="$(
+            find development/stage384 \
+              -type f \
+              | grep -Ei \
+                '(^|/)(id_rsa|id_ed25519|.*\.pem|.*\.key|.*\.p12|.*\.pfx|.*credential.*|.*token.*|.*secret.*)$' \
+              || true
+          )"
+
+          if [ -n "$forbidden_names" ]; then
+            echo "ERROR: suspicious Stage384 public filename detected"
+            printf '%s\n' "$forbidden_names"
+            exit 1
+          fi
+
+          echo "OK: no suspicious Stage384 public filenames"
+
+      - name: Upload Stage384 verification package
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: stage384-continuous-trust-state-verification-package
+          path: |
+            .stage384-development-policy.json
+            development/stage384/README.md
+            development/stage384/stage384_continuous_verification_policy.json
+            development/stage384/stage384_continuous_verification_policy.sha256
+            development/stage384/stage384_trust_state_baseline.json
+            development/stage384/stage384_trust_state_baseline.sha256
+            development/stage384/stage384_change_detection_result.json
+            development/stage384/stage384_change_detection_result.sha256
+            development/stage384/stage384_continuous_verification_manifest.json
+            development/stage384/stage384_continuous_verification_manifest.sha256
+          if-no-files-found: error
+          retention-days: 30

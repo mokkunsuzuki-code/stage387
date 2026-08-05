@@ -1,0 +1,73 @@
+{
+  "baseline": {
+    "embedded_baseline_sha256": "1828b2c439faa59105a680da7c2b8d64a07800339175e0120ccca1a32cf3e741",
+    "file_sha256": "aa7a68e90386c443eea5d4baf3362e96daf77125fa552307ba6d45ef27799451",
+    "monitored_artifact_count": 13,
+    "path": "development/stage384/stage384_trust_state_baseline.json",
+    "sha256_record_path": "development/stage384/stage384_trust_state_baseline.sha256"
+  },
+  "continuous_execution_statement": "Continuous means scheduled, push-triggered, and manually triggered reverification at a policy-defined frequency. It does not mean uninterrupted real-time monitoring.",
+  "current_state": {
+    "stage377_decision": "rfc3161_verified_opentimestamps_pending",
+    "stage377_effective_final_acceptance": false,
+    "stage377_verified_proof_count": 1,
+    "stage383_decision": "upstream_finalization_pending",
+    "stage383_recovery_phase": "waiting_for_stage377",
+    "stage384_decision": "continuous_trust_state_verified_upstream_pending"
+  },
+  "development_only": true,
+  "fail_closed": true,
+  "formal_acceptance": false,
+  "formal_acceptance_eligible": false,
+  "formal_acceptance_issued": false,
+  "manifest_name": "Stage384 Continuous Trust-State Reverification Manifest",
+  "manifest_sha256": "b1b2c8d4561ab6bb24b5acc0b41ba7736acdf04a43ff8c6ebdf408274cb3dd8c",
+  "manifest_version": "1.0.0-development",
+  "pipeline_completed": false,
+  "policy": {
+    "file_sha256": "5e082529db98bdf2da57b4fda00e07ed4efbd01698fca305eef51a36e9f209dd",
+    "path": "development/stage384/stage384_continuous_verification_policy.json",
+    "policy_name": "Stage384 Continuous Trust-State Reverification Policy",
+    "policy_version": "1.0.0-development",
+    "sha256_record_path": "development/stage384/stage384_continuous_verification_policy.sha256"
+  },
+  "preservation_statement": "Stage384 observes and compares Stage383 trust inputs without modifying Stage377 through Stage383 records and without issuing formal acceptance.",
+  "public_release_allowed": false,
+  "security_boundary": {
+    "credential_publication_allowed": false,
+    "key_publication_allowed": false,
+    "private_core_publication_allowed": false,
+    "private_directory_publication_allowed": false,
+    "raw_qkd_key_publication_allowed": false,
+    "raw_timestamp_binary_publication_allowed": false,
+    "secret_publication_allowed": false,
+    "token_publication_allowed": false
+  },
+  "source_bindings": {
+    "stage383_embedded_manifest_sha256": "3e3ea2d197931a09c423a1e46a28d527bbbf47d75dc4833daced109f4b8154a1",
+    "stage383_embedded_result_sha256": "6cf1884934ad37f26489722261a7606c3ab5560f13ea4fb42e276e81c038182c",
+    "stage383_manifest_file_sha256": "e1fd9ddec9e8ee82f7b703ce62086ed054ea3a8072efc82b2c8b8019fe241dbb",
+    "stage383_manifest_path": "development/stage383/stage383_recovery_session_manifest.json",
+    "stage383_recovery_session_id": "stage383-66bce0a526782ef0e49221e70bcc939268f0d04e6e2e86e34aea9aed6caf5505",
+    "stage383_result_file_sha256": "45a84cdc2bc772d5ac76ceab2f4cc5fe5959f74aa1b944c5f46b6b23e08fa4ad",
+    "stage383_result_path": "development/stage383/stage383_formal_acceptance_eligibility_result.json"
+  },
+  "source_stage": 383,
+  "stage": 384,
+  "verification_mode": "continuous_trust_state_reverification_and_change_invalidation",
+  "verification_result": {
+    "change_detected": false,
+    "critical_change_count": 0,
+    "critical_failure_count": 0,
+    "decision": "continuous_trust_state_verified_upstream_pending",
+    "detected_change_count": 0,
+    "eligibility_invalidated": false,
+    "embedded_result_sha256": "a11e619b6708360160ef932bf67ffbd1a6c06b98f817787f575ad4476e448359",
+    "file_sha256": "552f2a7eb420ad4cb7b25cf37c852ad7db8f0b8b4513c2df38fd290e188bd703",
+    "material_change_count": 0,
+    "path": "development/stage384/stage384_change_detection_result.json",
+    "reverification_required": false,
+    "sha256_record_path": "development/stage384/stage384_change_detection_result.sha256",
+    "verification_status": "verified_unchanged_upstream_pending"
+  }
+}

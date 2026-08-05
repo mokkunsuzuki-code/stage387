@@ -1,0 +1,119 @@
+{
+  "stage": 384,
+  "stage_name": "Continuous Trust-State Reverification & Change Invalidation Gate",
+  "source_stage": 383,
+  "development_only": true,
+  "formal_acceptance": false,
+  "formal_acceptance_eligible": false,
+  "formal_acceptance_issued": false,
+  "pipeline_completed": false,
+  "public_release_allowed": false,
+  "verification_mode": "continuous_trust_state_reverification_and_change_invalidation",
+  "continuous_meaning": {
+    "uninterrupted_real_time_monitoring_claimed": false,
+    "scheduled_reverification_supported": true,
+    "push_triggered_reverification_supported": true,
+    "manual_reverification_supported": true,
+    "policy_defined_frequency_required": true
+  },
+  "requirements": {
+    "stage383_preserved": true,
+    "stage383_recovery_session_binding_required": true,
+    "stage383_result_sha256_binding_required": true,
+    "stage383_manifest_sha256_binding_required": true,
+    "stage382_policy_sha256_binding_required": true,
+    "baseline_required": true,
+    "baseline_sha256_required": true,
+    "change_classification_required": true,
+    "reverification_required_for_material_change": true,
+    "eligibility_invalidation_required_for_critical_change": true,
+    "automatic_formal_acceptance_allowed": false,
+    "automatic_certificate_issuance_allowed": false
+  },
+  "decision_model": {
+    "unchanged": "continuous_trust_state_verified_upstream_pending",
+    "acceptable_change": "change_detected_within_policy",
+    "material_change": "trust_state_change_reverification_required",
+    "critical_change": "formal_acceptance_eligibility_invalidated",
+    "integrity_failure": "fail_closed"
+  },
+  "change_classes": {
+    "informational": {
+      "reverification_required": false,
+      "eligibility_invalidated": false
+    },
+    "acceptable": {
+      "reverification_required": false,
+      "eligibility_invalidated": false
+    },
+    "material": {
+      "reverification_required": true,
+      "eligibility_invalidated": false
+    },
+    "critical": {
+      "reverification_required": true,
+      "eligibility_invalidated": true
+    }
+  },
+  "monitored_categories": {
+    "stage377_to_stage383_results": true,
+    "sha256_records": true,
+    "policy_profiles": true,
+    "verification_contracts": true,
+    "recovery_session_manifest": true,
+    "github_workflows": true,
+    "public_verification_evidence": true,
+    "publication_boundary": true,
+    "certificate_status_metadata": true,
+    "signature_status_metadata": true,
+    "sbom_metadata": true,
+    "slsa_provenance_metadata": true
+  },
+  "critical_change_conditions": {
+    "required_proof_count_reduced": true,
+    "fail_closed_disabled": true,
+    "scope_reduction_enabled": true,
+    "upstream_result_hash_mismatch": true,
+    "policy_hash_mismatch": true,
+    "recovery_session_mismatch": true,
+    "certificate_expired_or_revoked": true,
+    "signature_verification_failed": true,
+    "transparency_log_verification_failed": true,
+    "provenance_subject_mismatch": true,
+    "secret_material_publication_detected": true
+  },
+  "pending_behavior": {
+    "decision": "continuous_trust_state_verified_upstream_pending",
+    "change_detected": false,
+    "reverification_required": false,
+    "eligibility_invalidated": false,
+    "formal_acceptance_eligible": false,
+    "formal_acceptance_issued": false,
+    "formal_acceptance": false,
+    "pipeline_completed": false,
+    "fail_closed": true
+  },
+  "security_boundary": {
+    "fail_closed": true,
+    "scope_reduction_allowed": false,
+    "private_core_publication_allowed": false,
+    "private_directory_publication_allowed": false,
+    "secret_publication_allowed": false,
+    "key_publication_allowed": false,
+    "credential_publication_allowed": false,
+    "token_publication_allowed": false,
+    "raw_qkd_key_publication_allowed": false,
+    "raw_timestamp_binary_publication_allowed": false
+  },
+  "preservation_boundary": {
+    "stage377_result_must_not_be_overwritten": true,
+    "stage378_result_must_not_be_overwritten": true,
+    "stage379_result_must_not_be_overwritten": true,
+    "stage380_result_must_not_be_overwritten": true,
+    "stage381_result_must_not_be_overwritten": true,
+    "stage382_result_must_not_be_overwritten": true,
+    "stage383_result_must_not_be_overwritten": true,
+    "stage384_does_not_fabricate_upstream_completion": true,
+    "stage384_does_not_issue_formal_acceptance": true
+  }
+}

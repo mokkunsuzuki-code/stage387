@@ -355,3 +355,23 @@ development/stage383/*
 
 # Stage383 public recovery orchestration workflow
 !.github/workflows/stage383-policy-bound-recovery-orchestration.yml
+
+# Stage384 public continuous trust-state reverification package
+!development/stage384/
+development/stage384/*
+
+!development/stage384/README.md
+!development/stage384/stage384_continuous_verification_policy.json
+!development/stage384/stage384_continuous_verification_policy.sha256
+!development/stage384/stage384_trust_state_baseline.json
+!development/stage384/stage384_trust_state_baseline.sha256
+!development/stage384/verify_stage384_continuous_trust_state.py
+!development/stage384/compare_stage384_trust_state.py
+!development/stage384/test_stage384_fail_closed.py
+!development/stage384/stage384_change_detection_result.json
+!development/stage384/stage384_change_detection_result.sha256
+!development/stage384/stage384_continuous_verification_manifest.json
+!development/stage384/stage384_continuous_verification_manifest.sha256
+
+# Stage384 public continuous trust-state workflow
+!.github/workflows/stage384-continuous-trust-state-reverification.yml
