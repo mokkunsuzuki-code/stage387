@@ -1,0 +1,141 @@
+{
+  "artifact_order": "lexicographically_sorted_relative_paths",
+  "baseline_decision": "continuous_trust_state_verified_upstream_pending",
+  "baseline_name": "Stage384 Continuous Trust-State Baseline",
+  "baseline_sha256": "1828b2c439faa59105a680da7c2b8d64a07800339175e0120ccca1a32cf3e741",
+  "baseline_state": {
+    "formal_acceptance_eligible": false,
+    "formal_acceptance_issued": false,
+    "stage377_decision": "rfc3161_verified_opentimestamps_pending",
+    "stage377_effective_final_acceptance": false,
+    "stage377_verified_proof_count": 1,
+    "stage383_critical_failure_count": 0,
+    "stage383_decision": "upstream_finalization_pending",
+    "stage383_recovery_phase": "waiting_for_stage377",
+    "stage383_verification_status": "verified_pending_upstream"
+  },
+  "baseline_version": "1.0.0-development",
+  "change_detected": false,
+  "development_only": true,
+  "eligibility_invalidated": false,
+  "formal_acceptance": false,
+  "formal_acceptance_eligible": false,
+  "formal_acceptance_issued": false,
+  "hash_algorithm": "sha256",
+  "issuance_transition_allowed": false,
+  "monitored_artifact_count": 13,
+  "monitored_artifacts": [
+    {
+      "change_classification": "material",
+      "path": ".github/workflows/stage383-policy-bound-recovery-orchestration.yml",
+      "required": true,
+      "sha256": "dc349937679df7fb46d275a1dc82f7f07c3a54a19fb62ea96a460691a321eabb",
+      "size_bytes": 14396
+    },
+    {
+      "change_classification": "material",
+      "path": ".github/workflows/stage384-continuous-trust-state-reverification.yml",
+      "required": true,
+      "sha256": "384eb08084c65129ddb848afc95c75d57490d225374346d5066764bedff83324",
+      "size_bytes": 8033
+    },
+    {
+      "change_classification": "critical",
+      "path": ".stage382-development-policy.json",
+      "required": true,
+      "sha256": "b502793b6abea1a1b0ff68094dc59693d441433253e4ce966482214c34e2c9c7",
+      "size_bytes": 2092
+    },
+    {
+      "change_classification": "critical",
+      "path": ".stage383-development-policy.json",
+      "required": true,
+      "sha256": "2cbad8a9baacb356dcd447acc2b789117c411e10b02956ccad8ed6ef15151366",
+      "size_bytes": 3313
+    },
+    {
+      "change_classification": "critical",
+      "path": ".stage384-development-policy.json",
+      "required": true,
+      "sha256": "a578171790db9cdb95cd4f8b9db7308efa102fe2d25ab63d926aa956bc1d65bf",
+      "size_bytes": 4383
+    },
+    {
+      "change_classification": "critical",
+      "path": "development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.json",
+      "required": true,
+      "sha256": "1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5",
+      "size_bytes": 3822
+    },
+    {
+      "change_classification": "critical",
+      "path": "development/stage382/stage382_policy_activation_manifest.json",
+      "required": true,
+      "sha256": "70813e1923b305c37689659fc07ff749b0bf02213e81ff3e10d0c131305670c8",
+      "size_bytes": 4401
+    },
+    {
+      "change_classification": "critical",
+      "path": "development/stage382/stage382_upstream_finalization_result.json",
+      "required": true,
+      "sha256": "36b316b900ddcd304c48cad3a2d4b9db20b791aff418cd16f58c49262fbda5d6",
+      "size_bytes": 8425
+    },
+    {
+      "change_classification": "critical",
+      "path": "development/stage383/stage383_formal_acceptance_eligibility_result.json",
+      "required": true,
+      "sha256": "45a84cdc2bc772d5ac76ceab2f4cc5fe5959f74aa1b944c5f46b6b23e08fa4ad",
+      "size_bytes": 27321
+    },
+    {
+      "change_classification": "critical",
+      "path": "development/stage383/stage383_recovery_orchestration_contract.json",
+      "required": true,
+      "sha256": "686b4567f2ae2fd94d8a3592aaa4e8183a3656cec0a05934f0842903a206f4c1",
+      "size_bytes": 6635
+    },
+    {
+      "change_classification": "critical",
+      "path": "development/stage383/stage383_recovery_session_manifest.json",
+      "required": true,
+      "sha256": "e1fd9ddec9e8ee82f7b703ce62086ed054ea3a8072efc82b2c8b8019fe241dbb",
+      "size_bytes": 6736
+    },
+    {
+      "change_classification": "material",
+      "path": "docs/qkd/stage378_qkd_safety_metadata_binding_result.json",
+      "required": true,
+      "sha256": "deb30c486d3569701ef87cdd0b08bb65bb136808b6ef88d5d3e61c181d03dfbc",
+      "size_bytes": 2888
+    },
+    {
+      "change_classification": "material",
+      "path": "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json",
+      "required": true,
+      "sha256": "74288a3c2556de86699259c93f9a8de9b38c6f30ee0a7a0ba031bebbc55b7cdc",
+      "size_bytes": 3383
+    }
+  ],
+  "path_format": "repository_relative_posix",
+  "pipeline_completed": false,
+  "public_release_allowed": false,
+  "reverification_required": false,
+  "source_bindings": {
+    "stage382_policy_path": "development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.json",
+    "stage382_policy_sha256": "1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5",
+    "stage383_embedded_manifest_sha256": "3e3ea2d197931a09c423a1e46a28d527bbbf47d75dc4833daced109f4b8154a1",
+    "stage383_embedded_result_sha256": "6cf1884934ad37f26489722261a7606c3ab5560f13ea4fb42e276e81c038182c",
+    "stage383_manifest_file_sha256": "e1fd9ddec9e8ee82f7b703ce62086ed054ea3a8072efc82b2c8b8019fe241dbb",
+    "stage383_manifest_path": "development/stage383/stage383_recovery_session_manifest.json",
+    "stage383_recovery_session_id": "stage383-66bce0a526782ef0e49221e70bcc939268f0d04e6e2e86e34aea9aed6caf5505",
+    "stage383_result_file_sha256": "45a84cdc2bc772d5ac76ceab2f4cc5fe5959f74aa1b944c5f46b6b23e08fa4ad",
+    "stage383_result_path": "development/stage383/stage383_formal_acceptance_eligibility_result.json",
+    "stage384_policy_path": "development/stage384/stage384_continuous_verification_policy.json",
+    "stage384_policy_sha256": "5e082529db98bdf2da57b4fda00e07ed4efbd01698fca305eef51a36e9f209dd"
+  },
+  "source_stage": 383,
+  "stage": 384,
+  "statement": "This baseline fixes the Stage383 trust state and its required monitored artifacts. It does not claim uninterrupted real-time monitoring and does not issue formal acceptance.",
+  "verification_mode": "continuous_trust_state_reverification_and_change_invalidation"
+}

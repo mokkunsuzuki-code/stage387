@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="google" content="notranslate">
-  <title>Stage383: Policy-Bound Recovery Orchestration &amp; Formal Acceptance Eligibility Gate</title>
+  <title>Stage384: Continuous Trust-State Reverification &amp; Change Invalidation Gate</title>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; background: #f6f8fa; color: #24292f; }
     header { background: #0d1117; color: white; padding: 44px 32px; }
@@ -28,50 +28,41 @@
 
 
 
-<!-- STAGE383_CURRENT_PAGE_HEADER_START -->
+<!-- STAGE384_CURRENT_PAGE_HEADER_START -->
 <script>
   document.title =
-    "Stage383: Policy-Bound Recovery Orchestration & Formal Acceptance Eligibility Gate";
+    "Stage384: Continuous Trust-State Reverification & Change Invalidation Gate";
 </script>
 
 <section
-  id="stage383-current-page-header"
-  aria-label="Stage383 current stage"
+  id="stage384-current-page-header"
+  aria-label="Stage384 current stage"
 >
-  <h1>Stage383</h1>
+  <h1>Stage384</h1>
 
   <h2>
-    Policy-Bound Recovery Orchestration
-    &amp; Formal Acceptance Eligibility Gate
+    Continuous Trust-State Reverification
+    &amp; Change Invalidation Gate
   </h2>
 
   <p>
-    Stage382までの検証結果を変更せず、
-    Stage377からStage382までの回復再検証を、
-    1つの決定論的リカバリーセッションへ結合します。
+    Stage383までの検証履歴と公開ページ構造を保持したまま、
+    固定された信頼状態ベースラインと現在の監視対象を比較し、
+    変更、再検証要求、適格性無効化をFail-Closedで判定します。
   </p>
 
   <p>
-    Stage383は正式承認を発行するゲートではありません。
-    Stage377の完了後に、Stage378、Stage379、Stage380、
-    Stage381、Stage382が正しい順序で再検証されたかを確認し、
-    正式承認の発行条件を満たしたかだけを判定します。
+    Stage384は、正式承認や証明書を自動発行しません。
+    定期、Push、手動実行による継続再検証を提供しますが、
+    無停止のリアルタイム監視は主張しません。
   </p>
 
   <p>
     <strong>Current decision:</strong>
-    <code>upstream_finalization_pending</code>
-  </p>
-
-  <p>
-    <strong>Recovery phase:</strong>
-    <code>waiting_for_stage377</code>
-    /
-    <strong>Critical failures:</strong>
-    <code>0</code>
+    <code>continuous_trust_state_verified_upstream_pending</code>
   </p>
 </section>
-<!-- STAGE383_CURRENT_PAGE_HEADER_END -->
+<!-- STAGE384_CURRENT_PAGE_HEADER_END -->
 
 <!-- STAGE382_CURRENT_PAGE_HEADER_START -->
 <script>
@@ -3548,5 +3539,241 @@ Verified / Pending / Block</pre>
   </p>
 </section>
 <!-- STAGE383_APPEND_ONLY_END -->
+<!-- STAGE384_APPEND_ONLY_START -->
+<section class="card" id="stage384">
+  <h2>
+    Stage384: Continuous Trust-State Reverification
+    &amp; Change Invalidation Gate
+  </h2>
+
+  <p>
+    Stage384は、Stage383の決定論的リカバリーセッションと
+    13個の監視対象を固定ベースラインとして保持し、
+    現在状態との差分を継続的に再検証します。
+  </p>
+
+  <p>
+    変更を検知した場合は、影響に応じて
+    再検証要求、正式承認適格性の無効化、
+    またはFail-Closedを成立させます。
+  </p>
+
+  <h3>Continuous Reverification Flow</h3>
+
+  <p>
+    Stage383 recovery session<br>
+    ↓<br>
+    Stage384 policy SHA-256 validation<br>
+    ↓<br>
+    13-artifact trust-state baseline validation<br>
+    ↓<br>
+    current SHA-256 and file-size comparison<br>
+    ↓<br>
+    change classification<br>
+    ↓<br>
+    unchanged / reverification required /
+    eligibility invalidated / fail_closed
+  </p>
+
+  <h3>Current Verified State</h3>
+
+  <ul>
+    <li>
+      Decision:
+      <code>continuous_trust_state_verified_upstream_pending</code>
+    </li>
+    <li>
+      Verification status:
+      <code>verified_unchanged_upstream_pending</code>
+    </li>
+    <li>
+      Monitored artifact count:
+      <code>13</code>
+    </li>
+    <li>
+      Change detected:
+      <code>false</code>
+    </li>
+    <li>
+      Detected change count:
+      <code>0</code>
+    </li>
+    <li>
+      Material change count:
+      <code>0</code>
+    </li>
+    <li>
+      Critical change count:
+      <code>0</code>
+    </li>
+    <li>
+      Reverification required:
+      <code>false</code>
+    </li>
+    <li>
+      Eligibility invalidated:
+      <code>false</code>
+    </li>
+    <li>
+      Critical failure count:
+      <code>0</code>
+    </li>
+  </ul>
+
+  <p>
+    これは、Stage377の完了を待ちながらも、
+    Stage383までの信頼状態と13個の監視対象に
+    新しい変更や不整合がないことを検証した状態です。
+  </p>
+
+  <h3>Change Decisions</h3>
+
+  <ul>
+    <li>
+      Unchanged:
+      <code>continuous_trust_state_verified_upstream_pending</code>
+    </li>
+    <li>
+      Material change:
+      <code>trust_state_change_reverification_required</code>
+    </li>
+    <li>
+      Critical change:
+      <code>formal_acceptance_eligibility_invalidated</code>
+    </li>
+    <li>
+      Integrity failure:
+      <code>fail_closed</code>
+    </li>
+  </ul>
+
+  <h3>Verified GitHub Actions State</h3>
+
+  <ul>
+    <li>
+      Workflow:
+      <code>Stage384 Continuous Trust-State Reverification</code>
+    </li>
+    <li>
+      Workflow run:
+      <code>30965336195</code>
+    </li>
+    <li>
+      Workflow result:
+      <code>success</code>
+    </li>
+    <li>
+      Fail-Closed tests:
+      <code>10 passed</code>
+    </li>
+    <li>
+      Verification artifact:
+      <code>stage384-continuous-trust-state-verification-package</code>
+    </li>
+  </ul>
+
+  <h3>Stage383 Recovery Session Binding</h3>
+
+  <pre>stage383-66bce0a526782ef0e49221e70bcc939268f0d04e6e2e86e34aea9aed6caf5505</pre>
+
+  <h3>Public Stage384 Evidence</h3>
+
+  <ul>
+    <li>
+      <a href="./verification/stage384/stage384_continuous_verification_policy.json">
+        Stage384 Continuous Verification Policy
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage384/stage384_continuous_verification_policy.sha256">
+        Stage384 Policy SHA-256 Record
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage384/stage384_trust_state_baseline.json">
+        Stage384 Trust-State Baseline
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage384/stage384_trust_state_baseline.sha256">
+        Stage384 Baseline SHA-256 Record
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage384/stage384_change_detection_result.json">
+        Stage384 Change-Detection Result
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage384/stage384_change_detection_result.sha256">
+        Stage384 Result SHA-256 Record
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage384/stage384_continuous_verification_manifest.json">
+        Stage384 Continuous Verification Manifest
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage384/stage384_continuous_verification_manifest.sha256">
+        Stage384 Manifest SHA-256 Record
+      </a>
+    </li>
+  </ul>
+
+  <h3>Formal-Acceptance Boundary</h3>
+
+  <ul>
+    <li>
+      Formal acceptance eligible:
+      <code>false</code>
+    </li>
+    <li>
+      Formal acceptance issued:
+      <code>false</code>
+    </li>
+    <li>
+      Formal acceptance:
+      <code>false</code>
+    </li>
+    <li>
+      Pipeline completed:
+      <code>false</code>
+    </li>
+    <li>
+      Public release allowed:
+      <code>false</code>
+    </li>
+  </ul>
+
+  <p>
+    Stage384は、監視対象に変更がないことを確認しますが、
+    Stage377の未完了状態を完成へ変換せず、
+    正式承認や証明書を発行しません。
+  </p>
+
+  <h3>Preservation Boundary</h3>
+
+  <p>
+    Stage384は、Stage377からStage383までの既存記録を
+    変更、削除、置換、上書きしません。
+  </p>
+
+  <h3>Publication Boundary</h3>
+
+  <ul>
+    <li>No private core is published.</li>
+    <li>No private directory is published.</li>
+    <li>No secret, credential, token, or private key is published.</li>
+    <li>No raw QKD secret material is published.</li>
+    <li>No raw timestamp proof binary is published.</li>
+    <li>Only reviewed public metadata and verification results are published.</li>
+  </ul>
+
+  <p>
+    <strong>License:</strong> MIT License
+  </p>
+</section>
+<!-- STAGE384_APPEND_ONLY_END -->
 </body>
 </html>

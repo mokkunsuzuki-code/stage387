@@ -1,0 +1,159 @@
+{
+  "baseline": {
+    "embedded_baseline_sha256": "1828b2c439faa59105a680da7c2b8d64a07800339175e0120ccca1a32cf3e741",
+    "file_sha256": "aa7a68e90386c443eea5d4baf3362e96daf77125fa552307ba6d45ef27799451",
+    "path": "development/stage384/stage384_trust_state_baseline.json",
+    "sha256_record_path": "development/stage384/stage384_trust_state_baseline.sha256",
+    "stage383_recovery_session_id": "stage383-66bce0a526782ef0e49221e70bcc939268f0d04e6e2e86e34aea9aed6caf5505"
+  },
+  "change_detected": false,
+  "check_count": 15,
+  "checks": [
+    {
+      "actual": false,
+      "critical": true,
+      "expected": false,
+      "name": "automatic_formal_acceptance_forbidden",
+      "passed": true
+    },
+    {
+      "actual": "aa7a68e90386c443eea5d4baf3362e96daf77125fa552307ba6d45ef27799451",
+      "critical": true,
+      "expected": "aa7a68e90386c443eea5d4baf3362e96daf77125fa552307ba6d45ef27799451",
+      "name": "baseline_file_sha256_valid",
+      "passed": true
+    },
+    {
+      "actual": "development/stage384/stage384_trust_state_baseline.json",
+      "critical": true,
+      "expected": "development/stage384/stage384_trust_state_baseline.json",
+      "name": "baseline_sha256_record_path_valid",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "development_policy_fail_closed",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "critical": true,
+      "expected": false,
+      "name": "development_policy_scope_reduction_forbidden",
+      "passed": true
+    },
+    {
+      "actual": "1828b2c439faa59105a680da7c2b8d64a07800339175e0120ccca1a32cf3e741",
+      "critical": true,
+      "expected": "1828b2c439faa59105a680da7c2b8d64a07800339175e0120ccca1a32cf3e741",
+      "name": "embedded_baseline_sha256_valid",
+      "passed": true
+    },
+    {
+      "actual": "development/stage384/stage384_continuous_verification_policy.json",
+      "critical": true,
+      "expected": "development/stage384/stage384_continuous_verification_policy.json",
+      "name": "policy_sha256_record_path_valid",
+      "passed": true
+    },
+    {
+      "actual": "5e082529db98bdf2da57b4fda00e07ed4efbd01698fca305eef51a36e9f209dd",
+      "critical": true,
+      "expected": "5e082529db98bdf2da57b4fda00e07ed4efbd01698fca305eef51a36e9f209dd",
+      "name": "policy_sha256_valid",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "required_control_file_present:.stage384-development-policy.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "required_control_file_present:development/stage383/stage383_formal_acceptance_eligibility_result.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "required_control_file_present:development/stage383/stage383_recovery_session_manifest.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "required_control_file_present:development/stage384/stage384_continuous_verification_policy.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "required_control_file_present:development/stage384/stage384_continuous_verification_policy.sha256",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "required_control_file_present:development/stage384/stage384_trust_state_baseline.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "required_control_file_present:development/stage384/stage384_trust_state_baseline.sha256",
+      "passed": true
+    }
+  ],
+  "critical_change_count": 0,
+  "critical_failure_count": 0,
+  "critical_failures": [],
+  "current_state": {
+    "stage383_critical_failure_count": 0,
+    "stage383_decision": "upstream_finalization_pending",
+    "stage383_formal_acceptance_eligible": false,
+    "stage383_formal_acceptance_issued": false,
+    "stage383_recovery_phase": "waiting_for_stage377",
+    "stage383_recovery_session_id": "stage383-66bce0a526782ef0e49221e70bcc939268f0d04e6e2e86e34aea9aed6caf5505",
+    "stage383_verification_status": "verified_pending_upstream"
+  },
+  "decision": "continuous_trust_state_verified_upstream_pending",
+  "detected_change_count": 0,
+  "detected_changes": [],
+  "development_only": true,
+  "eligibility_invalidated": false,
+  "engine": "Stage384 Continuous Trust-State Reverification & Change Invalidation Gate",
+  "errors": [],
+  "execution_mode": "development",
+  "fail_closed": true,
+  "formal_acceptance": false,
+  "formal_acceptance_eligible": false,
+  "formal_acceptance_issued": false,
+  "issuance_transition_allowed": false,
+  "material_change_count": 0,
+  "network_access_required": false,
+  "pipeline_completed": false,
+  "policy": {
+    "path": "development/stage384/stage384_continuous_verification_policy.json",
+    "sha256": "5e082529db98bdf2da57b4fda00e07ed4efbd01698fca305eef51a36e9f209dd",
+    "sha256_record_path": "development/stage384/stage384_continuous_verification_policy.sha256"
+  },
+  "public_release_allowed": false,
+  "result_sha256": "a11e619b6708360160ef932bf67ffbd1a6c06b98f817787f575ad4476e448359",
+  "reverification_required": false,
+  "source_stage": 383,
+  "stage": 384,
+  "statement": "Stage384 compares the current Stage383 trust state against a fixed deterministic baseline. It does not claim uninterrupted real-time monitoring and does not issue formal acceptance.",
+  "verification_mode": "continuous_trust_state_reverification_and_change_invalidation",
+  "verification_status": "verified_unchanged_upstream_pending"
+}

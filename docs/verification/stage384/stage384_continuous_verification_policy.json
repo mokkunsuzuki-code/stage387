@@ -1,0 +1,158 @@
+{
+  "baseline_requirements": {
+    "baseline_required": true,
+    "baseline_sha256_record_required": true,
+    "hash_algorithm": "sha256",
+    "lexicographic_artifact_order_required": true,
+    "relative_paths_only": true,
+    "source_recovery_session_id_required": true,
+    "source_stage382_policy_sha256_required": true,
+    "source_stage383_manifest_sha256_required": true,
+    "source_stage383_result_sha256_required": true
+  },
+  "change_classification": {
+    "acceptable": {
+      "decision": "change_detected_within_policy",
+      "eligibility_invalidated": false,
+      "issuance_transition_allowed": false,
+      "reverification_required": false
+    },
+    "critical": {
+      "decision": "formal_acceptance_eligibility_invalidated",
+      "eligibility_invalidated": true,
+      "issuance_transition_allowed": false,
+      "reverification_required": true
+    },
+    "informational": {
+      "decision": "change_detected_within_policy",
+      "eligibility_invalidated": false,
+      "issuance_transition_allowed": false,
+      "reverification_required": false
+    },
+    "integrity_failure": {
+      "decision": "fail_closed",
+      "eligibility_invalidated": true,
+      "issuance_transition_allowed": false,
+      "reverification_required": true
+    },
+    "material": {
+      "decision": "trust_state_change_reverification_required",
+      "eligibility_invalidated": false,
+      "issuance_transition_allowed": false,
+      "reverification_required": true
+    }
+  },
+  "continuous_execution_model": {
+    "external_status_checks_optional": true,
+    "manual_execution_allowed": true,
+    "minimum_schedule": "daily",
+    "network_access_required_for_core_baseline_comparison": false,
+    "push_triggered_execution_allowed": true,
+    "real_time_monitoring_claimed": false,
+    "scheduled_execution_allowed": true
+  },
+  "critical_change_conditions": [
+    "required_proof_count_reduced",
+    "fail_closed_disabled",
+    "scope_reduction_enabled",
+    "stage377_result_hash_mismatch",
+    "stage378_result_hash_mismatch",
+    "stage382_policy_hash_mismatch",
+    "stage383_result_hash_mismatch",
+    "stage383_manifest_hash_mismatch",
+    "stage383_recovery_session_id_mismatch",
+    "formal_acceptance_eligibility_fabricated",
+    "signature_verification_failed",
+    "certificate_expired",
+    "certificate_revoked",
+    "transparency_log_verification_failed",
+    "provenance_subject_mismatch",
+    "private_material_publication_detected",
+    "secret_material_publication_detected",
+    "raw_qkd_secret_publication_detected",
+    "raw_timestamp_binary_publication_detected"
+  ],
+  "current_upstream_expectation": {
+    "stage377_decision": "rfc3161_verified_opentimestamps_pending",
+    "stage377_effective_final_acceptance": false,
+    "stage377_verified_proof_count": 1,
+    "stage383_decision": "upstream_finalization_pending",
+    "stage383_recovery_phase": "waiting_for_stage377",
+    "stage383_verification_status": "verified_pending_upstream"
+  },
+  "development_only": true,
+  "formal_acceptance": false,
+  "formal_acceptance_eligible": false,
+  "formal_acceptance_issued": false,
+  "material_change_conditions": [
+    "verification_workflow_changed",
+    "verification_source_code_changed",
+    "required_input_set_changed",
+    "canonicalization_rule_changed",
+    "action_version_changed",
+    "sbom_changed",
+    "dependency_set_changed",
+    "provenance_metadata_changed"
+  ],
+  "optional_monitored_artifact_categories": {
+    "certificate_status_metadata": true,
+    "dependency_metadata": true,
+    "rekor_metadata": true,
+    "sbom": true,
+    "sigstore_bundle": true,
+    "slsa_provenance": true
+  },
+  "pipeline_completed": false,
+  "policy_name": "Stage384 Continuous Trust-State Reverification Policy",
+  "policy_version": "1.0.0-development",
+  "preservation_boundary": {
+    "automatic_certificate_issuance_allowed": false,
+    "automatic_formal_acceptance_allowed": false,
+    "baseline_replacement_requires_verified_reverification": true,
+    "existing_recovery_session_must_not_be_rewritten": true,
+    "stage377_through_stage383_records_are_read_only": true
+  },
+  "public_release_allowed": false,
+  "required_monitored_artifacts": [
+    ".github/workflows/stage383-policy-bound-recovery-orchestration.yml",
+    ".github/workflows/stage384-continuous-trust-state-reverification.yml",
+    ".stage382-development-policy.json",
+    ".stage383-development-policy.json",
+    ".stage384-development-policy.json",
+    "development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.json",
+    "development/stage382/stage382_policy_activation_manifest.json",
+    "development/stage382/stage382_upstream_finalization_result.json",
+    "development/stage383/stage383_formal_acceptance_eligibility_result.json",
+    "development/stage383/stage383_recovery_orchestration_contract.json",
+    "development/stage383/stage383_recovery_session_manifest.json",
+    "docs/qkd/stage378_qkd_safety_metadata_binding_result.json",
+    "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json"
+  ],
+  "security_boundary": {
+    "credential_publication_allowed": false,
+    "fail_closed": true,
+    "key_publication_allowed": false,
+    "private_core_publication_allowed": false,
+    "private_directory_publication_allowed": false,
+    "raw_qkd_key_publication_allowed": false,
+    "raw_timestamp_binary_publication_allowed": false,
+    "scope_reduction_allowed": false,
+    "secret_publication_allowed": false,
+    "token_publication_allowed": false
+  },
+  "source_stage": 383,
+  "stage": 384,
+  "unchanged_state": {
+    "change_detected": false,
+    "decision": "continuous_trust_state_verified_upstream_pending",
+    "eligibility_invalidated": false,
+    "formal_acceptance": false,
+    "formal_acceptance_eligible": false,
+    "formal_acceptance_issued": false,
+    "issuance_transition_allowed": false,
+    "pipeline_completed": false,
+    "public_release_allowed": false,
+    "reverification_required": false
+  },
+  "verification_mode": "continuous_trust_state_reverification_and_change_invalidation"
+}
