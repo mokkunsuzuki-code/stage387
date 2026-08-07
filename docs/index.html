@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="google" content="notranslate">
-  <title>Stage384: Continuous Trust-State Reverification &amp; Change Invalidation Gate</title>
+  <title>Stage385: Cryptographic Agility Inventory, PQC Migration Readiness &amp; Algorithm Policy Enforcement Gate</title>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; background: #f6f8fa; color: #24292f; }
     header { background: #0d1117; color: white; padding: 44px 32px; }
@@ -27,6 +27,35 @@
 <body>
 
 
+
+<!-- STAGE385_CURRENT_PAGE_HEADER_START -->
+<section class="card">
+  <h1>Stage385</h1>
+
+  <h2>
+    Cryptographic Agility Inventory,
+    PQC Migration Readiness &amp;
+    Algorithm Policy Enforcement Gate
+  </h2>
+
+  <p>
+    Stage384までの検証履歴と公開ページ構造を保持したまま、
+    QSPで使用・参照される暗号資産を公開メタデータとして棚卸しし、
+    PQC移行準備性とアルゴリズムポリシーをFail-Closedで評価します。
+  </p>
+
+  <p>
+    Stage385は秘密鍵を収集・公開せず、
+    自動鍵生成、自動鍵ローテーション、
+    自動アルゴリズム置換、正式承認の自動発行も行いません。
+  </p>
+
+  <p>
+    Current decision:
+    <code>cryptographic_inventory_incomplete</code>
+  </p>
+</section>
+<!-- STAGE385_CURRENT_PAGE_HEADER_END -->
 
 <!-- STAGE384_CURRENT_PAGE_HEADER_START -->
 <script>
@@ -3775,5 +3804,249 @@ Verified / Pending / Block</pre>
   </p>
 </section>
 <!-- STAGE384_APPEND_ONLY_END -->
+
+<!-- STAGE385_APPEND_ONLY_START -->
+<section class="card" id="stage385">
+  <h2>
+    Stage385: Cryptographic Agility Inventory,
+    PQC Migration Readiness &amp;
+    Algorithm Policy Enforcement Gate
+  </h2>
+
+  <p>
+    Stage385は、Stage384の継続的信頼状態検証を保持したまま、
+    暗号方式、公開パラメータ、PQC移行状態、
+    検証証拠の可搬性を整理・検証します。
+  </p>
+
+  <h3>Current Verified State</h3>
+
+  <ul>
+    <li>
+      Decision:
+      <code>cryptographic_inventory_incomplete</code>
+    </li>
+    <li>
+      Verification status:
+      <code>verified_with_inventory_gaps_upstream_pending</code>
+    </li>
+    <li>
+      Asset count:
+      <code>10</code>
+    </li>
+    <li>
+      Migration required count:
+      <code>2</code>
+    </li>
+    <li>
+      Inventory incomplete count:
+      <code>4</code>
+    </li>
+    <li>
+      Prohibited algorithm count:
+      <code>0</code>
+    </li>
+    <li>
+      PQC signature execution verified:
+      <code>true</code>
+    </li>
+    <li>
+      Current public ML-DSA key available:
+      <code>false</code>
+    </li>
+    <li>
+      Entire system quantum safe:
+      <code>false</code>
+    </li>
+    <li>
+      Critical failure count:
+      <code>0</code>
+    </li>
+  </ul>
+
+  <h3>Cryptographic Inventory</h3>
+
+  <ul>
+    <li>SHA-256 integrity and deterministic binding</li>
+    <li>ECDSA P-256 Sigstore signature metadata</li>
+    <li>Sigstore certificate signature metadata</li>
+    <li>Rekor transparency-log binding</li>
+    <li>ML-DSA-65 PQC signature evidence</li>
+    <li>RFC3161 trusted timestamp metadata</li>
+    <li>OpenTimestamps pending evidence</li>
+    <li>OCSP revocation metadata</li>
+    <li>CRL revocation metadata</li>
+    <li>QKD safety-evidence metadata</li>
+  </ul>
+
+  <h3>PQC Migration State</h3>
+
+  <ul>
+    <li>
+      Classical ECDSA P-256:
+      <code>migration_required</code>
+    </li>
+    <li>
+      ML-DSA-65:
+      <code>pqc_primary</code>
+    </li>
+    <li>
+      Classical and PQC same-target evidence:
+      <code>true</code>
+    </li>
+    <li>
+      Entire-system quantum-safe claim:
+      <code>false</code>
+    </li>
+  </ul>
+
+  <p>
+    ML-DSA-65の実行検証証拠は存在しますが、
+    現在のStage385リポジトリには独立再検証用の
+    ML-DSA公開鍵ファイルが存在しません。
+    したがって、履歴上の実行検証と
+    現在の第三者独立再検証可能性を区別します。
+  </p>
+
+  <h3>Current Migration Gaps</h3>
+
+  <ul>
+    <li>ECDSA P-256 migration remains required.</li>
+    <li>OpenTimestamps finality remains incomplete.</li>
+    <li>OCSP cryptographic verification remains incomplete.</li>
+    <li>CRL cryptographic verification remains incomplete.</li>
+    <li>QKD metadata binding remains incomplete.</li>
+  </ul>
+
+  <h3>Portable Verification Evidence</h3>
+
+  <p>
+    Stage385の検証証拠参照は、
+    Git管理され第三者が取得可能な公開証拠だけに限定されています。
+    ローカル専用のStage375およびStage377 workflowへの依存は除去され、
+    Mac、tracked-only clean checkout、
+    GitHub Actionsで同一の決定論的結果を確認しています。
+  </p>
+
+  <h3>Verified GitHub Actions State</h3>
+
+  <ul>
+    <li>
+      Workflow:
+      <code>Stage385 Cryptographic Agility &amp; PQC Migration Verification</code>
+    </li>
+    <li>
+      Workflow run:
+      <code>31183773518</code>
+    </li>
+    <li>
+      Workflow result:
+      <code>success</code>
+    </li>
+    <li>Fail-Closed tests: 10 passed</li>
+    <li>
+      Verification artifact:
+      <code>stage385-cryptographic-agility-verification-package</code>
+    </li>
+  </ul>
+
+  <h3>SHA-256 State</h3>
+
+  <ul>
+    <li>
+      Result SHA-256:
+      <code>124aaf947124c3012ccabb96ae64b17eb89b42e07e951774ebd9339bc605f3ca</code>
+    </li>
+    <li>
+      Manifest SHA-256:
+      <code>febb61606e0a772e9939462b767ab5f484824aa9d1043020c38fb92a740e0a9b</code>
+    </li>
+  </ul>
+
+  <h3>Public Stage385 Evidence</h3>
+
+  <ul>
+    <li>
+      <a href="./verification/stage385/stage385_cryptographic_agility_policy.json">
+        Stage385 Cryptographic Agility Policy
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage385/stage385_cryptographic_agility_policy.sha256">
+        Stage385 Policy SHA-256 Record
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage385/stage385_cryptographic_inventory.json">
+        Stage385 Cryptographic Inventory
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage385/stage385_cryptographic_inventory.sha256">
+        Stage385 Inventory SHA-256 Record
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage385/stage385_pqc_migration_readiness_result.json">
+        Stage385 PQC Migration Readiness Result
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage385/stage385_pqc_migration_readiness_result.sha256">
+        Stage385 Result SHA-256 Record
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage385/stage385_cryptographic_agility_manifest.json">
+        Stage385 Cryptographic Agility Manifest
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage385/stage385_cryptographic_agility_manifest.sha256">
+        Stage385 Manifest SHA-256 Record
+      </a>
+    </li>
+  </ul>
+
+  <h3>Formal-Acceptance Boundary</h3>
+
+  <ul>
+    <li>Formal acceptance eligible: <code>false</code></li>
+    <li>Formal acceptance issued: <code>false</code></li>
+    <li>Formal acceptance: <code>false</code></li>
+    <li>Pipeline completed: <code>false</code></li>
+    <li>Public release allowed: <code>false</code></li>
+  </ul>
+
+  <p>
+    Stage385は暗号移行準備性を評価しますが、
+    Stage377の未完了状態を完成へ変更せず、
+    正式承認証明書を自動発行しません。
+  </p>
+
+  <h3>Preservation Boundary</h3>
+
+  <p>
+    Stage385は、Stage377からStage384までの既存記録を
+    変更、削除、置換、上書きしません。
+  </p>
+
+  <h3>Publication Boundary</h3>
+
+  <ul>
+    <li>No private core is published.</li>
+    <li>No private directory is published.</li>
+    <li>No secret, credential, token, or private key is published.</li>
+    <li>No raw QKD secret material is published.</li>
+    <li>No raw timestamp proof binary is published.</li>
+    <li>Only reviewed public cryptographic metadata and verification results are published.</li>
+  </ul>
+
+  <p>
+    <strong>License:</strong> MIT License
+  </p>
+</section>
+<!-- STAGE385_APPEND_ONLY_END -->
+
 </body>
 </html>

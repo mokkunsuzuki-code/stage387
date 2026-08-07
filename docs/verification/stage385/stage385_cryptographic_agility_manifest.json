@@ -1,0 +1,71 @@
+{
+  "stage": 385,
+  "manifest_name": "Stage385 Cryptographic Agility Manifest",
+  "manifest_version": "1.0.0-development",
+  "source_stage": 384,
+  "development_only": true,
+  "formal_acceptance": false,
+  "formal_acceptance_eligible": false,
+  "formal_acceptance_issued": false,
+  "pipeline_completed": false,
+  "public_release_allowed": false,
+  "verification_mode": "cryptographic_agility_inventory_pqc_migration_readiness_and_algorithm_policy_enforcement",
+  "artifact_bindings": {
+    "policy": {
+      "path": "development/stage385/stage385_cryptographic_agility_policy.json",
+      "file_sha256": "7a738eb462aed8daa77dc51c99305420bf1d074c45df330f2fd7106948cd371b"
+    },
+    "inventory": {
+      "path": "development/stage385/stage385_cryptographic_inventory.json",
+      "file_sha256": "d9892b1e98b26abc9509320c6702c630048e1153e676336b0e5aef5cf2f9075f"
+    },
+    "result": {
+      "path": "development/stage385/stage385_pqc_migration_readiness_result.json",
+      "file_sha256": "ec60eb24222fe989bb9f358477456762512f75629d59bd068457644839d34db3",
+      "result_sha256": "124aaf947124c3012ccabb96ae64b17eb89b42e07e951774ebd9339bc605f3ca"
+    }
+  },
+  "verification_result": {
+    "decision": "cryptographic_inventory_incomplete",
+    "verification_status": "verified_with_inventory_gaps_upstream_pending",
+    "critical_failure_count": 0
+  },
+  "cryptographic_state": {
+    "asset_count": 10,
+    "classical_public_key_signature_present": true,
+    "current_public_mldsa_key_available": false,
+    "entire_system_quantum_safe": false,
+    "hybrid_execution_evidence_present": true,
+    "inventory_incomplete_assets": [
+      "stage361-crl-revocation",
+      "stage361-ocsp-revocation",
+      "stage377-opentimestamps",
+      "stage378-qkd-evidence"
+    ],
+    "inventory_incomplete_count": 4,
+    "migration_required_assets": [
+      "stage374-sigstore-certificate-signature",
+      "stage374-sigstore-signature"
+    ],
+    "migration_required_count": 2,
+    "pqc_signature_execution_verified": true,
+    "prohibited_algorithm_count": 0,
+    "prohibited_assets": []
+  },
+  "evidence_portability": {
+    "verification_evidence_must_be_git_tracked": true,
+    "local_only_workflow_reference_allowed": false,
+    "clean_checkout_reverification_required": true,
+    "removed_local_only_reference_count": 2
+  },
+  "publication_boundary": {
+    "private_key_material_included": false,
+    "key_seed_material_included": false,
+    "credential_material_included": false,
+    "token_material_included": false,
+    "raw_qkd_secret_material_included": false,
+    "raw_timestamp_binary_included": false,
+    "public_metadata_only": true
+  },
+  "manifest_sha256": "febb61606e0a772e9939462b767ab5f484824aa9d1043020c38fb92a740e0a9b"
+}

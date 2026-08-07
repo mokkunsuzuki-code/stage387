@@ -1,0 +1,314 @@
+{
+  "stage": 385,
+  "inventory_name": "Stage385 Cryptographic Asset Inventory",
+  "inventory_version": "1.0.0-development",
+  "source_stage": 384,
+  "development_only": true,
+  "inventory_scope": "public_and_verified_metadata_only",
+  "private_key_material_collected": false,
+  "secret_material_collected": false,
+  "entire_system_quantum_safe_claimed": false,
+  "inventory_summary": {
+    "asset_count": 10,
+    "inventory_confidence_counts": {
+      "verified_execution_evidence": 4,
+      "verified_metadata": 2,
+      "detected_metadata": 2,
+      "declared_unverified": 2
+    },
+    "algorithm_status_counts": {
+      "allowed": 4,
+      "temporarily_allowed": 0,
+      "migration_required": 2,
+      "prohibited": 0,
+      "unknown": 0,
+      "evidence_required": 4
+    },
+    "migration_state_counts": {
+      "identified": 5,
+      "not_inventoried": 2,
+      "pqc_primary": 1,
+      "quantum_vulnerable": 2
+    }
+  },
+  "assets": [
+    {
+      "asset_id": "qsp-sha256-integrity-hash",
+      "asset_type": "hash_function",
+      "purpose": "artifact_integrity_and_deterministic_binding",
+      "algorithm_family": "SHA-2",
+      "algorithm_identifier": "SHA-256",
+      "public_parameters": {
+        "digest_bits": 256
+      },
+      "algorithm_status": "allowed",
+      "migration_state": "identified",
+      "inventory_confidence": "verified_execution_evidence",
+      "verification_evidence": [
+        "development/stage384/stage384_change_detection_result.json",
+        ".github/workflows/stage384-continuous-trust-state-reverification.yml"
+      ],
+      "notes": [
+        "SHA-256 is actively used for artifact, policy, baseline, result, and manifest binding."
+      ]
+    },
+    {
+      "asset_id": "stage374-sigstore-signature",
+      "asset_type": "classical_signature",
+      "purpose": "sigstore_cosign_blob_signature",
+      "algorithm_family": "ECDSA",
+      "algorithm_identifier": "ECDSA-P256",
+      "public_parameters": {
+        "public_key_algorithm": "id-ecPublicKey",
+        "curve_oid": "prime256v1",
+        "nist_curve": "P-256",
+        "message_digest_algorithm": "SHA2_256"
+      },
+      "algorithm_status": "migration_required",
+      "migration_state": "quantum_vulnerable",
+      "inventory_confidence": "verified_execution_evidence",
+      "verification_evidence": [
+        "docs/sigstore-production/stage373_attestation.sigstore.bundle.json",
+        "docs/sigstore-production/stage374_cosign_execution_receipt.json",
+        "docs/sigstore-production/stage374_production_external_binding_result.json"
+      ],
+      "execution_state": {
+        "signature_verified": true,
+        "cosign_version": "3.1.1"
+      },
+      "notes": [
+        "The Sigstore signing certificate public key is EC P-256.",
+        "ECDSA P-256 is a classical public-key signature mechanism and is tracked as quantum-vulnerable for PQC migration purposes.",
+        "This classification does not mean the existing signature verification result is invalid."
+      ]
+    },
+    {
+      "asset_id": "stage374-sigstore-certificate-signature",
+      "asset_type": "certificate_signature",
+      "purpose": "sigstore_certificate_signature",
+      "algorithm_family": "ECDSA",
+      "algorithm_identifier": "ecdsa-with-SHA384",
+      "public_parameters": {
+        "certificate_public_key_algorithm": "id-ecPublicKey",
+        "certificate_public_key_curve": "P-256",
+        "certificate_signature_hash": "SHA-384"
+      },
+      "algorithm_status": "migration_required",
+      "migration_state": "quantum_vulnerable",
+      "inventory_confidence": "verified_metadata",
+      "verification_evidence": [
+        "docs/sigstore-production/stage373_attestation.sigstore.bundle.json"
+      ],
+      "notes": [
+        "The algorithm is extracted from the embedded X.509 certificate.",
+        "The certificate validity period is historical metadata and does not itself establish current certificate validity."
+      ]
+    },
+    {
+      "asset_id": "stage374-rekor-transparency-binding",
+      "asset_type": "transparency_log_binding",
+      "purpose": "sigstore_transparency_log_inclusion",
+      "algorithm_family": "Sigstore-Rekor",
+      "algorithm_identifier": "Rekor-hashedrekord",
+      "algorithm_status": "allowed",
+      "migration_state": "identified",
+      "inventory_confidence": "verified_execution_evidence",
+      "verification_evidence": [
+        "docs/sigstore-production/stage373_attestation.sigstore.bundle.json",
+        "docs/sigstore-production/stage374_rekor_inclusion_receipt.json",
+        "docs/sigstore-production/stage374_production_external_binding_result.json"
+      ],
+      "execution_state": {
+        "rekor_verification_complete": true,
+        "rekor_receipt_status": "verified"
+      },
+      "notes": [
+        "Rekor is classified as a transparency-log binding, not as a signature algorithm."
+      ]
+    },
+    {
+      "asset_id": "stage375-mldsa65-signature",
+      "asset_type": "pqc_signature",
+      "purpose": "post_quantum_artifact_signature",
+      "algorithm_family": "ML-DSA",
+      "algorithm_identifier": "ML-DSA-65",
+      "public_parameters": {
+        "standard": "FIPS 204",
+        "fips_204_algorithm_conformance": true
+      },
+      "algorithm_status": "allowed",
+      "migration_state": "pqc_primary",
+      "inventory_confidence": "verified_execution_evidence",
+      "verification_evidence": [
+        "docs/mldsa-production/stage375_dual_signature_verification_result.json",
+        "docs/mldsa-production/stage375_mldsa65_execution_receipt.json"
+      ],
+      "execution_state": {
+        "signature_verified": true,
+        "same_target_as_sigstore": true,
+        "rekor_inclusion_verified": true
+      },
+      "public_reverification_state": {
+        "public_key_was_present_during_stage375_execution": true,
+        "public_key_hash_recorded": true,
+        "public_key_currently_present_in_stage385_tree": false,
+        "public_key_found_in_git_history": false,
+        "current_standalone_public_key_reverification_supported": false
+      },
+      "notes": [
+        "Stage375 records successful ML-DSA-65 signature verification.",
+        "The public ML-DSA key file referenced by Stage375 is not present in the current Stage385 repository tree.",
+        "Historical execution verification must not be conflated with current standalone third-party reverification availability.",
+        "The presence of ML-DSA does not imply that the entire QSP system is quantum-safe."
+      ]
+    },
+    {
+      "asset_id": "stage377-rfc3161-timestamp",
+      "asset_type": "trusted_timestamp",
+      "purpose": "trusted_timestamp_finalization",
+      "algorithm_family": "RFC3161",
+      "algorithm_identifier": "RFC3161-SHA256",
+      "public_parameters": {
+        "digest_algorithm": "SHA-256"
+      },
+      "algorithm_status": "allowed",
+      "migration_state": "identified",
+      "inventory_confidence": "verified_metadata",
+      "verification_evidence": [
+        "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json"
+      ],
+      "execution_state": {
+        "aggregate_stage377_rfc3161_verified": true,
+        "individual_repository_receipt_is_initial_not_executed_record": true
+      },
+      "notes": [
+        "The current Stage377 aggregate result marks RFC3161 as verified.",
+        "The repository copy of the individual RFC3161 receipt inspected in Stage385 remains an earlier not_executed receipt.",
+        "Stage385 therefore records this as verified metadata rather than independently reproduced execution evidence."
+      ]
+    },
+    {
+      "asset_id": "stage377-opentimestamps",
+      "asset_type": "trusted_timestamp",
+      "purpose": "public_bitcoin_anchored_timestamp",
+      "algorithm_family": "OpenTimestamps",
+      "algorithm_identifier": "OpenTimestamps",
+      "algorithm_status": "evidence_required",
+      "migration_state": "identified",
+      "inventory_confidence": "detected_metadata",
+      "verification_evidence": [
+        "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json",
+        "docs/timestamp-evidence/stage377_opentimestamps_verification_receipt.json"
+      ],
+      "execution_state": {
+        "opentimestamps_verified": false,
+        "final_public_anchor_confirmed": false
+      },
+      "notes": [
+        "OpenTimestamps remains pending and must not be counted as a verified Stage377 proof."
+      ]
+    },
+    {
+      "asset_id": "stage361-ocsp-revocation",
+      "asset_type": "revocation_metadata",
+      "purpose": "certificate_or_key_revocation_status",
+      "algorithm_family": "OCSP",
+      "algorithm_identifier": "unknown",
+      "algorithm_status": "evidence_required",
+      "migration_state": "not_inventoried",
+      "inventory_confidence": "declared_unverified",
+      "verification_evidence": [
+        "docs/revocation/stage361_revocation_proof_injection_result.json"
+      ],
+      "execution_state": {
+        "status": "not_provided",
+        "ocsp_verified": false,
+        "real_ocsp_verification_performed": false
+      },
+      "notes": [
+        "Stage361 provides an OCSP evidence receiver but does not perform real OCSP cryptographic verification."
+      ]
+    },
+    {
+      "asset_id": "stage361-crl-revocation",
+      "asset_type": "revocation_metadata",
+      "purpose": "certificate_or_key_revocation_status",
+      "algorithm_family": "CRL",
+      "algorithm_identifier": "unknown",
+      "algorithm_status": "evidence_required",
+      "migration_state": "not_inventoried",
+      "inventory_confidence": "declared_unverified",
+      "verification_evidence": [
+        "docs/revocation/stage361_revocation_proof_injection_result.json"
+      ],
+      "execution_state": {
+        "status": "not_provided",
+        "crl_verified": false,
+        "real_crl_verification_performed": false
+      },
+      "notes": [
+        "Stage361 provides a CRL evidence receiver but does not perform real CRL cryptographic verification."
+      ]
+    },
+    {
+      "asset_id": "stage378-qkd-evidence",
+      "asset_type": "qkd_evidence_metadata",
+      "purpose": "qkd_safety_metadata_classification",
+      "algorithm_family": "QKD",
+      "algorithm_identifier": "QKD-metadata-only",
+      "algorithm_status": "evidence_required",
+      "migration_state": "identified",
+      "inventory_confidence": "detected_metadata",
+      "verification_evidence": [
+        "docs/qkd/stage378_qkd_safety_metadata_binding_result.json"
+      ],
+      "execution_state": {
+        "evidence_classification": "metadata_only",
+        "evidence_level": "QKD-E1",
+        "qkd_metadata_bound": false
+      },
+      "notes": [
+        "QKD metadata is classified separately from public-key signature algorithms.",
+        "QKD-E1 metadata must not be used to claim PQC migration completion."
+      ]
+    }
+  ],
+  "current_migration_observation": {
+    "classical_public_key_signature_present": true,
+    "pqc_signature_execution_verified": true,
+    "classical_and_pqc_same_target_verified": true,
+    "hybrid_execution_evidence_present": true,
+    "current_public_mldsa_key_available": false,
+    "opentimestamps_finality_complete": false,
+    "ocsp_cryptographic_verification_complete": false,
+    "crl_cryptographic_verification_complete": false,
+    "qkd_metadata_binding_complete": false,
+    "entire_system_quantum_safe": false
+  },
+  "stage384_binding": {
+    "required_decision": "continuous_trust_state_verified_upstream_pending",
+    "observed_decision": "continuous_trust_state_verified_upstream_pending",
+    "observed_verification_status": "verified_unchanged_upstream_pending",
+    "observed_change_detected": false,
+    "observed_reverification_required": false,
+    "observed_eligibility_invalidated": false,
+    "observed_critical_failure_count": 0,
+    "observed_result_sha256": "a11e619b6708360160ef932bf67ffbd1a6c06b98f817787f575ad4476e448359",
+    "observed_manifest_sha256": "b1b2c8d4561ab6bb24b5acc0b41ba7736acdf04a43ff8c6ebdf408274cb3dd8c"
+  },
+  "publication_boundary": {
+    "private_key_material_included": false,
+    "key_seed_material_included": false,
+    "credential_material_included": false,
+    "token_material_included": false,
+    "raw_qkd_secret_material_included": false,
+    "raw_timestamp_binary_included": false,
+    "public_metadata_only": true
+  },
+  "evidence_portability": {
+    "verification_evidence_must_be_git_tracked": true,
+    "local_only_workflow_reference_allowed": false,
+    "clean_checkout_reverification_required": true,
+    "removed_local_only_reference_count": 2
+  }
+}
