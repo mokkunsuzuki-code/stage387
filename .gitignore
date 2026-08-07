@@ -375,3 +375,22 @@ development/stage384/*
 
 # Stage384 public continuous trust-state workflow
 !.github/workflows/stage384-continuous-trust-state-reverification.yml
+
+# Stage385 public cryptographic-agility and PQC-migration package
+!development/stage385/
+development/stage385/*
+
+!development/stage385/README.md
+!development/stage385/stage385_cryptographic_agility_policy.json
+!development/stage385/stage385_cryptographic_agility_policy.sha256
+!development/stage385/stage385_cryptographic_inventory.json
+!development/stage385/stage385_cryptographic_inventory.sha256
+!development/stage385/verify_stage385_cryptographic_agility.py
+!development/stage385/test_stage385_fail_closed.py
+!development/stage385/stage385_pqc_migration_readiness_result.json
+!development/stage385/stage385_pqc_migration_readiness_result.sha256
+!development/stage385/stage385_cryptographic_agility_manifest.json
+!development/stage385/stage385_cryptographic_agility_manifest.sha256
+
+# Stage385 public cryptographic-agility workflow
+!.github/workflows/stage385-cryptographic-agility-pqc-migration.yml

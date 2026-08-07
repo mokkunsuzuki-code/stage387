@@ -1,0 +1,362 @@
+name: Stage385 Cryptographic Agility & PQC Migration Verification
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/stage385-cryptographic-agility-pqc-migration.yml"
+      - ".stage385-development-policy.json"
+      - "development/stage385/**"
+      - "development/stage384/**"
+      - "docs/sigstore-production/**"
+      - "docs/mldsa-production/**"
+      - "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json"
+      - "docs/timestamp-evidence/stage377_opentimestamps_verification_receipt.json"
+      - "docs/revocation/stage361_revocation_proof_injection_result.json"
+      - "docs/qkd/stage378_qkd_safety_metadata_binding_result.json"
+
+permissions:
+  contents: read
+
+env:
+  PYTHONUTF8: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+
+jobs:
+  cryptographic-agility-verification:
+    name: Verify Stage385 cryptographic agility
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Show environment
+        run: |
+          python3 --version
+          git --version
+          pwd
+
+      - name: Validate Stage385 JSON files
+        run: |
+          python3 -m json.tool \
+            .stage385-development-policy.json \
+            >/dev/null
+
+          python3 -m json.tool \
+            development/stage385/stage385_cryptographic_agility_policy.json \
+            >/dev/null
+
+          python3 -m json.tool \
+            development/stage385/stage385_cryptographic_inventory.json \
+            >/dev/null
+
+          python3 -m json.tool \
+            development/stage385/stage385_pqc_migration_readiness_result.json \
+            >/dev/null
+
+          python3 -m json.tool \
+            development/stage385/stage385_cryptographic_agility_manifest.json \
+            >/dev/null
+
+          echo "OK: Stage385 JSON validation passed"
+
+      - name: Validate Stage385 fixed SHA-256 records
+        run: |
+          sha256sum -c \
+            development/stage385/stage385_cryptographic_agility_policy.sha256
+
+          sha256sum -c \
+            development/stage385/stage385_cryptographic_inventory.sha256
+
+          sha256sum -c \
+            development/stage385/stage385_pqc_migration_readiness_result.sha256
+
+          sha256sum -c \
+            development/stage385/stage385_cryptographic_agility_manifest.sha256
+
+      - name: Validate Python syntax
+        run: |
+          python3 -m py_compile \
+            development/stage385/verify_stage385_cryptographic_agility.py
+
+          python3 -m py_compile \
+            development/stage385/test_stage385_fail_closed.py
+
+          rm -rf \
+            development/stage385/__pycache__
+
+          echo "OK: Stage385 Python syntax passed"
+
+      - name: Run Stage385 verifier
+        run: |
+          python3 \
+            development/stage385/verify_stage385_cryptographic_agility.py
+
+      - name: Validate deterministic Stage385 result
+        run: |
+          python3 - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          path = Path(
+              "development/stage385/"
+              "stage385_pqc_migration_readiness_result.json"
+          )
+
+          data = json.loads(
+              path.read_text(
+                  encoding="utf-8"
+              )
+          )
+
+          expected_hash = data.pop(
+              "result_sha256",
+              None,
+          )
+
+          canonical = json.dumps(
+              data,
+              ensure_ascii=False,
+              sort_keys=True,
+              separators=(",", ":"),
+          ).encode("utf-8")
+
+          actual_hash = hashlib.sha256(
+              canonical
+          ).hexdigest()
+
+          print(
+              "expected_result_sha256=",
+              expected_hash,
+          )
+
+          print(
+              "actual_result_sha256=",
+              actual_hash,
+          )
+
+          if expected_hash != actual_hash:
+              raise SystemExit(
+                  "ERROR: Stage385 embedded result "
+                  "SHA-256 mismatch"
+              )
+
+          if (
+              data.get("decision")
+              != "cryptographic_inventory_incomplete"
+          ):
+              raise SystemExit(
+                  "ERROR: unexpected Stage385 decision"
+              )
+
+          if (
+              data.get("critical_failure_count")
+              != 0
+          ):
+              raise SystemExit(
+                  "ERROR: unexpected Stage385 "
+                  "critical failure"
+              )
+
+          state = data.get(
+              "cryptographic_state",
+              {},
+          )
+
+          if state.get("asset_count") != 10:
+              raise SystemExit(
+                  "ERROR: Stage385 asset count mismatch"
+              )
+
+          if (
+              state.get(
+                  "migration_required_count"
+              )
+              != 2
+          ):
+              raise SystemExit(
+                  "ERROR: migration-required count mismatch"
+              )
+
+          if (
+              state.get(
+                  "inventory_incomplete_count"
+              )
+              != 4
+          ):
+              raise SystemExit(
+                  "ERROR: inventory-incomplete count mismatch"
+              )
+
+          if (
+              state.get(
+                  "prohibited_algorithm_count"
+              )
+              != 0
+          ):
+              raise SystemExit(
+                  "ERROR: prohibited algorithm count mismatch"
+              )
+
+          if (
+              state.get(
+                  "pqc_signature_execution_verified"
+              )
+              is not True
+          ):
+              raise SystemExit(
+                  "ERROR: ML-DSA execution verification "
+                  "state mismatch"
+              )
+
+          if (
+              state.get(
+                  "current_public_mldsa_key_available"
+              )
+              is not False
+          ):
+              raise SystemExit(
+                  "ERROR: public ML-DSA key availability "
+                  "state mismatch"
+              )
+
+          if (
+              state.get(
+                  "entire_system_quantum_safe"
+              )
+              is not False
+          ):
+              raise SystemExit(
+                  "ERROR: unsupported quantum-safe claim"
+              )
+
+          print(
+              "OK: deterministic Stage385 result validated"
+          )
+          PY
+
+      - name: Run Stage385 Fail-Closed tests
+        run: |
+          python3 \
+            development/stage385/test_stage385_fail_closed.py
+
+      - name: Re-run real Stage385 verifier after tests
+        run: |
+          python3 \
+            development/stage385/verify_stage385_cryptographic_agility.py
+
+      - name: Confirm fixed result after tests
+        run: |
+          sha256sum -c \
+            development/stage385/stage385_pqc_migration_readiness_result.sha256
+
+      - name: Validate Stage385 manifest embedded hash
+        run: |
+          python3 - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          path = Path(
+              "development/stage385/"
+              "stage385_cryptographic_agility_manifest.json"
+          )
+
+          data = json.loads(
+              path.read_text(
+                  encoding="utf-8"
+              )
+          )
+
+          expected = data.pop(
+              "manifest_sha256",
+              None,
+          )
+
+          canonical = json.dumps(
+              data,
+              ensure_ascii=False,
+              sort_keys=True,
+              separators=(",", ":"),
+          ).encode("utf-8")
+
+          actual = hashlib.sha256(
+              canonical
+          ).hexdigest()
+
+          print(
+              "expected_manifest_sha256=",
+              expected,
+          )
+
+          print(
+              "actual_manifest_sha256=",
+              actual,
+          )
+
+          if expected != actual:
+              raise SystemExit(
+                  "ERROR: Stage385 embedded manifest "
+                  "SHA-256 mismatch"
+              )
+
+          print(
+              "OK: Stage385 manifest embedded hash valid"
+          )
+          PY
+
+      - name: Validate publication boundary
+        run: |
+          if git ls-files \
+            | grep -E \
+              '(^|/)(core|private_core|private|secrets|keys|imported)(/|$)'
+          then
+            echo "ERROR: forbidden tracked path detected"
+            exit 1
+          fi
+
+          echo "OK: no forbidden tracked paths"
+
+      - name: Validate suspicious filenames
+        run: |
+          SENSITIVE_FILES="$(
+            git ls-files \
+              | grep -Ei \
+                '(^|/)(id_rsa|id_ed25519|.*\.pem|.*\.key|.*\.p12|.*\.pfx|.*credential.*|.*token.*|.*secret.*)$' \
+              || true
+          )"
+
+          if [ -n "${SENSITIVE_FILES}" ]; then
+            echo "ERROR: suspicious tracked filename detected"
+            printf '%s\n' "${SENSITIVE_FILES}"
+            exit 1
+          fi
+
+          echo "OK: no suspicious tracked filenames"
+
+      - name: Upload Stage385 verification package
+        uses: actions/upload-artifact@v7
+        with:
+          name: stage385-cryptographic-agility-verification-package
+          path: |
+            .stage385-development-policy.json
+            development/stage385/README.md
+            development/stage385/stage385_cryptographic_agility_policy.json
+            development/stage385/stage385_cryptographic_agility_policy.sha256
+            development/stage385/stage385_cryptographic_inventory.json
+            development/stage385/stage385_cryptographic_inventory.sha256
+            development/stage385/stage385_pqc_migration_readiness_result.json
+            development/stage385/stage385_pqc_migration_readiness_result.sha256
+            development/stage385/stage385_cryptographic_agility_manifest.json
+            development/stage385/stage385_cryptographic_agility_manifest.sha256
+          if-no-files-found: error

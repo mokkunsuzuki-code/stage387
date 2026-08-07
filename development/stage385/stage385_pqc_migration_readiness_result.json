@@ -1,0 +1,274 @@
+{
+  "check_count": 40,
+  "checks": [
+    {
+      "critical": true,
+      "name": "required_file_present:development/stage385/stage385_cryptographic_agility_policy.json",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "required_file_present:development/stage385/stage385_cryptographic_agility_policy.sha256",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "required_file_present:development/stage385/stage385_cryptographic_inventory.json",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "required_file_present:development/stage385/stage385_cryptographic_inventory.sha256",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "required_file_present:development/stage384/stage384_change_detection_result.json",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "required_file_present:development/stage384/stage384_change_detection_result.sha256",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "required_file_present:development/stage384/stage384_continuous_verification_manifest.json",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "required_file_present:development/stage384/stage384_continuous_verification_manifest.sha256",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "json_inputs_loaded",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "policy_sha256_valid",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "policy_sha256_record_path_valid",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "inventory_sha256_valid",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "inventory_sha256_record_path_valid",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "stage384_result_sha256_valid",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "stage384_result_sha256_record_path_valid",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "stage384_manifest_sha256_valid",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "stage384_manifest_sha256_record_path_valid",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "policy_stage_valid",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "inventory_stage_valid",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "publication_boundary_safe:private_key_material_included",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "publication_boundary_safe:key_seed_material_included",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "publication_boundary_safe:credential_material_included",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "publication_boundary_safe:token_material_included",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "publication_boundary_safe:raw_qkd_secret_material_included",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "publication_boundary_safe:raw_timestamp_binary_included",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "public_metadata_only",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "stage384_gate:decision",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "stage384_gate:verification_status",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "stage384_gate:change_detected",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "stage384_gate:reverification_required",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "stage384_gate:eligibility_invalidated",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "stage384_gate:critical_failure_count",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "stage384_embedded_result_sha256_valid",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "stage384_embedded_manifest_sha256_valid",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "unique_asset_ids",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "required_asset_fields_valid",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "verification_evidence_paths_exist",
+      "passed": true
+    },
+    {
+      "critical": false,
+      "name": "pqc_signature_execution_verified",
+      "passed": true
+    },
+    {
+      "critical": false,
+      "name": "hybrid_execution_evidence_present",
+      "passed": true
+    },
+    {
+      "critical": true,
+      "name": "entire_system_quantum_safe_not_claimed",
+      "passed": true
+    }
+  ],
+  "critical_failure_count": 0,
+  "critical_failures": [],
+  "cryptographic_state": {
+    "asset_count": 10,
+    "classical_public_key_signature_present": true,
+    "current_public_mldsa_key_available": false,
+    "entire_system_quantum_safe": false,
+    "hybrid_execution_evidence_present": true,
+    "inventory_incomplete_assets": [
+      "stage361-crl-revocation",
+      "stage361-ocsp-revocation",
+      "stage377-opentimestamps",
+      "stage378-qkd-evidence"
+    ],
+    "inventory_incomplete_count": 4,
+    "migration_required_assets": [
+      "stage374-sigstore-certificate-signature",
+      "stage374-sigstore-signature"
+    ],
+    "migration_required_count": 2,
+    "pqc_signature_execution_verified": true,
+    "prohibited_algorithm_count": 0,
+    "prohibited_assets": []
+  },
+  "decision": "cryptographic_inventory_incomplete",
+  "development_only": true,
+  "engine": "Stage385 Cryptographic Agility Inventory, PQC Migration Readiness & Algorithm Policy Enforcement Gate",
+  "errors": [],
+  "fail_closed": true,
+  "formal_acceptance": false,
+  "formal_acceptance_eligible": false,
+  "formal_acceptance_issued": false,
+  "inventory_binding": {
+    "asset_count": 10,
+    "file_sha256": "8738442b1bc494db195beb17b7fc6c4d964526010c6f4b3664a3e3de5f74706c",
+    "path": "development/stage385/stage385_cryptographic_inventory.json"
+  },
+  "migration_readiness": {
+    "classical_signature_migration_required": true,
+    "inventory_completion_required": true,
+    "pqc_component_verified": true,
+    "ready_for_entire_system_quantum_safe_claim": false,
+    "ready_for_pqc_only_claim": false,
+    "standalone_public_mldsa_reverification_available": false
+  },
+  "pipeline_completed": false,
+  "policy_binding": {
+    "file_sha256": "7a738eb462aed8daa77dc51c99305420bf1d074c45df330f2fd7106948cd371b",
+    "path": "development/stage385/stage385_cryptographic_agility_policy.json"
+  },
+  "public_release_allowed": false,
+  "result_sha256": "7c4863d654107f3a2f2243cdd08d33ff4aa6d0d80bdbf6a05bd57ef8d4280a60",
+  "source_stage": 384,
+  "stage": 385,
+  "stage384_binding": {
+    "change_detected": false,
+    "critical_failure_count": 0,
+    "decision": "continuous_trust_state_verified_upstream_pending",
+    "eligibility_invalidated": false,
+    "manifest_file_sha256": "e673a1e04bcdd6ce0012b0e5962d7c5258f23a1a0c5f7d86926a4004302136b0",
+    "manifest_path": "development/stage384/stage384_continuous_verification_manifest.json",
+    "result_file_sha256": "552f2a7eb420ad4cb7b25cf37c852ad7db8f0b8b4513c2df38fd290e188bd703",
+    "result_path": "development/stage384/stage384_change_detection_result.json",
+    "reverification_required": false,
+    "verification_status": "verified_unchanged_upstream_pending"
+  },
+  "statement": "Stage385 inventories public cryptographic metadata and verified evidence without publishing private key material. It does not claim the entire system is quantum-safe and does not upgrade upstream formal acceptance.",
+  "verification_mode": "cryptographic_agility_inventory_pqc_migration_readiness_and_algorithm_policy_enforcement",
+  "verification_status": "verified_with_inventory_gaps_upstream_pending"
+}

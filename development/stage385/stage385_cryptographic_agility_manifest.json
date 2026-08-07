@@ -1,0 +1,78 @@
+{
+  "artifact_bindings": {
+    "stage384_manifest": {
+      "embedded_manifest_sha256": "b1b2c8d4561ab6bb24b5acc0b41ba7736acdf04a43ff8c6ebdf408274cb3dd8c",
+      "file_sha256": "e673a1e04bcdd6ce0012b0e5962d7c5258f23a1a0c5f7d86926a4004302136b0",
+      "path": "development/stage384/stage384_continuous_verification_manifest.json"
+    },
+    "stage384_result": {
+      "embedded_result_sha256": "a11e619b6708360160ef932bf67ffbd1a6c06b98f817787f575ad4476e448359",
+      "file_sha256": "552f2a7eb420ad4cb7b25cf37c852ad7db8f0b8b4513c2df38fd290e188bd703",
+      "path": "development/stage384/stage384_change_detection_result.json"
+    },
+    "stage385_inventory": {
+      "file_sha256": "8738442b1bc494db195beb17b7fc6c4d964526010c6f4b3664a3e3de5f74706c",
+      "path": "development/stage385/stage385_cryptographic_inventory.json"
+    },
+    "stage385_policy": {
+      "file_sha256": "7a738eb462aed8daa77dc51c99305420bf1d074c45df330f2fd7106948cd371b",
+      "path": "development/stage385/stage385_cryptographic_agility_policy.json"
+    },
+    "stage385_result": {
+      "embedded_result_sha256": "7c4863d654107f3a2f2243cdd08d33ff4aa6d0d80bdbf6a05bd57ef8d4280a60",
+      "file_sha256": "3fff41e5ac62d5d3a6c22b259b153a4c511b82c2339fafdffec9640f342941cf",
+      "path": "development/stage385/stage385_pqc_migration_readiness_result.json"
+    }
+  },
+  "cryptographic_state": {
+    "asset_count": 10,
+    "current_public_mldsa_key_available": false,
+    "entire_system_quantum_safe": false,
+    "hybrid_execution_evidence_present": true,
+    "inventory_incomplete_count": 4,
+    "migration_required_count": 2,
+    "pqc_signature_execution_verified": true,
+    "prohibited_algorithm_count": 0
+  },
+  "current_known_gaps": {
+    "crl_cryptographic_verification_complete": false,
+    "ocsp_cryptographic_verification_complete": false,
+    "opentimestamps_finality_complete": false,
+    "qkd_metadata_binding_complete": false
+  },
+  "decision": "cryptographic_inventory_incomplete",
+  "development_only": true,
+  "formal_acceptance": false,
+  "formal_acceptance_eligible": false,
+  "formal_acceptance_issued": false,
+  "manifest_name": "Stage385 Cryptographic Agility Manifest",
+  "manifest_sha256": "c080a72954962c669b34923cc7275da94251d518fdc169659315ab6b5944f60e",
+  "manifest_version": "1.0.0-development",
+  "pipeline_completed": false,
+  "preservation_statement": "Stage385 preserves Stage377 through Stage384 records and does not overwrite upstream verification history.",
+  "public_release_allowed": false,
+  "publication_boundary": {
+    "credential_material_published": false,
+    "key_seed_material_published": false,
+    "private_core_published": false,
+    "private_directory_published": false,
+    "private_key_material_published": false,
+    "public_metadata_only": true,
+    "raw_qkd_secret_material_published": false,
+    "raw_timestamp_binary_published": false,
+    "token_material_published": false
+  },
+  "source_stage": 384,
+  "stage": 385,
+  "stage384_state": {
+    "change_detected": false,
+    "critical_failure_count": 0,
+    "decision": "continuous_trust_state_verified_upstream_pending",
+    "eligibility_invalidated": false,
+    "reverification_required": false,
+    "verification_status": "verified_unchanged_upstream_pending"
+  },
+  "statement": "Stage385 binds the cryptographic policy, cryptographic inventory, PQC migration readiness result, and Stage384 trust state without claiming entire-system quantum safety or formal acceptance.",
+  "verification_mode": "cryptographic_agility_inventory_pqc_migration_readiness_and_algorithm_policy_enforcement",
+  "verification_status": "verified_with_inventory_gaps_upstream_pending"
+}
