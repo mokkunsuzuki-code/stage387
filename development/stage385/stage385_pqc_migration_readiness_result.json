@@ -236,7 +236,7 @@
   "formal_acceptance_issued": false,
   "inventory_binding": {
     "asset_count": 10,
-    "file_sha256": "8738442b1bc494db195beb17b7fc6c4d964526010c6f4b3664a3e3de5f74706c",
+    "file_sha256": "d9892b1e98b26abc9509320c6702c630048e1153e676336b0e5aef5cf2f9075f",
     "path": "development/stage385/stage385_cryptographic_inventory.json"
   },
   "migration_readiness": {
@@ -253,7 +253,7 @@
     "path": "development/stage385/stage385_cryptographic_agility_policy.json"
   },
   "public_release_allowed": false,
-  "result_sha256": "7c4863d654107f3a2f2243cdd08d33ff4aa6d0d80bdbf6a05bd57ef8d4280a60",
+  "result_sha256": "124aaf947124c3012ccabb96ae64b17eb89b42e07e951774ebd9339bc605f3ca",
   "source_stage": 384,
   "stage": 385,
   "stage384_binding": {

@@ -141,8 +141,7 @@
       "inventory_confidence": "verified_execution_evidence",
       "verification_evidence": [
         "docs/mldsa-production/stage375_dual_signature_verification_result.json",
-        "docs/mldsa-production/stage375_mldsa65_execution_receipt.json",
-        ".github/workflows/stage375-production-mldsa.yml"
+        "docs/mldsa-production/stage375_mldsa65_execution_receipt.json"
       ],
       "execution_state": {
         "signature_verified": true,
@@ -176,8 +175,7 @@
       "migration_state": "identified",
       "inventory_confidence": "verified_metadata",
       "verification_evidence": [
-        "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json",
-        ".github/workflows/stage377-production-rfc3161.yml"
+        "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json"
       ],
       "execution_state": {
         "aggregate_stage377_rfc3161_verified": true,
@@ -306,5 +304,11 @@
     "raw_qkd_secret_material_included": false,
     "raw_timestamp_binary_included": false,
     "public_metadata_only": true
+  },
+  "evidence_portability": {
+    "verification_evidence_must_be_git_tracked": true,
+    "local_only_workflow_reference_allowed": false,
+    "clean_checkout_reverification_required": true,
+    "removed_local_only_reference_count": 2
   }
 }
