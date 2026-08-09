@@ -1,0 +1,264 @@
+name: Stage386 PQC Independent Re-verification
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/stage386-pqc-independent-reverification.yml"
+      - "development/stage386/**"
+      - "docs/mldsa-production/stage375_mldsa65_public_key.pem"
+      - "docs/mldsa-production/stage375_mldsa65_signature.bin"
+      - "docs/mldsa-production/stage375_mldsa65_execution_receipt.json"
+      - "docs/final-acceptance-attestation/stage373_final_acceptance_attestation.json"
+
+permissions:
+  contents: read
+
+jobs:
+  stage386-independent-reverification:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Stage386
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Show environment
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 --version
+          openssl version
+          git --version
+
+      - name: Validate Python syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 -m py_compile \
+            development/stage386/verify_stage386_pqc_reverification.py
+
+          python3 -m py_compile \
+            development/stage386/test_stage386_fail_closed.py
+
+      - name: Verify Stage386 policy integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          sha256sum -c \
+            development/stage386/stage386_pqc_reverification_policy.sha256
+
+      - name: Verify Stage386 result integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          sha256sum -c \
+            development/stage386/stage386_pqc_independent_reverification_result.sha256
+
+      - name: Verify Stage386 portability manifest integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          sha256sum -c \
+            development/stage386/stage386_evidence_portability_manifest.sha256
+
+      - name: Verify portability artifact bindings
+        shell: python
+        run: |
+          import hashlib
+          import json
+          from pathlib import Path
+
+          root = Path(".").resolve()
+
+          manifest_path = (
+              root
+              / "development/stage386/"
+              "stage386_evidence_portability_manifest.json"
+          )
+
+          manifest = json.loads(
+              manifest_path.read_text(encoding="utf-8")
+          )
+
+          failures = []
+
+          for artifact in manifest["artifacts"]:
+              relative = artifact["path"]
+              path = root / relative
+
+              if not path.is_file():
+                  failures.append(
+                      f"missing artifact: {relative}"
+                  )
+                  continue
+
+              actual = hashlib.sha256(
+                  path.read_bytes()
+              ).hexdigest()
+
+              expected = artifact["sha256"]
+
+              if actual != expected:
+                  failures.append(
+                      f"SHA256 mismatch: {relative}"
+                  )
+              else:
+                  print(
+                      "PASS:",
+                      artifact["role"],
+                      relative,
+                  )
+
+          if failures:
+              for failure in failures:
+                  print("FAIL:", failure)
+
+              raise SystemExit(1)
+
+          print(
+              "PASS: all Stage386 portability "
+              "artifact bindings verified"
+          )
+
+      - name: Check public ML-DSA-65 support
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          openssl list -signature-algorithms \
+            | grep -i "ML-DSA-65"
+
+          openssl pkey \
+            -pubin \
+            -in docs/mldsa-production/stage375_mldsa65_public_key.pem \
+            -text \
+            -noout \
+            | head -1 \
+            | grep -F "ML-DSA-65 Public-Key"
+
+      - name: Run Stage386 independent reverification
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 \
+            development/stage386/verify_stage386_pqc_reverification.py
+
+      - name: Verify deterministic Stage386 result
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          EXPECTED="$(
+            sha256sum \
+              development/stage386/stage386_pqc_independent_reverification_result.json \
+            | awk '{print $1}'
+          )"
+
+          python3 \
+            development/stage386/verify_stage386_pqc_reverification.py
+
+          ACTUAL="$(
+            sha256sum \
+              development/stage386/stage386_pqc_independent_reverification_result.json \
+            | awk '{print $1}'
+          )"
+
+          echo "expected=${EXPECTED}"
+          echo "actual=${ACTUAL}"
+
+          test "${EXPECTED}" = "${ACTUAL}"
+
+          echo "PASS: deterministic Stage386 result"
+
+      - name: Run Stage386 fail-closed tests
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 \
+            development/stage386/test_stage386_fail_closed.py
+
+      - name: Check forbidden tracked paths
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          FORBIDDEN="$(
+            git ls-files \
+              | grep -E \
+                '(^|/)(core|private_core|private|secrets|keys|imported)(/|$)' \
+              || true
+          )"
+
+          if [ -n "${FORBIDDEN}" ]; then
+            echo "FAIL: forbidden tracked paths detected"
+            printf '%s\n' "${FORBIDDEN}"
+            exit 1
+          fi
+
+          echo "PASS: no forbidden tracked paths"
+
+      - name: Final Stage386 decision check
+        shell: python
+        run: |
+          import json
+          from pathlib import Path
+
+          path = Path(
+              "development/stage386/"
+              "stage386_pqc_independent_reverification_result.json"
+          )
+
+          result = json.loads(
+              path.read_text(encoding="utf-8")
+          )
+
+          expected = (
+              "pqc_independent_reverification_verified"
+          )
+
+          if result.get("decision") != expected:
+              raise SystemExit(
+                  "Stage386 final decision is not verified."
+              )
+
+          if (
+              result.get("verification_status")
+              != "verified"
+          ):
+              raise SystemExit(
+                  "Stage386 verification status is not verified."
+              )
+
+          limitations = result.get(
+              "limitations",
+              {},
+          )
+
+          if (
+              limitations.get(
+                  "entire_system_quantum_safe"
+              )
+              is not False
+          ):
+              raise SystemExit(
+                  "Quantum-safety limitation was lost."
+              )
+
+          print(
+              "PASS: Stage386 final decision =",
+              expected,
+          )
+
+          print(
+              "PASS: entire_system_quantum_safe = false"
+          )

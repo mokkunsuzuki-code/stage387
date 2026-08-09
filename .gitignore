@@ -394,3 +394,26 @@ development/stage385/*
 
 # Stage385 public cryptographic-agility workflow
 !.github/workflows/stage385-cryptographic-agility-pqc-migration.yml
+
+# Stage386 public PQC independent reverification package
+!development/stage386/
+development/stage386/*
+
+!development/stage386/README.md
+!development/stage386/stage386_pqc_reverification_policy.json
+!development/stage386/stage386_pqc_reverification_policy.sha256
+
+# Stage386 verifier and deterministic result
+!development/stage386/verify_stage386_pqc_reverification.py
+!development/stage386/stage386_pqc_independent_reverification_result.json
+!development/stage386/stage386_pqc_independent_reverification_result.sha256
+
+# Stage386 fail-closed test suite
+!development/stage386/test_stage386_fail_closed.py
+
+# Stage386 public evidence portability manifest
+!development/stage386/stage386_evidence_portability_manifest.json
+!development/stage386/stage386_evidence_portability_manifest.sha256
+
+# Stage386 public PQC independent reverification workflow
+!.github/workflows/stage386-pqc-independent-reverification.yml
