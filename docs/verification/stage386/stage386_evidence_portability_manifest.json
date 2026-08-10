@@ -1,0 +1,97 @@
+{
+  "algorithm": "ML-DSA-65",
+  "artifacts": [
+    {
+      "path": "docs/mldsa-production/stage375_mldsa65_public_key.pem",
+      "role": "public_key",
+      "sha256": "1416f7cf4b7b755e86de50d56a63acb9d3b4cb2ce970253bccce45c26b358d19",
+      "size_bytes": 2726
+    },
+    {
+      "path": "docs/mldsa-production/stage375_mldsa65_signature.bin",
+      "role": "signature",
+      "sha256": "6cc2d3d0a3a7d5a603346dc65597aac950dc97cbbaeddfecd6405c7d585445c4",
+      "size_bytes": 3309
+    },
+    {
+      "path": "docs/mldsa-production/stage375_mldsa65_execution_receipt.json",
+      "role": "execution_receipt",
+      "sha256": "87ba679511de584597cd49eae8cb5ba318a8203976033107d0e9a0c9e1652e76",
+      "size_bytes": 1848
+    },
+    {
+      "path": "docs/final-acceptance-attestation/stage373_final_acceptance_attestation.json",
+      "role": "signed_target",
+      "sha256": "6ecf58d0070d8db920744b7d32331e01e8e1aef2eded02dde428b80def79d5e6",
+      "size_bytes": 1084
+    },
+    {
+      "path": "development/stage386/stage386_pqc_reverification_policy.json",
+      "role": "policy",
+      "sha256": "7da8663a37e14e0f8319f7bdd7cf0c65ac606e5b647e60d3c02b4e7fd9ff1ed5",
+      "size_bytes": 1934
+    },
+    {
+      "path": "development/stage386/verify_stage386_pqc_reverification.py",
+      "role": "verifier",
+      "sha256": "10ae58a37d2e5ecd4dbf0dc8c2419f4072ad96434dceec2fcee618e788ecc97b",
+      "size_bytes": 18343
+    },
+    {
+      "path": "development/stage386/test_stage386_fail_closed.py",
+      "role": "fail_closed_tests",
+      "sha256": "58dde5ba144d5cda3eea88b3c50e6b7fc3575632619d49a22e3877368df481cf",
+      "size_bytes": 9300
+    },
+    {
+      "path": "development/stage386/stage386_pqc_independent_reverification_result.json",
+      "role": "verification_result",
+      "sha256": "aab6f8c3ac52ed142a7069de4aba09682ee5206904ff32519448f9548e723d9f",
+      "size_bytes": 2073
+    }
+  ],
+  "context_string": "QSP-Stage375-v1",
+  "decision": "pqc_independent_reverification_verified",
+  "expected_identity": {
+    "logical_attestation_sha256": "d54b7524ced420f664da9d370985585d649ce80584b64bdf87342f89dbfde89f",
+    "public_key_der_sha256": "2589f3e20ddcb0f6b0fec5a145d57d57c5ca8b93866a9672765d2e5557cae595",
+    "public_key_pem_sha256": "1416f7cf4b7b755e86de50d56a63acb9d3b4cb2ce970253bccce45c26b358d19",
+    "signature_sha256": "6cc2d3d0a3a7d5a603346dc65597aac950dc97cbbaeddfecd6405c7d585445c4",
+    "signed_target_sha256": "6ecf58d0070d8db920744b7d32331e01e8e1aef2eded02dde428b80def79d5e6"
+  },
+  "fips_standard": "FIPS 204",
+  "historical_binding": {
+    "new_key_generated": false,
+    "private_key_published": false,
+    "stage375_github_run_id": "29327350883",
+    "stage375_github_sha": "6d528f0a7fb48af18a1e6b78984b6ff5351236ba"
+  },
+  "limitations": {
+    "entire_system_quantum_safe": false,
+    "fips_140_module_validation_claimed": false,
+    "qkd_hardware_verified": false
+  },
+  "manifest_type": "pqc_independent_reverification_evidence_portability_manifest",
+  "source_stage": 385,
+  "stage": 386,
+  "success_requirements": {
+    "decision": "pqc_independent_reverification_verified",
+    "entire_system_quantum_safe": false,
+    "fail_closed_tests_exit_code": 0,
+    "private_key_published": false,
+    "verifier_exit_code": 0
+  },
+  "verification_commands": {
+    "fail_closed_tests": "python3 development/stage386/test_stage386_fail_closed.py",
+    "primary": "python3 development/stage386/verify_stage386_pqc_reverification.py",
+    "result_integrity": "shasum -a 256 -c development/stage386/stage386_pqc_independent_reverification_result.sha256"
+  },
+  "verification_model": {
+    "github_actions_required": false,
+    "network_required_for_reverification": false,
+    "original_stage375_runner_required": false,
+    "private_key_required": false,
+    "public_evidence_only": true,
+    "third_party_reverification_supported": true
+  }
+}

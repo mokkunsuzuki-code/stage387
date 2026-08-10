@@ -4048,5 +4048,254 @@ Verified / Pending / Block</pre>
 </section>
 <!-- STAGE385_APPEND_ONLY_END -->
 
+<!-- STAGE386_APPEND_ONLY_START -->
+<section class="card" id="stage386">
+  <h2>
+    Stage386: PQC Independent Re-verification,
+    Public Key Binding &amp; Evidence Portability Gate
+  </h2>
+
+  <p>
+    Stage386は、Stage385までの暗号移行評価を保持したまま、
+    Stage375で実際に使用されたML-DSA-65公開鍵を
+    同一性確認した上で公開証拠へ結合し、
+    第三者による独立再検証可能性を確立します。
+  </p>
+
+  <h3>Current Verified State</h3>
+
+  <ul>
+    <li>
+      Decision:
+      <code>pqc_independent_reverification_verified</code>
+    </li>
+    <li>
+      Verification status:
+      <code>verified</code>
+    </li>
+    <li>
+      Algorithm:
+      <code>ML-DSA-65</code>
+    </li>
+    <li>
+      Public-key PEM SHA-256 matches:
+      <code>true</code>
+    </li>
+    <li>
+      Public-key DER SHA-256 matches:
+      <code>true</code>
+    </li>
+    <li>
+      Signature SHA-256 matches:
+      <code>true</code>
+    </li>
+    <li>
+      Signed-target SHA-256 matches:
+      <code>true</code>
+    </li>
+    <li>
+      Logical-attestation SHA-256 matches:
+      <code>true</code>
+    </li>
+    <li>
+      Stage375 receipt binding verified:
+      <code>true</code>
+    </li>
+    <li>
+      Algorithm identifier verified:
+      <code>true</code>
+    </li>
+    <li>
+      Context string verified:
+      <code>true</code>
+    </li>
+    <li>
+      Independent ML-DSA-65 verification:
+      <code>true</code>
+    </li>
+    <li>
+      Third-party reverification supported:
+      <code>true</code>
+    </li>
+    <li>
+      Private key published:
+      <code>false</code>
+    </li>
+    <li>
+      Entire system quantum safe:
+      <code>false</code>
+    </li>
+  </ul>
+
+  <h3>Stage385 to Stage386 Evolution</h3>
+
+  <p>
+    Stage385では、ML-DSA-65の過去の実行検証証拠は確認できましたが、
+    現在のリポジトリから第三者が取得できる
+    ML-DSA公開鍵が存在しないため、
+    独立した暗号学的再検証は完結していませんでした。
+  </p>
+
+  <p>
+    Stage386では、Stage375で実際に使用された公開鍵を
+    新規生成や置換を行わず復元し、
+    記録済みPEMおよびDER SHA-256との一致を確認した上で、
+    署名、署名対象、実行receiptへ結合しました。
+  </p>
+
+  <h3>Public Key Binding</h3>
+
+  <ul>
+    <li>
+      Algorithm:
+      <code>ML-DSA-65</code>
+    </li>
+    <li>
+      Stage375 public-key PEM SHA-256:
+      <code>1416f7cf4b7b755e86de50d56a63acb9d3b4cb2ce970253bccce45c26b358d19</code>
+    </li>
+    <li>
+      Stage375 public-key DER SHA-256:
+      <code>2589f3e20ddcb0f6b0fec5a145d57d57c5ca8b93866a9672765d2e5557cae595</code>
+    </li>
+    <li>
+      Public key type:
+      <code>ML-DSA-65 Public-Key</code>
+    </li>
+    <li>
+      Private key published:
+      <code>false</code>
+    </li>
+  </ul>
+
+  <h3>Independent Re-verification</h3>
+
+  <p>
+    Stage386は、公開されたML-DSA-65公開鍵、
+    Stage375署名、署名対象、実行receiptを用いて、
+    現在の環境から独立したML-DSA-65署名検証を実行します。
+    公開鍵、署名、対象、アルゴリズム、contextの
+    いずれかが一致しない場合はFail-Closedで拒否します。
+  </p>
+
+  <h3>Fail-Closed Verification</h3>
+
+  <ul>
+    <li>Missing public key is rejected.</li>
+    <li>PEM public-key hash mismatch is rejected.</li>
+    <li>DER public-key hash mismatch is rejected.</li>
+    <li>Missing signature is rejected.</li>
+    <li>Signature tampering is rejected.</li>
+    <li>Signed-target tampering is rejected.</li>
+    <li>Stage375 receipt-binding mismatch is rejected.</li>
+    <li>Algorithm downgrade is rejected.</li>
+    <li>Context mismatch is rejected.</li>
+    <li>Private-key publication triggers Fail-Closed.</li>
+    <li>Forbidden tracked paths trigger Fail-Closed.</li>
+  </ul>
+
+  <h3>Public Stage386 Evidence</h3>
+
+  <ul>
+    <li>
+      <a href="./verification/stage386/stage386_pqc_reverification_policy.json">
+        Stage386 PQC Re-verification Policy
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage386/stage386_pqc_reverification_policy.sha256">
+        Stage386 Policy SHA-256 Record
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage386/stage386_pqc_independent_reverification_result.json">
+        Stage386 PQC Independent Re-verification Result
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage386/stage386_pqc_independent_reverification_result.sha256">
+        Stage386 Result SHA-256 Record
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage386/stage386_evidence_portability_manifest.json">
+        Stage386 Evidence Portability Manifest
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage386/stage386_evidence_portability_manifest.sha256">
+        Stage386 Manifest SHA-256 Record
+      </a>
+    </li>
+    <li>
+      <a href="./mldsa-production/stage375_mldsa65_public_key.pem">
+        Stage375 ML-DSA-65 Public Key
+      </a>
+    </li>
+  </ul>
+
+  <h3>Verified GitHub Actions State</h3>
+
+  <ul>
+    <li>
+      Workflow:
+      <code>Stage386 PQC Independent Re-verification</code>
+    </li>
+    <li>
+      Workflow run:
+      <code>31352161428</code>
+    </li>
+    <li>
+      Workflow result:
+      <code>success</code>
+    </li>
+    <li>
+      Result SHA-256:
+      <code>aab6f8c3ac52ed142a7069de4aba09682ee5206904ff32519448f9548e723d9f</code>
+    </li>
+  </ul>
+
+  <h3>Formal-Acceptance Boundary</h3>
+
+  <p>
+    Stage386のPQC独立再検証成功は、
+    QSPシステム全体が量子安全であること、
+    Stage377の二重タイムスタンプ最終承認が完了したこと、
+    またはシステム全体の正式承認が完了したことを意味しません。
+  </p>
+
+  <ul>
+    <li>Entire system quantum safe: <code>false</code></li>
+    <li>Pipeline completion is not claimed.</li>
+    <li>System-wide formal acceptance is not claimed.</li>
+  </ul>
+
+  <h3>Preservation Boundary</h3>
+
+  <p>
+    Stage386はStage385以前の既存記録を
+    変更、削除、置換、上書きしません。
+    Stage385の
+    <code>Current public ML-DSA key available: false</code>
+    はStage385時点の歴史的状態として保持されます。
+  </p>
+
+  <h3>Publication Boundary</h3>
+
+  <ul>
+    <li>No private core is published.</li>
+    <li>No private directory is published.</li>
+    <li>No secret, credential, token, seed, or private key is published.</li>
+    <li>The ML-DSA-65 public key may be published.</li>
+    <li>No raw QKD secret material is published.</li>
+    <li>Only reviewed public evidence and verification results are published.</li>
+  </ul>
+
+  <p>
+    <strong>License:</strong> MIT License
+  </p>
+</section>
+<!-- STAGE386_APPEND_ONLY_END -->
+
 </body>
 </html>

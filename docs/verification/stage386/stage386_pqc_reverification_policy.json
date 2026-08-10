@@ -1,0 +1,43 @@
+{
+  "stage": 386,
+  "name": "PQC Independent Re-verification, Public Key Binding & Evidence Portability Gate",
+  "source_stage": 385,
+  "algorithm": "ML-DSA-65",
+  "fips_standard": "FIPS 204",
+  "context_string": "QSP-Stage375-v1",
+  "expected": {
+    "public_key_pem_sha256": "1416f7cf4b7b755e86de50d56a63acb9d3b4cb2ce970253bccce45c26b358d19",
+    "public_key_der_sha256": "2589f3e20ddcb0f6b0fec5a145d57d57c5ca8b93866a9672765d2e5557cae595",
+    "signature_sha256": "6cc2d3d0a3a7d5a603346dc65597aac950dc97cbbaeddfecd6405c7d585445c4",
+    "signed_target_sha256": "6ecf58d0070d8db920744b7d32331e01e8e1aef2eded02dde428b80def79d5e6",
+    "logical_attestation_sha256": "d54b7524ced420f664da9d370985585d649ce80584b64bdf87342f89dbfde89f",
+    "historical_stage375_github_sha": "6d528f0a7fb48af18a1e6b78984b6ff5351236ba",
+    "historical_stage375_github_run_id": "29327350883"
+  },
+  "paths": {
+    "public_key": "docs/mldsa-production/stage375_mldsa65_public_key.pem",
+    "signature": "docs/mldsa-production/stage375_mldsa65_signature.bin",
+    "execution_receipt": "docs/mldsa-production/stage375_mldsa65_execution_receipt.json",
+    "signed_target": "docs/final-acceptance-attestation/stage373_final_acceptance_attestation.json"
+  },
+  "requirements": {
+    "public_key_present": true,
+    "public_key_pem_sha256_matches": true,
+    "public_key_der_sha256_matches": true,
+    "signature_present": true,
+    "signature_sha256_matches": true,
+    "signed_target_present": true,
+    "signed_target_sha256_matches": true,
+    "logical_attestation_sha256_matches": true,
+    "independent_mldsa65_verification": true,
+    "third_party_reverification_supported": true,
+    "new_key_generated": false,
+    "private_key_published": false,
+    "fail_closed": true
+  },
+  "success_decision": "pqc_independent_reverification_verified",
+  "limitations": {
+    "entire_system_quantum_safe": false,
+    "fips_140_module_validation_claimed": false
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "algorithm": "ML-DSA-65",
+  "checks": {
+    "algorithm_identifier_verified": true,
+    "context_string_verified": true,
+    "independent_mldsa65_verification": true,
+    "logical_attestation_sha256_matches": true,
+    "no_forbidden_tracked_paths": true,
+    "no_private_key_published": true,
+    "public_key_der_sha256_matches": true,
+    "public_key_pem_sha256_matches": true,
+    "public_key_present": true,
+    "receipt_binding_verified": true,
+    "signature_present": true,
+    "signature_sha256_matches": true,
+    "signed_target_present": true,
+    "signed_target_sha256_matches": true,
+    "third_party_reverification_supported": true
+  },
+  "context_string": "QSP-Stage375-v1",
+  "decision": "pqc_independent_reverification_verified",
+  "engine": "PQC Independent Re-verification, Public Key Binding & Evidence Portability Gate",
+  "fips_standard": "FIPS 204",
+  "historical_binding": {
+    "new_key_generated": false,
+    "private_key_published": false,
+    "stage375_github_run_id": "29327350883",
+    "stage375_github_sha": "6d528f0a7fb48af18a1e6b78984b6ff5351236ba"
+  },
+  "limitations": {
+    "entire_system_quantum_safe": false,
+    "fips_140_module_validation_claimed": false
+  },
+  "observations": {
+    "declared_attestation_sha256": "d54b7524ced420f664da9d370985585d649ce80584b64bdf87342f89dbfde89f",
+    "logical_attestation_sha256": "d54b7524ced420f664da9d370985585d649ce80584b64bdf87342f89dbfde89f",
+    "openssl_public_key_type": "ML-DSA-65 Public-Key:",
+    "openssl_verify_exit_code": 0,
+    "public_key_der_sha256": "2589f3e20ddcb0f6b0fec5a145d57d57c5ca8b93866a9672765d2e5557cae595",
+    "public_key_pem_sha256": "1416f7cf4b7b755e86de50d56a63acb9d3b4cb2ce970253bccce45c26b358d19",
+    "signature_sha256": "6cc2d3d0a3a7d5a603346dc65597aac950dc97cbbaeddfecd6405c7d585445c4",
+    "signed_target_sha256": "6ecf58d0070d8db920744b7d32331e01e8e1aef2eded02dde428b80def79d5e6"
+  },
+  "security_boundary": {
+    "forbidden_tracked_paths": [],
+    "private_pem_files": []
+  },
+  "source_stage": 385,
+  "stage": 386,
+  "verification_status": "verified"
+}

@@ -913,3 +913,213 @@ See:
 LICENSE
 
 The MIT License applies to the published source code and documentation in this repository. It does not override restrictions, confidentiality requirements, third-party licenses, or security controls applicable to private material or external evidence.
+
+---
+
+## Stage386: PQC Independent Re-verification, Public Key Binding & Evidence Portability Gate
+
+Stage386 extends Stage385 without replacing or rewriting the historical Stage385 state.
+
+Stage385 identified a specific PQC verification gap:
+
+- historical ML-DSA-65 signature execution evidence existed
+- the current public repository did not contain the original ML-DSA-65 public key
+- therefore a new third party could not independently repeat the cryptographic verification
+
+Stage386 closes that gap by recovering the original Stage375 ML-DSA-65 public key, verifying its recorded identity, publishing only the public verification material, and independently re-verifying the historical Stage375 signature.
+
+### Verified Stage386 Decision
+
+Current Stage386 decision:
+
+`pqc_independent_reverification_verified`
+
+Verification status:
+
+`verified`
+
+The following bindings are verified:
+
+- algorithm: `ML-DSA-65`
+- public-key PEM SHA-256 match: `true`
+- public-key DER SHA-256 match: `true`
+- signature SHA-256 match: `true`
+- signed-target SHA-256 match: `true`
+- logical-attestation SHA-256 match: `true`
+- Stage375 execution-receipt binding: `true`
+- algorithm identifier verification: `true`
+- context-string binding: `true`
+- independent ML-DSA-65 signature verification: `true`
+- third-party re-verification supported: `true`
+- private key published: `false`
+
+### Original Stage375 Public-Key Identity
+
+The Stage386 public key is not a newly generated replacement key.
+
+It is bound to the historical Stage375 ML-DSA-65 evidence.
+
+Expected PEM SHA-256:
+
+`1416f7cf4b7b755e86de50d56a63acb9d3b4cb2ce970253bccce45c26b358d19`
+
+Expected DER SHA-256:
+
+`2589f3e20ddcb0f6b0fec5a145d57d57c5ca8b93866a9672765d2e5557cae595`
+
+Historical Stage375 Git commit:
+
+`6d528f0a7fb48af18a1e6b78984b6ff5351236ba`
+
+Historical Stage375 GitHub Actions run:
+
+`29327350883`
+
+Public key:
+
+`docs/mldsa-production/stage375_mldsa65_public_key.pem`
+
+### Independent Re-verification
+
+Stage386 independently verifies the historical Stage375 ML-DSA-65 signature using only public verification material:
+
+- ML-DSA-65 public key
+- historical signature
+- historical signed target
+- Stage375 execution receipt
+- Stage375 context string
+- Stage386 verification policy
+
+No ML-DSA private key is required.
+
+No private seed is required.
+
+No original Stage375 GitHub Actions runner is required.
+
+### Cross-Environment Verification
+
+Stage386 has been verified in more than one environment.
+
+Local macOS verification:
+
+- OpenSSL 3.6.3
+- ML-DSA-65 public-key recognition: passed
+- independent signature re-verification: passed
+- deterministic Stage386 result: passed
+- Fail-Closed test suite: passed
+
+GitHub Actions Ubuntu verification:
+
+- runner-default OpenSSL 3.0.13 did not provide the required ML-DSA-65 capability
+- Stage386 correctly stopped instead of bypassing the requirement
+- the workflow then adopted the Stage375-recorded OpenSSL source identity
+- pinned OpenSSL version: 3.5.7
+- source tag: `openssl-3.5.7`
+- source commit:
+  `8cf17aaeb4599f8af87fefd810b5b5fee90fe69e`
+- independent ML-DSA-65 re-verification: passed
+
+Verified Stage386 GitHub Actions run:
+
+`31352161428`
+
+Stage386 result SHA-256:
+
+`aab6f8c3ac52ed142a7069de4aba09682ee5206904ff32519448f9548e723d9f`
+
+### Fail-Closed Verification
+
+Stage386 rejects or fails closed when required evidence or trust boundaries are violated.
+
+Verified cases include:
+
+- missing public key
+- public-key PEM hash mismatch
+- public-key DER hash mismatch
+- missing signature
+- signature tampering
+- signed-target tampering
+- Stage375 receipt-binding mismatch
+- algorithm downgrade
+- context-string mismatch
+- private-key publication
+- forbidden tracked private paths
+
+The successful path is accepted only when all required bindings and the independent ML-DSA-65 verification succeed.
+
+### Evidence Portability
+
+Stage386 publishes a deterministic evidence-portability manifest so that third parties can identify the exact files required for re-verification and verify their SHA-256 identities.
+
+Public Stage386 evidence is available under:
+
+`docs/verification/stage386/`
+
+Public evidence includes:
+
+- `stage386_pqc_reverification_policy.json`
+- `stage386_pqc_reverification_policy.sha256`
+- `stage386_pqc_independent_reverification_result.json`
+- `stage386_pqc_independent_reverification_result.sha256`
+- `stage386_evidence_portability_manifest.json`
+- `stage386_evidence_portability_manifest.sha256`
+
+The original Stage375 ML-DSA-65 public key remains at:
+
+`docs/mldsa-production/stage375_mldsa65_public_key.pem`
+
+### Preservation Boundary
+
+Stage386 does not rewrite the Stage385 historical record.
+
+In particular, the Stage385 statement that the public ML-DSA key was unavailable at that stage remains part of the historical evidence.
+
+Stage386 records the later transition in which the original Stage375 public key was recovered, identity-bound, published, and independently re-verified.
+
+Stage386 does not modify, delete, replace, or overwrite the historical verification results of previous stages.
+
+### Public and Private Boundaries
+
+The following directories must remain private and must not be published to GitHub:
+
+- `core/`
+- `private_core/`
+- `private/`
+- `secrets/`
+- `keys/`
+- `imported/`
+
+Stage386 must not publish:
+
+- ML-DSA private keys
+- ML-DSA private seeds
+- KeyGen seed material
+- GitHub Secrets
+- credentials
+- access tokens
+- raw QKD secret-key material
+- private cryptographic evidence
+
+The ML-DSA-65 public key is public verification material and may be published.
+
+### Important Limitation
+
+Stage386 verifies the historical ML-DSA-65 signature and establishes independent PQC re-verification capability.
+
+It does not prove that the entire QSP system is quantum safe.
+
+Current limitation:
+
+`entire_system_quantum_safe = false`
+
+Stage386 also does not claim completion of Stage377 dual-timestamp final acceptance or system-wide formal acceptance.
+
+## Stage386 License
+
+This project is licensed under the MIT License.
+
+See the repository-level:
+
+`LICENSE`
+
+The MIT License applies to the published source code and documentation in this repository. It does not override confidentiality requirements, security boundaries, private-material restrictions, or applicable third-party licenses.
