@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="google" content="notranslate">
-  <title>Stage385: Cryptographic Agility Inventory, PQC Migration Readiness &amp; Algorithm Policy Enforcement Gate</title>
+  <title>Stage386: PQC Independent Re-verification, Public Key Binding &amp; Evidence Portability Gate</title>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; background: #f6f8fa; color: #24292f; }
     header { background: #0d1117; color: white; padding: 44px 32px; }
@@ -27,6 +27,38 @@
 <body>
 
 
+
+<!-- STAGE386_CURRENT_PAGE_HEADER_START -->
+<section class="card">
+  <h1>Stage386</h1>
+
+  <h2>
+    PQC Independent Re-verification,
+    Public Key Binding &amp;
+    Evidence Portability Gate
+  </h2>
+
+  <p>
+    Stage385までの検証履歴と公開ページ構造を保持したまま、
+    Stage375で実際に使用されたML-DSA-65公開鍵を
+    同一性確認した上で公開証拠へ結合し、
+    第三者による独立再検証可能性を確立します。
+  </p>
+
+  <p>
+    Stage386は新しいML-DSA鍵を生成せず、
+    Stage375で実際に使用された公開鍵の
+    PEMおよびDER SHA-256を照合し、
+    署名、署名対象、実行receipt、algorithm、
+    contextを独立して再検証します。
+  </p>
+
+  <p>
+    Current decision:
+    <code>pqc_independent_reverification_verified</code>
+  </p>
+</section>
+<!-- STAGE386_CURRENT_PAGE_HEADER_END -->
 
 <!-- STAGE385_CURRENT_PAGE_HEADER_START -->
 <section class="card">
@@ -58,10 +90,8 @@
 <!-- STAGE385_CURRENT_PAGE_HEADER_END -->
 
 <!-- STAGE384_CURRENT_PAGE_HEADER_START -->
-<script>
-  document.title =
-    "Stage384: Continuous Trust-State Reverification & Change Invalidation Gate";
-</script>
+<!-- Historical Stage384 title assignment disabled by Stage386.
+Stage384 content below is preserved unchanged. -->
 
 <section
   id="stage384-current-page-header"
@@ -94,10 +124,8 @@
 <!-- STAGE384_CURRENT_PAGE_HEADER_END -->
 
 <!-- STAGE382_CURRENT_PAGE_HEADER_START -->
-<script>
-  document.title =
-    "Stage382: Upstream Finalization Recovery & Policy Activation Gate";
-</script>
+<!-- Historical Stage382 title assignment disabled by Stage386.
+Stage382 content below is preserved unchanged. -->
 
 <section
   id="stage382-current-page-header"
