@@ -34,6 +34,63 @@ jobs:
           openssl version
           git --version
 
+      - name: Build pinned OpenSSL for ML-DSA-65
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          RECEIPT="docs/mldsa-production/stage375_mldsa65_execution_receipt.json"
+
+          OPENSSL_TAG="$(
+            python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["openssl_source_tag"])' "${RECEIPT}"
+          )"
+
+          EXPECTED_SOURCE_COMMIT="$(
+            python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["openssl_source_commit"])' "${RECEIPT}"
+          )"
+
+          mkdir -p             private/stage386-openssl
+
+          git clone             --depth 1             --branch "${OPENSSL_TAG}"             https://github.com/openssl/openssl.git             private/stage386-openssl/source
+
+          ACTUAL_SOURCE_COMMIT="$(
+            git -C               private/stage386-openssl/source               rev-parse HEAD
+          )"
+
+          echo "openssl_tag=${OPENSSL_TAG}"
+          echo "expected_source_commit=${EXPECTED_SOURCE_COMMIT}"
+          echo "actual_source_commit=${ACTUAL_SOURCE_COMMIT}"
+
+          if [ "${ACTUAL_SOURCE_COMMIT}" != "${EXPECTED_SOURCE_COMMIT}" ]; then
+            echo "FAIL: pinned OpenSSL source commit mismatch"
+            exit 1
+          fi
+
+          cd private/stage386-openssl/source
+
+          ./Configure             --prefix="${GITHUB_WORKSPACE}/private/stage386-openssl/install"             --openssldir="${GITHUB_WORKSPACE}/private/stage386-openssl/install/ssl"             no-shared
+
+          make -j2
+          make install_sw
+
+          PINNED_OPENSSL="${GITHUB_WORKSPACE}/private/stage386-openssl/install/bin/openssl"
+
+          "${PINNED_OPENSSL}" version
+
+          "${PINNED_OPENSSL}"             list -signature-algorithms             | grep -i "ML-DSA-65"
+
+          echo             "${GITHUB_WORKSPACE}/private/stage386-openssl/install/bin"             >> "${GITHUB_PATH}"
+
+      - name: Confirm pinned OpenSSL environment
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "openssl_path=$(command -v openssl)"
+          openssl version
+
+          openssl list -signature-algorithms             | grep -i "ML-DSA-65"
+
       - name: Validate Python syntax
         shell: bash
         run: |
