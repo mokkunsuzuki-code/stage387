@@ -417,3 +417,44 @@ development/stage386/*
 
 # Stage386 public PQC independent reverification workflow
 !.github/workflows/stage386-pqc-independent-reverification.yml
+
+# Stage387 public PQC multi-implementation interoperability package
+
+!development/stage387/
+development/stage387/*
+
+!development/stage387/README.md
+!development/stage387/stage387_pqc_interoperability_policy.json
+!development/stage387/stage387_pqc_interoperability_policy.sha256
+
+# Stage387 CIRCL independent verifier
+
+!development/stage387/go.mod
+!development/stage387/go.sum
+!development/stage387/stage387_circl_mldsa65_verifier.go
+
+# Stage387 multi-implementation interoperability gate
+
+!development/stage387/verify_stage387_pqc_interoperability.py
+
+# Stage387 deterministic interoperability result
+
+!development/stage387/stage387_pqc_multi_implementation_interoperability_result.json
+!development/stage387/stage387_pqc_multi_implementation_interoperability_result.sha256
+
+# Stage387 fail-closed interoperability test suite
+
+!development/stage387/test_stage387_fail_closed.py
+
+# Stage387 public evidence portability manifest
+
+!development/stage387/stage387_evidence_portability_manifest.json
+!development/stage387/stage387_evidence_portability_manifest.sha256
+
+# Stage387 deterministic portability manifest generator
+
+!development/stage387/generate_stage387_evidence_portability_manifest.py
+
+# Stage387 public multi-implementation interoperability workflow
+
+!.github/workflows/stage387-pqc-multi-implementation-interoperability.yml

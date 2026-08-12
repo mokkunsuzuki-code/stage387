@@ -1,0 +1,132 @@
+{
+  "algorithm": "ML-DSA-65",
+  "artifacts": [
+    {
+      "path": "development/stage387/stage387_pqc_interoperability_policy.json",
+      "role": "stage387_policy",
+      "sha256": "ef66ef32af7e1c844f17f0fe6402041a25fb4c58eb573196e1d50d99ef91c0d6",
+      "size_bytes": 1625
+    },
+    {
+      "path": "development/stage387/stage387_pqc_interoperability_policy.sha256",
+      "role": "stage387_policy_sha256_record",
+      "sha256": "5019b31ac661838d711e83311642a72d93c8a869cc805639c8371c49bb671ad0",
+      "size_bytes": 129
+    },
+    {
+      "path": "development/stage387/verify_stage387_pqc_interoperability.py",
+      "role": "stage387_python_gate",
+      "sha256": "c24e8ffa9ec0d9e9d8b133b13f3e947164eb4b8d4305e376c883ae9d4f581d49",
+      "size_bytes": 19102
+    },
+    {
+      "path": "development/stage387/stage387_circl_mldsa65_verifier.go",
+      "role": "stage387_circl_verifier",
+      "sha256": "9ced433fc2b5e752d4efe95d47968c9768d8dcdf04ca9f96a4a8ea215a7b05b0",
+      "size_bytes": 2219
+    },
+    {
+      "path": "development/stage387/go.mod",
+      "role": "stage387_go_module",
+      "sha256": "684b04ac5b97cba86d48797c2c5e1c6ee543a46a8be89ca9da13a79e9503c99b",
+      "size_bytes": 136
+    },
+    {
+      "path": "development/stage387/go.sum",
+      "role": "stage387_go_dependency_lock",
+      "sha256": "e9ab34142da606013dab85c4728bbc48a7232f10a99ed6c097231cfafd133980",
+      "size_bytes": 326
+    },
+    {
+      "path": "development/stage387/test_stage387_fail_closed.py",
+      "role": "stage387_fail_closed_tests",
+      "sha256": "b3597c0f945994196f040a39645e1a13716c2552269de6093a46e16278fd68c1",
+      "size_bytes": 9007
+    },
+    {
+      "path": "development/stage387/stage387_pqc_multi_implementation_interoperability_result.json",
+      "role": "stage387_verified_result",
+      "sha256": "682a9aa96a7ec1eba9a0dea956971838a4ea222dd540adfc79f4776a6f0237d8",
+      "size_bytes": 1800
+    },
+    {
+      "path": "development/stage387/stage387_pqc_multi_implementation_interoperability_result.sha256",
+      "role": "stage387_result_sha256_record",
+      "sha256": "3e14f8e3e77877d759d1a8d3163bc1a22910dab892e74fd4529495bb4d61c190",
+      "size_bytes": 150
+    },
+    {
+      "path": "docs/mldsa-production/stage375_mldsa65_public_key.pem",
+      "role": "stage375_public_key",
+      "sha256": "1416f7cf4b7b755e86de50d56a63acb9d3b4cb2ce970253bccce45c26b358d19",
+      "size_bytes": 2726
+    },
+    {
+      "path": "docs/mldsa-production/stage375_mldsa65_signature.bin",
+      "role": "stage375_signature",
+      "sha256": "6cc2d3d0a3a7d5a603346dc65597aac950dc97cbbaeddfecd6405c7d585445c4",
+      "size_bytes": 3309
+    },
+    {
+      "path": "docs/final-acceptance-attestation/stage373_final_acceptance_attestation.json",
+      "role": "stage375_signed_target",
+      "sha256": "6ecf58d0070d8db920744b7d32331e01e8e1aef2eded02dde428b80def79d5e6",
+      "size_bytes": 1084
+    },
+    {
+      "path": "docs/mldsa-production/stage375_mldsa65_execution_receipt.json",
+      "role": "stage375_execution_receipt",
+      "sha256": "87ba679511de584597cd49eae8cb5ba318a8203976033107d0e9a0c9e1652e76",
+      "size_bytes": 1848
+    },
+    {
+      "path": "development/stage387/generate_stage387_evidence_portability_manifest.py",
+      "role": "stage387_manifest_generator",
+      "sha256": "9eb7753f95d0f4d96becd17d659c78002626e72c3f5cdecdc5d5246051897d44",
+      "size_bytes": 6207
+    },
+    {
+      "path": ".github/workflows/stage387-pqc-multi-implementation-interoperability.yml",
+      "role": "stage387_github_actions_workflow",
+      "sha256": "431694cab1f10c875cd2bcb1871f8a980387eb046b6c75de5e01f8df9a3b2f31",
+      "size_bytes": 14722
+    }
+  ],
+  "context_string": "QSP-Stage375-v1",
+  "expected_result": {
+    "circl_mldsa65_verified": true,
+    "cross_implementation_result_match": true,
+    "decision": "pqc_multi_implementation_interoperability_verified",
+    "openssl_mldsa65_verified": true,
+    "verification_status": "verified"
+  },
+  "fips_standard": "FIPS 204",
+  "implementations": [
+    {
+      "name": "OpenSSL",
+      "role": "implementation_a"
+    },
+    {
+      "name": "Cloudflare CIRCL",
+      "role": "implementation_b",
+      "version": "v1.6.5"
+    }
+  ],
+  "limitations": {
+    "dual_timestamp_final_acceptance_complete": false,
+    "entire_system_quantum_safe": false,
+    "system_wide_formal_acceptance_complete": false
+  },
+  "name": "PQC Multi-Implementation Interoperability & Verifier Independence Gate",
+  "purpose": "Deterministically identify the public evidence required to reproduce Stage387 multi-implementation ML-DSA-65 verification.",
+  "source_stage": 386,
+  "stage": 387,
+  "verification_model": {
+    "dependency_acquisition_may_require_network": true,
+    "network_required_for_cryptographic_verification": false,
+    "new_key_generation_required": false,
+    "new_signature_generation_required": false,
+    "private_key_required": false,
+    "public_evidence_only": true
+  }
+}

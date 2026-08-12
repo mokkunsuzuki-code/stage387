@@ -1,0 +1,544 @@
+name: Stage387 PQC Multi-Implementation Interoperability
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/stage387-pqc-multi-implementation-interoperability.yml"
+      - "development/stage387/**"
+      - "docs/mldsa-production/stage375_mldsa65_public_key.pem"
+      - "docs/mldsa-production/stage375_mldsa65_signature.bin"
+      - "docs/mldsa-production/stage375_mldsa65_execution_receipt.json"
+      - "docs/final-acceptance-attestation/stage373_final_acceptance_attestation.json"
+
+permissions:
+  contents: read
+
+jobs:
+  stage387-multi-implementation-interoperability:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Stage387
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Setup Go
+        uses: actions/setup-go@v7
+        with:
+          go-version: "1.26.5"
+          cache: false
+
+      - name: Show base environment
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 --version
+          go version
+          git --version
+          openssl version
+
+      - name: Build pinned OpenSSL for ML-DSA-65
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          RECEIPT="docs/mldsa-production/stage375_mldsa65_execution_receipt.json"
+
+          OPENSSL_TAG="$(
+            python3 -c \
+              'import json,sys; print(json.load(open(sys.argv[1]))["openssl_source_tag"])' \
+              "${RECEIPT}"
+          )"
+
+          EXPECTED_SOURCE_COMMIT="$(
+            python3 -c \
+              'import json,sys; print(json.load(open(sys.argv[1]))["openssl_source_commit"])' \
+              "${RECEIPT}"
+          )"
+
+          mkdir -p private/stage387-openssl
+
+          git clone \
+            --depth 1 \
+            --branch "${OPENSSL_TAG}" \
+            https://github.com/openssl/openssl.git \
+            private/stage387-openssl/source
+
+          ACTUAL_SOURCE_COMMIT="$(
+            git -C \
+              private/stage387-openssl/source \
+              rev-parse HEAD
+          )"
+
+          echo "openssl_tag=${OPENSSL_TAG}"
+          echo "expected_source_commit=${EXPECTED_SOURCE_COMMIT}"
+          echo "actual_source_commit=${ACTUAL_SOURCE_COMMIT}"
+
+          if [ "${ACTUAL_SOURCE_COMMIT}" != "${EXPECTED_SOURCE_COMMIT}" ]; then
+            echo "FAIL: pinned OpenSSL source commit mismatch"
+            exit 1
+          fi
+
+          cd private/stage387-openssl/source
+
+          ./Configure \
+            --prefix="${GITHUB_WORKSPACE}/private/stage387-openssl/install" \
+            --openssldir="${GITHUB_WORKSPACE}/private/stage387-openssl/install/ssl" \
+            no-shared
+
+          make -j2
+          make install_sw
+
+          PINNED_OPENSSL="${GITHUB_WORKSPACE}/private/stage387-openssl/install/bin/openssl"
+
+          "${PINNED_OPENSSL}" version
+
+          "${PINNED_OPENSSL}" \
+            list -signature-algorithms \
+            | grep -i "ML-DSA-65"
+
+          echo \
+            "${GITHUB_WORKSPACE}/private/stage387-openssl/install/bin" \
+            >> "${GITHUB_PATH}"
+
+      - name: Confirm pinned OpenSSL environment
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "openssl_path=$(command -v openssl)"
+          openssl version
+
+          openssl list -signature-algorithms \
+            | grep -i "ML-DSA-65"
+
+      - name: Validate Stage387 Python syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 -m py_compile \
+            development/stage387/verify_stage387_pqc_interoperability.py
+
+          python3 -m py_compile \
+            development/stage387/test_stage387_fail_closed.py
+
+          python3 -m py_compile \
+            development/stage387/generate_stage387_evidence_portability_manifest.py
+
+      - name: Verify CIRCL dependency pin
+        shell: bash
+        working-directory: development/stage387
+        run: |
+          set -euo pipefail
+
+          go version
+
+          ACTUAL_CIRCL="$(
+            go list \
+              -m \
+              -f '{{.Version}}' \
+              github.com/cloudflare/circl
+          )"
+
+          echo "circl_version=${ACTUAL_CIRCL}"
+
+          test "${ACTUAL_CIRCL}" = "v1.6.5"
+
+          echo "PASS: CIRCL v1.6.5 pinned"
+
+      - name: Verify Go module integrity
+        shell: bash
+        working-directory: development/stage387
+        run: |
+          set -euo pipefail
+
+          go mod verify
+
+          echo "PASS: Go module integrity verified"
+
+      - name: Build CIRCL verifier
+        shell: bash
+        working-directory: development/stage387
+        run: |
+          set -euo pipefail
+
+          go test ./...
+
+          go build \
+            -o "${RUNNER_TEMP}/stage387-circl-verifier" \
+            stage387_circl_mldsa65_verifier.go
+
+          test -x \
+            "${RUNNER_TEMP}/stage387-circl-verifier"
+
+          echo "PASS: Stage387 CIRCL verifier built"
+
+      - name: Verify Stage387 policy integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          sha256sum -c \
+            development/stage387/stage387_pqc_interoperability_policy.sha256
+
+      - name: Verify Stage387 result integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          sha256sum -c \
+            development/stage387/stage387_pqc_multi_implementation_interoperability_result.sha256
+
+      - name: Verify Stage387 portability manifest integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          sha256sum -c \
+            development/stage387/stage387_evidence_portability_manifest.sha256
+
+      - name: Verify Stage387 portability artifact bindings
+        shell: python
+        run: |
+          import hashlib
+          import json
+          from pathlib import Path
+
+          root = Path(".").resolve()
+
+          manifest_path = (
+              root
+              / "development/stage387/"
+              "stage387_evidence_portability_manifest.json"
+          )
+
+          manifest = json.loads(
+              manifest_path.read_text(
+                  encoding="utf-8"
+              )
+          )
+
+          failures = []
+
+          for artifact in manifest["artifacts"]:
+              relative = artifact["path"]
+              path = root / relative
+
+              if not path.is_file():
+                  failures.append(
+                      f"missing artifact: {relative}"
+                  )
+                  continue
+
+              actual_sha = hashlib.sha256(
+                  path.read_bytes()
+              ).hexdigest()
+
+              expected_sha = artifact["sha256"]
+
+              actual_size = path.stat().st_size
+              expected_size = artifact["size_bytes"]
+
+              if actual_sha != expected_sha:
+                  failures.append(
+                      f"SHA256 mismatch: {relative}"
+                  )
+                  continue
+
+              if actual_size != expected_size:
+                  failures.append(
+                      f"size mismatch: {relative}"
+                  )
+                  continue
+
+              print(
+                  "PASS:",
+                  artifact["role"],
+                  relative,
+              )
+
+          if failures:
+              for failure in failures:
+                  print(
+                      "FAIL:",
+                      failure,
+                  )
+
+              raise SystemExit(1)
+
+          print(
+              "PASS: all Stage387 portability "
+              "artifact bindings verified"
+          )
+
+      - name: Run Stage387 multi-implementation gate
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 \
+            development/stage387/verify_stage387_pqc_interoperability.py
+
+      - name: Verify deterministic Stage387 result
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          EXPECTED="$(
+            sha256sum \
+              development/stage387/stage387_pqc_multi_implementation_interoperability_result.json \
+            | awk '{print $1}'
+          )"
+
+          python3 \
+            development/stage387/verify_stage387_pqc_interoperability.py
+
+          ACTUAL="$(
+            sha256sum \
+              development/stage387/stage387_pqc_multi_implementation_interoperability_result.json \
+            | awk '{print $1}'
+          )"
+
+          echo "expected=${EXPECTED}"
+          echo "actual=${ACTUAL}"
+
+          test "${EXPECTED}" = "${ACTUAL}"
+
+          echo "PASS: deterministic Stage387 result"
+
+      - name: Run Stage387 fail-closed tests
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 \
+            development/stage387/test_stage387_fail_closed.py
+
+      - name: Regenerate Stage387 portability manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          EXPECTED="$(
+            sha256sum \
+              development/stage387/stage387_evidence_portability_manifest.json \
+            | awk '{print $1}'
+          )"
+
+          python3 \
+            development/stage387/generate_stage387_evidence_portability_manifest.py
+
+          ACTUAL="$(
+            sha256sum \
+              development/stage387/stage387_evidence_portability_manifest.json \
+            | awk '{print $1}'
+          )"
+
+          echo "expected=${EXPECTED}"
+          echo "actual=${ACTUAL}"
+
+          test "${EXPECTED}" = "${ACTUAL}"
+
+          sha256sum -c \
+            development/stage387/stage387_evidence_portability_manifest.sha256
+
+          echo "PASS: deterministic Stage387 portability manifest"
+
+      - name: Check forbidden tracked paths
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          FORBIDDEN="$(
+            git ls-files \
+              | grep -E \
+                '(^|/)(core|private_core|private|secrets|keys|imported)(/|$)' \
+              || true
+          )"
+
+          if [ -n "${FORBIDDEN}" ]; then
+            echo "FAIL: forbidden tracked paths detected"
+            printf '%s\n' "${FORBIDDEN}"
+            exit 1
+          fi
+
+          echo "PASS: no forbidden tracked paths"
+
+      - name: Check tracked private-key PEM
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          FOUND_PRIVATE=0
+
+          while IFS= read -r file
+          do
+            [ -n "${file}" ] || continue
+            [ -f "${file}" ] || continue
+
+            FIRST_LINE="$(
+              awk 'NF {print; exit}' "${file}" \
+                2>/dev/null \
+                || true
+            )"
+
+            case "${FIRST_LINE}" in
+              "-----BEGIN PRIVATE KEY-----" | \
+              "-----BEGIN RSA PRIVATE KEY-----" | \
+              "-----BEGIN EC PRIVATE KEY-----" | \
+              "-----BEGIN OPENSSH PRIVATE KEY-----")
+                echo "FAIL: tracked private-key PEM: ${file}"
+                FOUND_PRIVATE=1
+                ;;
+            esac
+          done < <(git ls-files)
+
+          if [ "${FOUND_PRIVATE}" -ne 0 ]; then
+            exit 1
+          fi
+
+          echo "PASS: no tracked private-key PEM"
+
+      - name: Final Stage387 decision check
+        shell: python
+        run: |
+          import json
+          from pathlib import Path
+
+          path = Path(
+              "development/stage387/"
+              "stage387_pqc_multi_implementation_"
+              "interoperability_result.json"
+          )
+
+          result = json.loads(
+              path.read_text(
+                  encoding="utf-8"
+              )
+          )
+
+          expected = (
+              "pqc_multi_implementation_"
+              "interoperability_verified"
+          )
+
+          if result.get("stage") != 387:
+              raise SystemExit(
+                  "Stage387 stage identifier mismatch."
+              )
+
+          if result.get("decision") != expected:
+              raise SystemExit(
+                  "Stage387 final decision mismatch."
+              )
+
+          if (
+              result.get(
+                  "verification_status"
+              )
+              != "verified"
+          ):
+              raise SystemExit(
+                  "Stage387 verification status "
+                  "is not verified."
+              )
+
+          checks = result.get(
+              "checks",
+              {},
+          )
+
+          required_true = (
+              "public_key_pem_sha256_matches",
+              "public_key_der_sha256_matches",
+              "raw_public_key_sha256_matches",
+              "signature_sha256_matches",
+              "signed_target_sha256_matches",
+              "openssl_mldsa65_verified",
+              "circl_mldsa65_verified",
+              "cross_implementation_result_match",
+              "same_public_key",
+              "same_signature",
+              "same_signed_target",
+              "same_context",
+          )
+
+          for name in required_true:
+              if checks.get(name) is not True:
+                  raise SystemExit(
+                      f"Stage387 required check failed: {name}"
+                  )
+
+          if checks.get(
+              "new_key_generated"
+          ) is not False:
+              raise SystemExit(
+                  "Stage387 unexpectedly generated a new key."
+              )
+
+          if checks.get(
+              "new_signature_generated"
+          ) is not False:
+              raise SystemExit(
+                  "Stage387 unexpectedly generated a new signature."
+              )
+
+          if checks.get(
+              "private_key_published"
+          ) is not False:
+              raise SystemExit(
+                  "Stage387 private-key boundary violated."
+              )
+
+          limitations = result.get(
+              "limitations",
+              {},
+          )
+
+          if (
+              limitations.get(
+                  "entire_system_quantum_safe"
+              )
+              is not False
+          ):
+              raise SystemExit(
+                  "Quantum-safety limitation was lost."
+              )
+
+          if (
+              limitations.get(
+                  "dual_timestamp_final_acceptance_complete"
+              )
+              is not False
+          ):
+              raise SystemExit(
+                  "Dual-timestamp limitation was lost."
+              )
+
+          if (
+              limitations.get(
+                  "system_wide_formal_acceptance_complete"
+              )
+              is not False
+          ):
+              raise SystemExit(
+                  "Formal-acceptance limitation was lost."
+              )
+
+          print(
+              "PASS: Stage387 final decision =",
+              expected,
+          )
+
+          print(
+              "PASS: OpenSSL and CIRCL verification = true"
+          )
+
+          print(
+              "PASS: entire_system_quantum_safe = false"
+          )
