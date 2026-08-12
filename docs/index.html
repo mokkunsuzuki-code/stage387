@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="google" content="notranslate">
-  <title>Stage386: PQC Independent Re-verification, Public Key Binding &amp; Evidence Portability Gate</title>
+  <title>Stage387: PQC Multi-Implementation Interoperability &amp; Verifier Independence Gate</title>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; background: #f6f8fa; color: #24292f; }
     header { background: #0d1117; color: white; padding: 44px 32px; }
@@ -27,6 +27,37 @@
 <body>
 
 
+
+<!-- STAGE387_CURRENT_PAGE_HEADER_START -->
+<section class="card">
+  <h1>Stage387</h1>
+
+  <h2>
+    PQC Multi-Implementation Interoperability
+    &amp; Verifier Independence Gate
+  </h2>
+
+  <p>
+    Stage386までのPQC独立再検証・公開鍵バインディング・
+    証拠可搬性を保持したまま、
+    同一のStage375 ML-DSA-65公開鍵、署名、署名対象、
+    contextを複数の独立した暗号実装で再検証し、
+    特定の検証器だけに依存しないことを確認します。
+  </p>
+
+  <p>
+    OpenSSLとCloudflare CIRCL v1.6.5が
+    同一の公開証拠に対して検証成功し、
+    両実装の結果が一致した場合にのみ
+    Fail-ClosedでStage387成功を判定します。
+  </p>
+
+  <p>
+    Current decision:
+    <code>pqc_multi_implementation_interoperability_verified</code>
+  </p>
+</section>
+<!-- STAGE387_CURRENT_PAGE_HEADER_END -->
 
 <!-- STAGE386_CURRENT_PAGE_HEADER_START -->
 <section class="card">
@@ -4324,6 +4355,285 @@ Verified / Pending / Block</pre>
   </p>
 </section>
 <!-- STAGE386_APPEND_ONLY_END -->
+
+<!-- STAGE387_APPEND_ONLY_START -->
+<section class="card" id="stage387">
+  <h2>
+    Stage387: PQC Multi-Implementation Interoperability
+    &amp; Verifier Independence Gate
+  </h2>
+
+  <p>
+    Stage387は、Stage386で確立した
+    ML-DSA-65の第三者独立再検証可能性をさらに拡張し、
+    同一証拠を異なる暗号実装でも検証できることを確認します。
+  </p>
+
+  <h3>Current Verified State</h3>
+
+  <ul>
+    <li>
+      Decision:
+      <code>pqc_multi_implementation_interoperability_verified</code>
+    </li>
+    <li>
+      Verification status:
+      <code>verified</code>
+    </li>
+    <li>
+      Algorithm:
+      <code>ML-DSA-65</code>
+    </li>
+    <li>
+      Standard:
+      <code>FIPS 204</code>
+    </li>
+    <li>
+      Context:
+      <code>QSP-Stage375-v1</code>
+    </li>
+    <li>
+      OpenSSL ML-DSA-65 verified:
+      <code>true</code>
+    </li>
+    <li>
+      Cloudflare CIRCL v1.6.5 verified:
+      <code>true</code>
+    </li>
+    <li>
+      Cross-implementation result match:
+      <code>true</code>
+    </li>
+    <li>
+      Entire system quantum safe:
+      <code>false</code>
+    </li>
+  </ul>
+
+  <h3>Stage386 to Stage387 Evolution</h3>
+
+  <p>
+    Stage386では、Stage375で実際に使用された
+    ML-DSA-65公開鍵を復元・同一性確認し、
+    公開証拠だけを用いた第三者独立再検証を確立しました。
+  </p>
+
+  <p>
+    Stage387では、その同じ公開鍵、署名、署名対象、
+    contextをOpenSSLとCloudflare CIRCLという
+    異なる暗号実装へ入力し、
+    両方が同じ検証結果を返すことを確認します。
+  </p>
+
+  <p>
+    これにより、
+    「特定のライブラリだけでは成功するが、
+    別実装では検証できない」という
+    実装依存リスクを低減します。
+  </p>
+
+  <h3>Multi-Implementation Verification</h3>
+
+  <ul>
+    <li>
+      Implementation A:
+      <code>OpenSSL</code>
+    </li>
+    <li>
+      Implementation B:
+      <code>Cloudflare CIRCL v1.6.5</code>
+    </li>
+    <li>
+      Same ML-DSA-65 public key:
+      <code>true</code>
+    </li>
+    <li>
+      Same signature:
+      <code>true</code>
+    </li>
+    <li>
+      Same signed target:
+      <code>true</code>
+    </li>
+    <li>
+      Same context:
+      <code>true</code>
+    </li>
+    <li>
+      Cross-implementation agreement:
+      <code>true</code>
+    </li>
+  </ul>
+
+  <h3>Evidence Binding</h3>
+
+  <ul>
+    <li>
+      Public-key PEM SHA-256 matches:
+      <code>true</code>
+    </li>
+    <li>
+      Public-key DER SHA-256 matches:
+      <code>true</code>
+    </li>
+    <li>
+      Raw public-key SHA-256 matches:
+      <code>true</code>
+    </li>
+    <li>
+      Signature SHA-256 matches:
+      <code>true</code>
+    </li>
+    <li>
+      Signed-target SHA-256 matches:
+      <code>true</code>
+    </li>
+  </ul>
+
+  <h3>Fail-Closed Verification</h3>
+
+  <ul>
+    <li>Missing public key is rejected.</li>
+    <li>PEM public-key tampering is rejected.</li>
+    <li>Signature tampering is rejected.</li>
+    <li>Signed-target tampering is rejected.</li>
+    <li>Raw public-key binding mismatch is rejected.</li>
+    <li>Algorithm downgrade is rejected.</li>
+    <li>Context mismatch is rejected.</li>
+    <li>FIPS binding mismatch is rejected.</li>
+    <li>Source-stage mismatch is rejected.</li>
+    <li>Secondary-verifier mismatch is rejected.</li>
+    <li>CIRCL policy-version mismatch is rejected.</li>
+    <li>CIRCL runtime-version mismatch is rejected.</li>
+  </ul>
+
+  <h3>Evidence Portability</h3>
+
+  <p>
+    Stage387は15個の検証アーティファクトを
+    deterministic portability manifestへ結合します。
+    policy、検証器、CIRCL verifier、依存関係、
+    Fail-Closed test、検証result、Stage375公開証拠、
+    manifest generator、GitHub Actions workflowまで
+    SHA-256で識別します。
+  </p>
+
+  <h3>Public Stage387 Evidence</h3>
+
+  <ul>
+    <li>
+      <a href="./verification/stage387/stage387_pqc_interoperability_policy.json">
+        Stage387 PQC Interoperability Policy
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage387/stage387_pqc_interoperability_policy.sha256">
+        Stage387 Policy SHA-256 Record
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage387/stage387_pqc_multi_implementation_interoperability_result.json">
+        Stage387 Multi-Implementation Interoperability Result
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage387/stage387_pqc_multi_implementation_interoperability_result.sha256">
+        Stage387 Result SHA-256 Record
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage387/stage387_evidence_portability_manifest.json">
+        Stage387 Evidence Portability Manifest
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage387/stage387_evidence_portability_manifest.sha256">
+        Stage387 Manifest SHA-256 Record
+      </a>
+    </li>
+    <li>
+      <a href="./mldsa-production/stage375_mldsa65_public_key.pem">
+        Stage375 ML-DSA-65 Public Key
+      </a>
+    </li>
+  </ul>
+
+  <h3>Verified GitHub Actions State</h3>
+
+  <ul>
+    <li>
+      Workflow:
+      <code>Stage387 PQC Multi-Implementation Interoperability</code>
+    </li>
+    <li>
+      Verified baseline run:
+      <code>31604092395</code>
+    </li>
+    <li>
+      Verified baseline commit:
+      <code>248beb3f29b9df978f9a415a885972f0bd9ffc5f</code>
+    </li>
+    <li>
+      Workflow result:
+      <code>success</code>
+    </li>
+    <li>
+      Result SHA-256:
+      <code>682a9aa96a7ec1eba9a0dea956971838a4ea222dd540adfc79f4776a6f0237d8</code>
+    </li>
+  </ul>
+
+  <p>
+    上記baseline runでは、
+    OpenSSLとCIRCLによるML-DSA-65検証、
+    相互実装結果一致、Fail-Closed test、
+    deterministic result、
+    portability artifact bindingが成功しています。
+  </p>
+
+  <h3>Formal-Acceptance Boundary</h3>
+
+  <p>
+    Stage387の相互運用検証成功は、
+    QSPシステム全体が量子安全であること、
+    Stage377の二重タイムスタンプ最終承認が完了したこと、
+    またはシステム全体の正式承認が完了したことを意味しません。
+  </p>
+
+  <ul>
+    <li>
+      Entire system quantum safe:
+      <code>false</code>
+    </li>
+    <li>Pipeline completion is not claimed.</li>
+    <li>System-wide formal acceptance is not claimed.</li>
+  </ul>
+
+  <h3>Preservation Boundary</h3>
+
+  <p>
+    Stage387はStage386以前の既存記録を
+    変更、削除、置換、上書きしません。
+    Stage386の独立再検証結果は歴史的記録として保持します。
+  </p>
+
+  <h3>Publication Boundary</h3>
+
+  <ul>
+    <li>No private core is published.</li>
+    <li>No private directory is published.</li>
+    <li>No secret, credential, token, seed, or private key is published.</li>
+    <li>The ML-DSA-65 public key may be published.</li>
+    <li>No raw QKD secret material is published.</li>
+    <li>Only reviewed public verification evidence is published.</li>
+  </ul>
+
+  <p>
+    <strong>License:</strong>
+    MIT License
+  </p>
+</section>
+<!-- STAGE387_APPEND_ONLY_END -->
 
 </body>
 </html>

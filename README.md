@@ -1123,3 +1123,129 @@ See the repository-level:
 `LICENSE`
 
 The MIT License applies to the published source code and documentation in this repository. It does not override confidentiality requirements, security boundaries, private-material restrictions, or applicable third-party licenses.
+
+## Stage387: PQC Multi-Implementation Interoperability & Verifier Independence Gate
+
+Stage387 extends Stage386 without replacing or rewriting the historical Stage386 state.
+
+Stage386 established independent ML-DSA-65 re-verification using the original Stage375 public key and public verification evidence.
+
+Stage387 adds verifier independence by requiring the same historical ML-DSA-65 evidence to be accepted by more than one independent cryptographic implementation.
+
+### Current Verified Decision
+
+`pqc_multi_implementation_interoperability_verified`
+
+### Verified Implementations
+
+- OpenSSL ML-DSA-65 verification: verified
+- Cloudflare CIRCL v1.6.5 ML-DSA-65 verification: verified
+- Cross-implementation result match: true
+
+Both implementations verify the same:
+
+- Stage375 ML-DSA-65 public key
+- Stage375 ML-DSA-65 signature
+- Stage373 signed target
+- ML-DSA context: `QSP-Stage375-v1`
+
+No replacement key or replacement signature is generated.
+
+### Public-Key and Evidence Binding
+
+- Algorithm: `ML-DSA-65`
+- Standard: `FIPS 204`
+- Public-key PEM SHA-256 matches: true
+- Public-key DER SHA-256 matches: true
+- Raw public-key SHA-256 matches: true
+- Signature SHA-256 matches: true
+- Signed-target SHA-256 matches: true
+
+### Fail-Closed Verification
+
+Stage387 rejects or fails closed when required interoperability evidence or policy boundaries are violated.
+
+Verified abnormal cases include:
+
+- public key missing
+- PEM public-key tampering
+- signature tampering
+- signed-target tampering
+- raw public-key binding mismatch
+- algorithm downgrade
+- context mismatch
+- FIPS binding mismatch
+- source-stage mismatch
+- secondary verifier mismatch
+- CIRCL policy version mismatch
+- CIRCL runtime version mismatch
+
+### Evidence Portability
+
+Stage387 provides a deterministic evidence portability manifest binding 15 verification artifacts, including:
+
+- Stage387 policy
+- Stage387 Python interoperability gate
+- CIRCL ML-DSA-65 verifier
+- Go module and dependency lock
+- Fail-Closed test suite
+- verified Stage387 result
+- Stage375 public verification evidence
+- deterministic manifest generator
+- GitHub Actions interoperability workflow
+
+The portability manifest is deterministically reproducible and SHA-256 bound.
+
+### Verified GitHub Actions State
+
+Stage387 has been independently verified on GitHub Actions / Ubuntu in addition to the local macOS environment.
+
+Verified GitHub Actions run:
+
+`31604092395`
+
+Verified commit:
+
+`248beb3f29b9df978f9a415a885972f0bd9ffc5f`
+
+Workflow result:
+
+`success`
+
+### Security Boundary
+
+Stage387 publishes only reviewed public verification material.
+
+Stage387 does not publish:
+
+- ML-DSA private keys
+- private seeds
+- KeyGen seeds
+- credentials
+- access tokens
+- GitHub secrets
+- private cryptographic material
+
+The historical Stage375 ML-DSA-65 public key is public verification material and remains publishable.
+
+### Important Limitation
+
+Stage387 proves multi-implementation interoperability for the historical Stage375 ML-DSA-65 evidence.
+
+It does not prove that the entire QSP system is quantum safe.
+
+Current limitation:
+
+`entire_system_quantum_safe = false`
+
+Stage387 also does not claim completion of Stage377 dual-timestamp final acceptance or system-wide formal acceptance.
+
+## Stage387 License
+
+This project is licensed under the MIT License.
+
+See the repository-level:
+
+`LICENSE`
+
+The MIT License applies to the published source code and documentation in this repository. It does not override confidentiality requirements, security boundaries, private-material restrictions, or applicable third-party licenses.

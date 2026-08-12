@@ -370,39 +370,71 @@ jobs:
           echo "PASS: no forbidden tracked paths"
 
       - name: Check tracked private-key PEM
-        shell: bash
+        shell: python
         run: |
-          set -euo pipefail
+          import subprocess
+          from pathlib import Path
 
-          FOUND_PRIVATE=0
+          private_headers = {
+              b"-----BEGIN PRIVATE KEY-----",
+              b"-----BEGIN RSA PRIVATE KEY-----",
+              b"-----BEGIN EC PRIVATE KEY-----",
+              b"-----BEGIN OPENSSH PRIVATE KEY-----",
+          }
 
-          while IFS= read -r file
-          do
-            [ -n "${file}" ] || continue
-            [ -f "${file}" ] || continue
+          tracked = subprocess.check_output(
+              [
+                  "git",
+                  "ls-files",
+                  "-z",
+              ]
+          ).split(b"\0")
 
-            FIRST_LINE="$(
-              awk 'NF {print; exit}' "${file}" \
-                2>/dev/null \
-                || true
-            )"
+          failures = []
 
-            case "${FIRST_LINE}" in
-              "-----BEGIN PRIVATE KEY-----" | \
-              "-----BEGIN RSA PRIVATE KEY-----" | \
-              "-----BEGIN EC PRIVATE KEY-----" | \
-              "-----BEGIN OPENSSH PRIVATE KEY-----")
-                echo "FAIL: tracked private-key PEM: ${file}"
-                FOUND_PRIVATE=1
-                ;;
-            esac
-          done < <(git ls-files)
+          for raw_name in tracked:
+              if not raw_name:
+                  continue
 
-          if [ "${FOUND_PRIVATE}" -ne 0 ]; then
-            exit 1
-          fi
+              relative = raw_name.decode(
+                  "utf-8",
+                  errors="surrogateescape",
+              )
 
-          echo "PASS: no tracked private-key PEM"
+              path = Path(relative)
+
+              if not path.is_file():
+                  continue
+
+              try:
+                  data = path.read_bytes()
+              except OSError:
+                  continue
+
+              first_nonempty = b""
+
+              for line in data.splitlines():
+                  stripped = line.strip()
+
+                  if stripped:
+                      first_nonempty = stripped
+                      break
+
+              if first_nonempty in private_headers:
+                  failures.append(relative)
+
+          if failures:
+              for relative in failures:
+                  print(
+                      "FAIL: tracked private-key PEM:",
+                      relative,
+                  )
+
+              raise SystemExit(1)
+
+          print(
+              "PASS: no tracked private-key PEM"
+          )
 
       - name: Final Stage387 decision check
         shell: python
