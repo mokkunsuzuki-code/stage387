@@ -458,3 +458,5 @@ development/stage387/*
 # Stage387 public multi-implementation interoperability workflow
 
 !.github/workflows/stage387-pqc-multi-implementation-interoperability.yml
+!development/stage387/authoritative-rebind/
+!.github/workflows/stage387-authoritative-interoperability-reverification.yml

@@ -1,0 +1,451 @@
+name: Stage387 Authoritative Interoperability Reverification
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/stage387-authoritative-interoperability-reverification.yml'
+      - '.gitignore'
+      - 'development/stage387/**'
+      - 'docs/verification/stage387/**'
+      - 'docs/mldsa-production/stage375_mldsa65_public_key.pem'
+      - 'docs/mldsa-production/stage375_mldsa65_signature.bin'
+      - 'docs/final-acceptance-attestation/stage373_final_acceptance_attestation.json'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: stage387-authoritative-interoperability-reverification
+  cancel-in-progress: false
+
+jobs:
+  stage387-authoritative-interoperability:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.5'
+          cache-dependency-path: development/stage387/go.sum
+
+      - name: Validate Python syntax
+        run: |
+          set -euo pipefail
+
+          python -m py_compile \
+            development/stage387/authoritative-rebind/verify_stage387_authoritative_interoperability.py \
+            development/stage387/authoritative-rebind/test_stage387_authoritative_fail_closed.py
+
+      - name: Verify CIRCL dependency
+        run: |
+          set -euo pipefail
+
+          cd development/stage387
+
+          CIRCL_VERSION="$(
+            go list -m -f '{{.Version}}' github.com/cloudflare/circl
+          )"
+
+          echo "circl_version=$CIRCL_VERSION"
+
+          test "$CIRCL_VERSION" = "v1.6.5"
+
+      - name: Build pinned OpenSSL ML-DSA verifier
+        run: |
+          set -euo pipefail
+
+          git clone \
+            --depth 1 \
+            --branch openssl-3.5.7 \
+            https://github.com/openssl/openssl.git \
+            /tmp/stage387-openssl
+
+          OPENSSL_HEAD="$(
+            git -C /tmp/stage387-openssl rev-parse HEAD
+          )"
+
+          echo "openssl_commit=$OPENSSL_HEAD"
+
+          test "$OPENSSL_HEAD" = "8cf17aaeb4599f8af87fefd810b5b5fee90fe69e"
+
+          cd /tmp/stage387-openssl
+
+          ./Configure \
+            --prefix=/tmp/stage387-openssl-install \
+            no-shared
+
+          make -j2
+          make install_sw
+
+          /tmp/stage387-openssl-install/bin/openssl version
+
+          echo "/tmp/stage387-openssl-install/bin" >> "$GITHUB_PATH"
+
+      - name: Verify authoritative package manifest
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          root = Path.cwd()
+
+          manifest = Path(
+              "development/stage387/authoritative-rebind/"
+              "stage387_authoritative_package_manifest.json"
+          )
+
+          sidecar = Path(
+              "development/stage387/authoritative-rebind/"
+              "stage387_authoritative_package_manifest.sha256"
+          )
+
+          raw = manifest.read_bytes()
+
+          actual = hashlib.sha256(
+              raw
+          ).hexdigest()
+
+          expected = sidecar.read_text(
+              encoding="utf-8"
+          ).split()[0]
+
+          assert actual == expected
+          assert actual == "cec69e4c55b8b10c7bedee5b4cf3bf344fe269596c134c39fef065029e19b855"
+
+          obj = json.loads(
+              raw.decode("utf-8")
+          )
+
+          assert obj["pre_manifest_artifact_count"] == 44
+          assert len(obj["pre_manifest_artifacts"]) == 44
+
+          for item in obj["pre_manifest_artifacts"]:
+              path = root / item["path"]
+
+              assert path.is_file(), item["path"]
+
+              digest = hashlib.sha256(
+                  path.read_bytes()
+              ).hexdigest()
+
+              assert digest == item["sha256"], item["path"]
+
+          assert obj["authoritative_result"]["check_count"] == 28
+          assert obj["authoritative_result"]["failed_check_count"] == 0
+          assert obj["authoritative_result"]["critical_failure_count"] == 0
+
+          assert obj["fail_closed_regression"]["scenario_count"] == 16
+          assert obj["fail_closed_regression"]["passed_scenario_count"] == 16
+          assert obj["fail_closed_regression"]["failed_scenario_count"] == 0
+          assert obj["fail_closed_regression"]["file_mode_restoration_verified"] is True
+
+          print("package_artifact_binding=44_of_44_pass")
+          print("package_manifest_sha256=" + actual)
+          PY
+
+      - name: Run authoritative interoperability verifier
+        run: |
+          set -euo pipefail
+
+          python \
+            development/stage387/authoritative-rebind/verify_stage387_authoritative_interoperability.py
+
+          RESULT_SHA="$(
+            sha256sum \
+              development/stage387/authoritative-rebind/stage387_authoritative_interoperability_result.json |
+            awk '{print $1}'
+          )"
+
+          echo "authoritative_result_sha256=$RESULT_SHA"
+
+          test "$RESULT_SHA" = "e6bc2f2619159da19a499d5df53d7fa674feb99c21a19edc55ffc8f513667efb"
+
+      - name: Validate authoritative interoperability result
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          obj = json.loads(
+              Path(
+                  "development/stage387/authoritative-rebind/"
+                  "stage387_authoritative_interoperability_result.json"
+              ).read_text(
+                  encoding="utf-8"
+              )
+          )
+
+          assert obj["decision"] == "authoritative_pqc_multi_implementation_interoperability_verified"
+          assert obj["verification_status"] == "verified"
+          assert obj["algorithm"] == "ML-DSA-65"
+
+          assert obj["check_count"] == 28
+          assert obj["passed_check_count"] == 28
+          assert obj["failed_check_count"] == 0
+          assert obj["critical_failure_count"] == 0
+
+          assert obj["reexecution"]["openssl_mldsa65_verified"] is True
+          assert obj["reexecution"]["circl_mldsa65_verified"] is True
+          assert obj["reexecution"]["cross_implementation_result_match"] is True
+
+          assert obj["historical_stage387_record_rewritten"] is False
+
+          limits = obj["limitations"]
+
+          assert limits["entire_system_quantum_safe"] is False
+          assert limits["formal_acceptance_eligible"] is False
+          assert limits["formal_acceptance_issued"] is False
+          assert limits["formal_acceptance"] is False
+          assert limits["pipeline_completed"] is False
+          assert limits["public_release_allowed"] is False
+          assert limits["qkd_hardware_verified"] is False
+
+          print("authoritative_checks=28_of_28_pass")
+          print("critical_failure_count=0")
+          PY
+
+      - name: Run authoritative fail-closed regression
+        run: |
+          set -euo pipefail
+
+          python \
+            development/stage387/authoritative-rebind/test_stage387_authoritative_fail_closed.py
+
+          REPORT_SHA="$(
+            sha256sum \
+              development/stage387/authoritative-rebind/stage387_authoritative_fail_closed_report.json |
+            awk '{print $1}'
+          )"
+
+          echo "fail_closed_report_sha256=$REPORT_SHA"
+
+          test "$REPORT_SHA" = "fee535829f38dca3bb6b5f62d85a8db680124c21591970fb8b78e82f49a6a532"
+
+      - name: Validate fail-closed regression
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          obj = json.loads(
+              Path(
+                  "development/stage387/authoritative-rebind/"
+                  "stage387_authoritative_fail_closed_report.json"
+              ).read_text(
+                  encoding="utf-8"
+              )
+          )
+
+          assert obj["decision"] == "authoritative_fail_closed_regression_verified"
+          assert obj["verification_status"] == "verified"
+
+          assert obj["scenario_count"] == 16
+          assert obj["passed_scenario_count"] == 16
+          assert obj["failed_scenario_count"] == 0
+
+          assert obj["all_negative_cases_fail_closed"] is True
+          assert obj["canonical_restoration_verified"] is True
+          assert obj["file_mode_restoration_verified"] is True
+
+          assert obj["historical_verifier_mode_before"] == "755"
+          assert obj["historical_verifier_mode_after"] == "755"
+
+          print("fail_closed=16_of_16_pass")
+          print("file_mode_restoration_verified=true")
+          PY
+
+      - name: Verify deterministic authoritative output
+        run: |
+          set -euo pipefail
+
+          python \
+            development/stage387/authoritative-rebind/verify_stage387_authoritative_interoperability.py
+
+          RESULT_SHA="$(
+            sha256sum \
+              development/stage387/authoritative-rebind/stage387_authoritative_interoperability_result.json |
+            awk '{print $1}'
+          )"
+
+          test "$RESULT_SHA" = "e6bc2f2619159da19a499d5df53d7fa674feb99c21a19edc55ffc8f513667efb"
+
+          echo "deterministic_output_verified=true"
+
+      - name: Verify public authoritative mirror
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          from pathlib import Path
+
+          source = Path(
+              "development/stage387/authoritative-rebind"
+          )
+
+          public = Path(
+              "docs/verification/stage387/authoritative-rebind"
+          )
+
+          names = [
+              "stage387_authoritative_stage386_binding_manifest.json",
+              "stage387_authoritative_stage386_binding_manifest.sha256",
+              "stage387_authoritative_interoperability_baseline.json",
+              "stage387_authoritative_interoperability_baseline.sha256",
+              "stage387_authoritative_interoperability_result.json",
+              "stage387_authoritative_interoperability_result.sha256",
+              "stage387_authoritative_fail_closed_report.json",
+              "stage387_authoritative_fail_closed_report.sha256",
+              "stage387_authoritative_package_manifest.json",
+              "stage387_authoritative_package_manifest.sha256",
+          ]
+
+          assert len(names) == 10
+
+          for name in names:
+              assert (
+                  source / name
+              ).read_bytes() == (
+                  public / name
+              ).read_bytes(), name
+
+          print("public_mirror=10_of_10_byte_identical_pass")
+          PY
+
+      - name: Scan public tree for forbidden files
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+
+          docs = Path("docs")
+
+          allowed_public_pem = (
+              Path(
+                  "docs/mldsa-production/"
+                  "stage375_mldsa65_public_key.pem"
+              ),
+              "1416f7cf4b7b755e86de50d56a63acb9d3b4cb2ce970253bccce45c26b358d19",
+          )
+
+          forbidden_suffixes = {
+              ".key",
+              ".p12",
+              ".pfx",
+              ".seed",
+              ".secret",
+              ".ots",
+              ".tsr",
+              ".tsa",
+              ".tsq",
+              ".tst",
+              ".p7s",
+              ".p7b",
+          }
+
+          private_markers = (
+              b"-----BEGIN PRIVATE KEY-----",
+              b"-----BEGIN ENCRYPTED PRIVATE KEY-----",
+              b"-----BEGIN RSA PRIVATE KEY-----",
+              b"-----BEGIN EC PRIVATE KEY-----",
+              b"-----BEGIN OPENSSH PRIVATE KEY-----",
+          )
+
+          forbidden = []
+
+          for path in docs.rglob("*"):
+              if not path.is_file():
+                  continue
+
+              rel = path.as_posix()
+              raw = path.read_bytes()
+
+              if any(
+                  marker in raw
+                  for marker in private_markers
+              ):
+                  forbidden.append(
+                      rel + ":private-key-marker"
+                  )
+
+              if path.suffix.lower() in forbidden_suffixes:
+                  forbidden.append(
+                      rel + ":forbidden-suffix"
+                  )
+
+              if path.suffix.lower() == ".pem":
+                  allowed_path, allowed_sha = allowed_public_pem
+
+                  if path != allowed_path:
+                      forbidden.append(
+                          rel + ":unlisted-pem"
+                      )
+                      continue
+
+                  digest = hashlib.sha256(
+                      raw
+                  ).hexdigest()
+
+                  if digest != allowed_sha:
+                      forbidden.append(
+                          rel + ":public-pem-hash-mismatch"
+                      )
+
+                  if not raw.startswith(
+                      b"-----BEGIN PUBLIC KEY-----"
+                  ):
+                      forbidden.append(
+                          rel + ":public-pem-header-mismatch"
+                      )
+
+          print(
+              "public_forbidden_file_count="
+              + str(len(forbidden))
+          )
+
+          for item in forbidden:
+              print(
+                  "PUBLIC_FORBIDDEN="
+                  + item
+              )
+
+          assert not forbidden
+
+          print(
+              "allowed_public_pem_sha256="
+              + allowed_public_pem[1]
+          )
+
+          print(
+              "public_tree_security_scan_verified=true"
+          )
+          PY
+
+      - name: Upload Stage387 authoritative verification package
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage387-authoritative-interoperability-verification-package
+          path: |
+            development/stage387/authoritative-rebind
+            docs/verification/stage387/authoritative-rebind
+          if-no-files-found: error

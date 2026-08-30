@@ -1,0 +1,196 @@
+{
+  "all_negative_cases_fail_closed": true,
+  "canonical_authoritative_result_sha256": "e6bc2f2619159da19a499d5df53d7fa674feb99c21a19edc55ffc8f513667efb",
+  "canonical_restoration_verified": true,
+  "decision": "authoritative_fail_closed_regression_verified",
+  "failed_scenario_count": 0,
+  "file_mode_restoration_verified": true,
+  "historical_stage387_record_rewritten": false,
+  "historical_stage387_result_sha256": "682a9aa96a7ec1eba9a0dea956971838a4ea222dd540adfc79f4776a6f0237d8",
+  "historical_verifier_mode_after": "755",
+  "historical_verifier_mode_before": "755",
+  "limitations": {
+    "entire_system_quantum_safe": false,
+    "formal_acceptance": false,
+    "formal_acceptance_eligible": false,
+    "formal_acceptance_issued": false,
+    "pipeline_completed": false,
+    "public_release_allowed": false,
+    "qkd_hardware_verified": false
+  },
+  "passed_scenario_count": 16,
+  "report_payload_sha256": "284a238f802896c9e664f634e359ac2311052d6e0a39388aacaca26c069977b8",
+  "report_type": "authoritative_interoperability_fail_closed_regression_report",
+  "scenario_count": 16,
+  "scenarios": [
+    {
+      "canonical_positive_result_unchanged": true,
+      "expected_fail_closed": true,
+      "mode_restoration_required": false,
+      "mutation": "append",
+      "name": "binding_manifest_tamper",
+      "nonzero_exit_verified": true,
+      "observed_fail_closed": true,
+      "original_file_mode": "644"
+    },
+    {
+      "canonical_positive_result_unchanged": true,
+      "expected_fail_closed": true,
+      "mode_restoration_required": false,
+      "mutation": "append",
+      "name": "baseline_tamper",
+      "nonzero_exit_verified": true,
+      "observed_fail_closed": true,
+      "original_file_mode": "644"
+    },
+    {
+      "canonical_positive_result_unchanged": true,
+      "expected_fail_closed": true,
+      "mode_restoration_required": false,
+      "mutation": "append",
+      "name": "imported_stage386_result_tamper",
+      "nonzero_exit_verified": true,
+      "observed_fail_closed": true,
+      "original_file_mode": "644"
+    },
+    {
+      "canonical_positive_result_unchanged": true,
+      "expected_fail_closed": true,
+      "mode_restoration_required": false,
+      "mutation": "append",
+      "name": "imported_stage386_fail_closed_report_tamper",
+      "nonzero_exit_verified": true,
+      "observed_fail_closed": true,
+      "original_file_mode": "644"
+    },
+    {
+      "canonical_positive_result_unchanged": true,
+      "expected_fail_closed": true,
+      "mode_restoration_required": false,
+      "mutation": "append",
+      "name": "imported_stage386_package_manifest_tamper",
+      "nonzero_exit_verified": true,
+      "observed_fail_closed": true,
+      "original_file_mode": "644"
+    },
+    {
+      "canonical_positive_result_unchanged": true,
+      "expected_fail_closed": true,
+      "mode_restoration_required": false,
+      "mutation": "append",
+      "name": "imported_stage386_binding_manifest_tamper",
+      "nonzero_exit_verified": true,
+      "observed_fail_closed": true,
+      "original_file_mode": "644"
+    },
+    {
+      "canonical_positive_result_unchanged": true,
+      "expected_fail_closed": true,
+      "mode_restoration_required": false,
+      "mutation": "append",
+      "name": "imported_stage386_baseline_tamper",
+      "nonzero_exit_verified": true,
+      "observed_fail_closed": true,
+      "original_file_mode": "644"
+    },
+    {
+      "canonical_positive_result_unchanged": true,
+      "expected_fail_closed": true,
+      "mode_restoration_required": false,
+      "mutation": "append",
+      "name": "imported_stage386_result_sidecar_tamper",
+      "nonzero_exit_verified": true,
+      "observed_fail_closed": true,
+      "original_file_mode": "644"
+    },
+    {
+      "canonical_positive_result_unchanged": true,
+      "expected_fail_closed": true,
+      "mode_restoration_required": true,
+      "mutation": "missing",
+      "name": "imported_stage386_package_manifest_missing",
+      "nonzero_exit_verified": true,
+      "observed_fail_closed": true,
+      "original_file_mode": "644"
+    },
+    {
+      "canonical_positive_result_unchanged": true,
+      "expected_fail_closed": true,
+      "mode_restoration_required": true,
+      "mutation": "missing",
+      "name": "imported_stage386_binding_sidecar_missing",
+      "nonzero_exit_verified": true,
+      "observed_fail_closed": true,
+      "original_file_mode": "644"
+    },
+    {
+      "canonical_positive_result_unchanged": true,
+      "expected_fail_closed": true,
+      "mode_restoration_required": false,
+      "mutation": "append",
+      "name": "historical_stage387_result_tamper",
+      "nonzero_exit_verified": true,
+      "observed_fail_closed": true,
+      "original_file_mode": "644"
+    },
+    {
+      "canonical_positive_result_unchanged": true,
+      "expected_fail_closed": true,
+      "mode_restoration_required": false,
+      "mutation": "append",
+      "name": "historical_stage387_policy_tamper",
+      "nonzero_exit_verified": true,
+      "observed_fail_closed": true,
+      "original_file_mode": "644"
+    },
+    {
+      "canonical_positive_result_unchanged": true,
+      "expected_fail_closed": true,
+      "mode_restoration_required": true,
+      "mutation": "missing",
+      "name": "historical_stage387_verifier_missing",
+      "nonzero_exit_verified": true,
+      "observed_fail_closed": true,
+      "original_file_mode": "755"
+    },
+    {
+      "canonical_positive_result_unchanged": true,
+      "expected_fail_closed": true,
+      "mode_restoration_required": false,
+      "mutation": "append",
+      "name": "mldsa65_public_key_tamper",
+      "nonzero_exit_verified": true,
+      "observed_fail_closed": true,
+      "original_file_mode": "644"
+    },
+    {
+      "canonical_positive_result_unchanged": true,
+      "expected_fail_closed": true,
+      "mode_restoration_required": false,
+      "mutation": "flip",
+      "name": "mldsa65_signature_tamper",
+      "nonzero_exit_verified": true,
+      "observed_fail_closed": true,
+      "original_file_mode": "644"
+    },
+    {
+      "canonical_positive_result_unchanged": true,
+      "expected_fail_closed": true,
+      "mode_restoration_required": false,
+      "mutation": "append",
+      "name": "signed_target_tamper",
+      "nonzero_exit_verified": true,
+      "observed_fail_closed": true,
+      "original_file_mode": "644"
+    }
+  ],
+  "security_boundary": {
+    "default_deny_publication_boundary_preserved": true,
+    "key_seed_material_included": false,
+    "private_key_material_included": false,
+    "raw_qkd_secret_material_included": false
+  },
+  "source_stage": 386,
+  "stage": 387,
+  "verification_status": "verified"
+}

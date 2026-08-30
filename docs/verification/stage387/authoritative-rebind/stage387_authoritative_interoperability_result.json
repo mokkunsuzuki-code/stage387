@@ -1,0 +1,100 @@
+{
+  "algorithm": "ML-DSA-65",
+  "authoritative_reverification_completed": true,
+  "bindings": {
+    "historical_stage387_interoperability_result_sha256": "682a9aa96a7ec1eba9a0dea956971838a4ea222dd540adfc79f4776a6f0237d8",
+    "mldsa65_public_key_sha256": "1416f7cf4b7b755e86de50d56a63acb9d3b4cb2ce970253bccce45c26b358d19",
+    "stage386_authoritative_fail_closed_sha256": "45f48f1b84415357786fc66abe70f7ffd20c268afd3273123e06be41ec04e240",
+    "stage386_authoritative_package_sha256": "b89863e212d1d1d9158c1447de6edb99c790a3f73bb295d600601401d115bd20",
+    "stage386_authoritative_result_sha256": "fc8f92b50769b43fb6e9b1e97fd1b32348820a9259fba64f41ce5bf94a8583b3",
+    "stage387_authoritative_baseline_sha256": "e2ff1936e23b66cb49cffab10918a2046dbc90df3a9d3a7697ffea50da3089e9",
+    "stage387_stage386_binding_sha256": "4267797adf1ffa6378b6f587a2feaab62dcdf9295b983bf49b0267fe33a929ca"
+  },
+  "check_count": 28,
+  "checks": {
+    "baseline_payload_sha256_verified": true,
+    "baseline_raw_sha256_verified": true,
+    "binding_payload_sha256_verified": true,
+    "binding_raw_sha256_verified": true,
+    "circl_mldsa65_verified": true,
+    "cross_implementation_result_match": true,
+    "entire_system_quantum_safe_not_claimed": true,
+    "final_stage386_authoritative_result_bound": true,
+    "final_stage386_commit_bound": true,
+    "final_stage386_fail_closed_report_bound": true,
+    "final_stage386_package_manifest_bound": true,
+    "final_stage386_tree_bound": true,
+    "formal_acceptance_not_claimed": true,
+    "historical_stage387_monitored_files_19_of_19_verified": true,
+    "historical_stage387_record_rewritten": true,
+    "historical_stage387_result_deterministic": true,
+    "historical_stage387_result_reexecuted": true,
+    "openssl_mldsa65_verified": true,
+    "pipeline_completion_not_claimed": true,
+    "private_key_material_absent": true,
+    "public_release_not_claimed": true,
+    "raw_qkd_secret_material_absent": true,
+    "same_context": true,
+    "same_public_key": true,
+    "same_signature": true,
+    "same_signed_target": true,
+    "stage386_imported_evidence_10_of_10_verified": true,
+    "stage386_imported_sidecars_5_of_5_verified": true
+  },
+  "critical_failure_count": 0,
+  "decision": "authoritative_pqc_multi_implementation_interoperability_verified",
+  "engine": "Authoritative PQC Multi-Implementation Interoperability Reverification Gate",
+  "failed_check_count": 0,
+  "final_stage386_identity": {
+    "commit_sha": "0b9d2d756840ebb934ef752e2594456a41ca2c46",
+    "tree_sha": "d2fa83b7d735e8c21d998b066c304bc2a0544789"
+  },
+  "fips_standard": "FIPS 204",
+  "historical_stage387_record_rewritten": false,
+  "implementations": {
+    "implementation_a": {
+      "name": "OpenSSL",
+      "verified": true
+    },
+    "implementation_b": {
+      "name": "Cloudflare CIRCL",
+      "verified": true,
+      "version": "v1.6.5"
+    }
+  },
+  "limitations": {
+    "entire_system_quantum_safe": false,
+    "formal_acceptance": false,
+    "formal_acceptance_eligible": false,
+    "formal_acceptance_issued": false,
+    "pipeline_completed": false,
+    "public_release_allowed": false,
+    "qkd_hardware_verified": false
+  },
+  "passed_check_count": 28,
+  "reexecution": {
+    "circl_mldsa65_verified": true,
+    "cross_implementation_result_match": true,
+    "historical_result_sha256": "682a9aa96a7ec1eba9a0dea956971838a4ea222dd540adfc79f4776a6f0237d8",
+    "openssl_mldsa65_verified": true,
+    "same_context": true,
+    "same_public_key": true,
+    "same_signature": true,
+    "same_signed_target": true
+  },
+  "result_payload_sha256": "ecb06dd4a0c58c636578e87c054a753f2b0f39545d7641c033adba74cabb36a8",
+  "security_boundary": {
+    "default_deny_publication_boundary_preserved": true,
+    "key_seed_material_included": false,
+    "private_key_material_included": false,
+    "public_evidence_only": true,
+    "raw_qkd_secret_material_included": false
+  },
+  "source_stage": 386,
+  "stage": 387,
+  "stage387_historical_identity": {
+    "commit_sha": "739cea647de6d64313be7be874a7aaa0295bc05e",
+    "tree_sha": "7c65e6e3d9596f445fb520c48e263cee348b57f0"
+  },
+  "verification_status": "verified"
+}

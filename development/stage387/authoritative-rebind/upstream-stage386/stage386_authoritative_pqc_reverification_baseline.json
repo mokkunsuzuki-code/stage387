@@ -1,0 +1,280 @@
+{
+  "authoritative_reverification_gate": {
+    "authoritative_result_issued": false,
+    "authoritative_reverification_completed": false,
+    "authoritative_reverification_required": true
+  },
+  "authoritative_upstream_binding": {
+    "binding_manifest_path": "development/stage386/authoritative-rebind/stage386_authoritative_rebind_binding_manifest.json",
+    "binding_manifest_payload_sha256": "9814081215d648a47f0d759344305ba219ee9bd952795f633df62a624b296a49",
+    "binding_manifest_raw_sha256": "4ba227122ecfbbc0e7b9dd6e98d59b28919db7a38685257e3effbfe124b42899",
+    "final_stage385_commit_sha": "cdbf0e243945cfafb7334a27ddac3dc0858827e3",
+    "final_stage385_decision": "authoritative_cryptographic_agility_reverified_inventory_incomplete",
+    "final_stage385_tree_sha": "cb38e044bf8a5348e984f2e6a7cd70ccb944e53f",
+    "imported_authoritative_evidence_count": 10
+  },
+  "baseline_payload_sha256": "a1c2c4c8165d2e0107573c9f7be3bf32e942f5d7338730a4fa616c96f05cc453",
+  "baseline_scope": "final_publication_policy_pre_authoritative_reverification_set",
+  "baseline_type": "authoritative_pqc_independent_reverification_baseline",
+  "current_stage386_pqc_evidence": {
+    "algorithm": "ML-DSA-65",
+    "context_string": "QSP-Stage375-v1",
+    "direct_independent_verification_verified": true,
+    "fips_standard": "FIPS 204",
+    "private_key_published": false,
+    "private_key_required": false,
+    "public_key_der_sha256": "2589f3e20ddcb0f6b0fec5a145d57d57c5ca8b93866a9672765d2e5557cae595",
+    "public_key_pem_sha256": "1416f7cf4b7b755e86de50d56a63acb9d3b4cb2ce970253bccce45c26b358d19",
+    "public_key_present": true,
+    "signature_present": true,
+    "signature_sha256": "6cc2d3d0a3a7d5a603346dc65597aac950dc97cbbaeddfecd6405c7d585445c4",
+    "signed_target_present": true,
+    "signed_target_sha256": "6ecf58d0070d8db920744b7d32331e01e8e1aef2eded02dde428b80def79d5e6"
+  },
+  "decision": "authoritative_pqc_reverification_baseline_established",
+  "historical_stage386_state": {
+    "decision": "pqc_independent_reverification_verified",
+    "historical_record_rewritten": false,
+    "independent_mldsa65_verification": true,
+    "result_sha256": "aab6f8c3ac52ed142a7069de4aba09682ee5206904ff32519448f9548e723d9f",
+    "third_party_reverification_supported": true,
+    "verification_status": "verified"
+  },
+  "limitations": {
+    "entire_system_quantum_safe": false,
+    "fips_140_module_validation_claimed": false,
+    "formal_acceptance": false,
+    "formal_acceptance_eligible": false,
+    "formal_acceptance_issued": false,
+    "pipeline_completed": false,
+    "public_release_allowed": false
+  },
+  "monitored_artifact_count": 33,
+  "monitored_artifacts": [
+    {
+      "path": ".gitignore",
+      "role": "final_authoritative_publication_boundary_policy",
+      "sha256": "23b48fc13dd0f17cf480ca838f204698d46fea98c2080ebedcf2923ef3f620e0",
+      "size_bytes": 15124
+    },
+    {
+      "path": ".github/workflows/stage386-pqc-independent-reverification.yml",
+      "role": "historical_stage386_preservation",
+      "sha256": "32ea0a0f728fe1758c711954571a44d5bef3c195937735783b2a0e73d2d2f349",
+      "size_bytes": 9041
+    },
+    {
+      "path": "development/stage386/README.md",
+      "role": "historical_stage386_preservation",
+      "sha256": "f660a5015d1cdcc358bc696dcc6d48eb1f6ff2d8b92c8064eb7fb9b7aacf1559",
+      "size_bytes": 2938
+    },
+    {
+      "path": "development/stage386/stage386_evidence_portability_manifest.json",
+      "role": "historical_stage386_preservation",
+      "sha256": "5678d939e9a9c8866e6d87d59b08b2a6b213fcaa482503252e237ac0abebeb40",
+      "size_bytes": 3865
+    },
+    {
+      "path": "development/stage386/stage386_evidence_portability_manifest.sha256",
+      "role": "historical_stage386_preservation",
+      "sha256": "8b74d19837529ded81ab056bc09eed10c232e107a8e2b2aa69ed1d1d53c0821e",
+      "size_bytes": 131
+    },
+    {
+      "path": "development/stage386/stage386_pqc_independent_reverification_result.json",
+      "role": "historical_stage386_preservation",
+      "sha256": "aab6f8c3ac52ed142a7069de4aba09682ee5206904ff32519448f9548e723d9f",
+      "size_bytes": 2073
+    },
+    {
+      "path": "development/stage386/stage386_pqc_independent_reverification_result.sha256",
+      "role": "historical_stage386_preservation",
+      "sha256": "917c3249ec4b13f45137c747699afc25b31a00af3f220255bc4a7b7afd966f40",
+      "size_bytes": 139
+    },
+    {
+      "path": "development/stage386/stage386_pqc_reverification_policy.json",
+      "role": "historical_stage386_preservation",
+      "sha256": "7da8663a37e14e0f8319f7bdd7cf0c65ac606e5b647e60d3c02b4e7fd9ff1ed5",
+      "size_bytes": 1934
+    },
+    {
+      "path": "development/stage386/stage386_pqc_reverification_policy.sha256",
+      "role": "historical_stage386_preservation",
+      "sha256": "99e7fb978bef4ab2326f196331439bf28bfe71a8c7e345e4ae441a1219ff16d2",
+      "size_bytes": 127
+    },
+    {
+      "path": "development/stage386/test_stage386_fail_closed.py",
+      "role": "historical_stage386_preservation",
+      "sha256": "58dde5ba144d5cda3eea88b3c50e6b7fc3575632619d49a22e3877368df481cf",
+      "size_bytes": 9300
+    },
+    {
+      "path": "development/stage386/verify_stage386_pqc_reverification.py",
+      "role": "historical_stage386_preservation",
+      "sha256": "10ae58a37d2e5ecd4dbf0dc8c2419f4072ad96434dceec2fcee618e788ecc97b",
+      "size_bytes": 18343
+    },
+    {
+      "path": "docs/verification/stage386/stage386_evidence_portability_manifest.json",
+      "role": "historical_stage386_preservation",
+      "sha256": "5678d939e9a9c8866e6d87d59b08b2a6b213fcaa482503252e237ac0abebeb40",
+      "size_bytes": 3865
+    },
+    {
+      "path": "docs/verification/stage386/stage386_evidence_portability_manifest.sha256",
+      "role": "historical_stage386_preservation",
+      "sha256": "8b74d19837529ded81ab056bc09eed10c232e107a8e2b2aa69ed1d1d53c0821e",
+      "size_bytes": 131
+    },
+    {
+      "path": "docs/verification/stage386/stage386_pqc_independent_reverification_result.json",
+      "role": "historical_stage386_preservation",
+      "sha256": "aab6f8c3ac52ed142a7069de4aba09682ee5206904ff32519448f9548e723d9f",
+      "size_bytes": 2073
+    },
+    {
+      "path": "docs/verification/stage386/stage386_pqc_independent_reverification_result.sha256",
+      "role": "historical_stage386_preservation",
+      "sha256": "917c3249ec4b13f45137c747699afc25b31a00af3f220255bc4a7b7afd966f40",
+      "size_bytes": 139
+    },
+    {
+      "path": "docs/verification/stage386/stage386_pqc_reverification_policy.json",
+      "role": "historical_stage386_preservation",
+      "sha256": "7da8663a37e14e0f8319f7bdd7cf0c65ac606e5b647e60d3c02b4e7fd9ff1ed5",
+      "size_bytes": 1934
+    },
+    {
+      "path": "docs/verification/stage386/stage386_pqc_reverification_policy.sha256",
+      "role": "historical_stage386_preservation",
+      "sha256": "99e7fb978bef4ab2326f196331439bf28bfe71a8c7e345e4ae441a1219ff16d2",
+      "size_bytes": 127
+    },
+    {
+      "path": "development/stage386/authoritative-rebind/stage386_authoritative_rebind_binding_manifest.json",
+      "role": "authoritative_upstream_binding",
+      "sha256": "4ba227122ecfbbc0e7b9dd6e98d59b28919db7a38685257e3effbfe124b42899",
+      "size_bytes": 9519
+    },
+    {
+      "path": "development/stage386/authoritative-rebind/stage386_authoritative_rebind_binding_manifest.sha256",
+      "role": "imported_stage385_authoritative_evidence",
+      "sha256": "e3f7d5621b38744e449f838ff3493f1becaf27c05e4619b05317e9331b7b05f5",
+      "size_bytes": 160
+    },
+    {
+      "path": "development/stage386/authoritative-rebind/upstream-stage385/stage385_authoritative_cryptographic_agility_baseline.json",
+      "role": "imported_stage385_authoritative_evidence",
+      "sha256": "589df61ecdf8bb81dc2581d19660d1ce1a399dd5e3a8a67130e018ea184373e5",
+      "size_bytes": 8746
+    },
+    {
+      "path": "development/stage386/authoritative-rebind/upstream-stage385/stage385_authoritative_cryptographic_agility_baseline.sha256",
+      "role": "imported_stage385_authoritative_evidence",
+      "sha256": "e8e8ae3c8a64215fa25ee9a90b38ca8a3505927ba597b4cea22faa842ce19672",
+      "size_bytes": 167
+    },
+    {
+      "path": "development/stage386/authoritative-rebind/upstream-stage385/stage385_authoritative_cryptographic_agility_result.json",
+      "role": "imported_stage385_authoritative_evidence",
+      "sha256": "6994aa252ea078bec9385e578cb2f7ffc4e120dd2aeccb29f6b76c26b5b83bb3",
+      "size_bytes": 29175
+    },
+    {
+      "path": "development/stage386/authoritative-rebind/upstream-stage385/stage385_authoritative_cryptographic_agility_result.sha256",
+      "role": "imported_stage385_authoritative_evidence",
+      "sha256": "155db0e08ee60b6ddedc241189d6fd0af27065b424500c35a27ed67d32934fa0",
+      "size_bytes": 165
+    },
+    {
+      "path": "development/stage386/authoritative-rebind/upstream-stage385/stage385_authoritative_fail_closed_report.json",
+      "role": "imported_stage385_authoritative_evidence",
+      "sha256": "19662f88c31aae57f556c5528ce8525b9ebb11bf0a40585bb972df1f7f7ee982",
+      "size_bytes": 3933
+    },
+    {
+      "path": "development/stage386/authoritative-rebind/upstream-stage385/stage385_authoritative_fail_closed_report.sha256",
+      "role": "imported_stage385_authoritative_evidence",
+      "sha256": "5625ad327d30966b4d7f8a416614d48c3b7e138ad6ee095f13ed78cbd6f53b7e",
+      "size_bytes": 155
+    },
+    {
+      "path": "development/stage386/authoritative-rebind/upstream-stage385/stage385_authoritative_package_manifest.json",
+      "role": "imported_stage385_authoritative_evidence",
+      "sha256": "66e9a975601e51e0fd615373ed729dd3b68c15ba9f9ca8c9fe0402d0860d9ea0",
+      "size_bytes": 11986
+    },
+    {
+      "path": "development/stage386/authoritative-rebind/upstream-stage385/stage385_authoritative_package_manifest.sha256",
+      "role": "imported_stage385_authoritative_evidence",
+      "sha256": "72eb63553b6fb9f0404b1995d0d7c0430400e87b872eb3944d69d3ad47282095",
+      "size_bytes": 153
+    },
+    {
+      "path": "development/stage386/authoritative-rebind/upstream-stage385/stage385_authoritative_rebind_binding_manifest.json",
+      "role": "imported_stage385_authoritative_evidence",
+      "sha256": "a1f6b1325c901948b0a38dd2fe366a9635eac157168d4e9032aec95e6365069a",
+      "size_bytes": 11316
+    },
+    {
+      "path": "development/stage386/authoritative-rebind/upstream-stage385/stage385_authoritative_rebind_binding_manifest.sha256",
+      "role": "imported_stage385_authoritative_evidence",
+      "sha256": "c41028c38a3e5c9702d7159f11afd507fc6fa9017f5a398508e08b956ab2e50c",
+      "size_bytes": 160
+    },
+    {
+      "path": "docs/mldsa-production/stage375_mldsa65_public_key.pem",
+      "role": "mldsa65_public_key",
+      "sha256": "1416f7cf4b7b755e86de50d56a63acb9d3b4cb2ce970253bccce45c26b358d19",
+      "size_bytes": 2726
+    },
+    {
+      "path": "docs/mldsa-production/stage375_mldsa65_signature.bin",
+      "role": "mldsa65_signature",
+      "sha256": "6cc2d3d0a3a7d5a603346dc65597aac950dc97cbbaeddfecd6405c7d585445c4",
+      "size_bytes": 3309
+    },
+    {
+      "path": "docs/mldsa-production/stage375_mldsa65_execution_receipt.json",
+      "role": "mldsa65_execution_receipt",
+      "sha256": "87ba679511de584597cd49eae8cb5ba318a8203976033107d0e9a0c9e1652e76",
+      "size_bytes": 1848
+    },
+    {
+      "path": "docs/final-acceptance-attestation/stage373_final_acceptance_attestation.json",
+      "role": "mldsa65_signed_target",
+      "sha256": "6ecf58d0070d8db920744b7d32331e01e8e1aef2eded02dde428b80def79d5e6",
+      "size_bytes": 1084
+    }
+  ],
+  "publication_boundary": {
+    "authoritative_workflow_path_predeclared": true,
+    "default_deny_rule_preserved": true,
+    "future_authoritative_source_paths_predeclared": 8,
+    "unlisted_authoritative_files_default_denied": true
+  },
+  "security_boundary": {
+    "credential_material_included": false,
+    "key_seed_material_included": false,
+    "private_key_material_included": false,
+    "public_evidence_only": true,
+    "raw_qkd_secret_material_included": false
+  },
+  "source_stage": 385,
+  "stage": 386,
+  "stage385_preserved_state": {
+    "asset_count": 10,
+    "current_public_mldsa_key_available": false,
+    "entire_system_quantum_safe": false,
+    "inventory_gaps_resolved": false,
+    "inventory_incomplete_count": 4,
+    "migration_required_count": 2,
+    "migration_required_resolved": false,
+    "pqc_signature_execution_verified": true,
+    "prohibited_algorithm_count": 0
+  },
+  "verification_status": "verified"
+}

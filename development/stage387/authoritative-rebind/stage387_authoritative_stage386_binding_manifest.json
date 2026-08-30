@@ -1,0 +1,103 @@
+{
+  "algorithm": "ML-DSA-65",
+  "binding_payload_sha256": "22b50e615a456d31f6a80ff5a1e33cf1107945e715b4d7b76f98eddb970c9c6e",
+  "binding_scope": "final_stage386_authoritative_public_evidence_for_stage387_interoperability_reverification",
+  "decision": "authoritative_stage386_evidence_bound_for_stage387_interoperability_reverification",
+  "final_stage386_identity": {
+    "authoritative_evidence_commit_sha": "66dd137b09b68eec7e01c2be5a2835a365a465e5",
+    "final_main_commit_sha": "0b9d2d756840ebb934ef752e2594456a41ca2c46",
+    "final_main_tree_sha": "d2fa83b7d735e8c21d998b066c304bc2a0544789"
+  },
+  "historical_stage387_record_rewritten": false,
+  "imported_directory": "development/stage387/authoritative-rebind/upstream-stage386",
+  "imported_evidence": [
+    {
+      "name": "stage386_authoritative_fail_closed_report.json",
+      "role": "final_stage386_fail_closed_report",
+      "sha256": "45f48f1b84415357786fc66abe70f7ffd20c268afd3273123e06be41ec04e240",
+      "size_bytes": 8972
+    },
+    {
+      "name": "stage386_authoritative_fail_closed_report.sha256",
+      "role": "final_stage386_fail_closed_report_sidecar",
+      "sha256": "839def2a2b0dc77415b15b004ff2e5c33486559d33fd4484641bc5ae115dfe28",
+      "size_bytes": 155
+    },
+    {
+      "name": "stage386_authoritative_package_manifest.json",
+      "role": "final_stage386_authoritative_package",
+      "sha256": "b89863e212d1d1d9158c1447de6edb99c790a3f73bb295d600601401d115bd20",
+      "size_bytes": 13991
+    },
+    {
+      "name": "stage386_authoritative_package_manifest.sha256",
+      "role": "final_stage386_authoritative_package_sidecar",
+      "sha256": "b2aad810b21f8b54197b5589f894a5dd57f2232c0e1788ec259160ce1dce8206",
+      "size_bytes": 153
+    },
+    {
+      "name": "stage386_authoritative_pqc_reverification_baseline.json",
+      "role": "final_stage386_authoritative_baseline",
+      "sha256": "e133179e95aaf0f4d7b43af76c3e35b39158e02eae73f6c4b8a72427c1b0d9fa",
+      "size_bytes": 12520
+    },
+    {
+      "name": "stage386_authoritative_pqc_reverification_baseline.sha256",
+      "role": "final_stage386_authoritative_baseline_sidecar",
+      "sha256": "9491d0c92b64cca4d4c01d530b6f45a585064dc763b3a90fcdce316ba3220e1f",
+      "size_bytes": 164
+    },
+    {
+      "name": "stage386_authoritative_pqc_reverification_result.json",
+      "role": "final_stage386_authoritative_result",
+      "sha256": "fc8f92b50769b43fb6e9b1e97fd1b32348820a9259fba64f41ce5bf94a8583b3",
+      "size_bytes": 48096
+    },
+    {
+      "name": "stage386_authoritative_pqc_reverification_result.sha256",
+      "role": "final_stage386_authoritative_result_sidecar",
+      "sha256": "29f771961aa8240b71dee7e7a1976863a81d002e68125f721513da1ddeed0fa4",
+      "size_bytes": 162
+    },
+    {
+      "name": "stage386_authoritative_rebind_binding_manifest.json",
+      "role": "final_stage386_authoritative_binding",
+      "sha256": "4ba227122ecfbbc0e7b9dd6e98d59b28919db7a38685257e3effbfe124b42899",
+      "size_bytes": 9519
+    },
+    {
+      "name": "stage386_authoritative_rebind_binding_manifest.sha256",
+      "role": "final_stage386_authoritative_binding_sidecar",
+      "sha256": "e3f7d5621b38744e449f838ff3493f1becaf27c05e4619b05317e9331b7b05f5",
+      "size_bytes": 160
+    }
+  ],
+  "imported_file_count": 10,
+  "limitations": {
+    "entire_system_quantum_safe": false,
+    "formal_acceptance": false,
+    "formal_acceptance_eligible": false,
+    "formal_acceptance_issued": false,
+    "pipeline_completed": false,
+    "public_release_allowed": false,
+    "qkd_hardware_verified": false
+  },
+  "manifest_type": "authoritative_stage386_evidence_binding_manifest",
+  "mldsa65_public_key_sha256": "1416f7cf4b7b755e86de50d56a63acb9d3b4cb2ce970253bccce45c26b358d19",
+  "security_boundary": {
+    "append_only_rebind": true,
+    "historical_rewrite_allowed": false,
+    "key_seed_material_included": false,
+    "private_key_material_included": false,
+    "public_evidence_only": true,
+    "raw_qkd_secret_material_included": false
+  },
+  "source_public_directory": "docs/verification/stage386/authoritative-rebind",
+  "source_stage": 386,
+  "stage": 387,
+  "stage387_historical_identity": {
+    "commit_sha": "739cea647de6d64313be7be874a7aaa0295bc05e",
+    "tree_sha": "7c65e6e3d9596f445fb520c48e263cee348b57f0"
+  },
+  "verification_status": "verified"
+}

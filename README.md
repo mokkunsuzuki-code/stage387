@@ -1249,3 +1249,53 @@ See the repository-level:
 `LICENSE`
 
 The MIT License applies to the published source code and documentation in this repository. It does not override confidentiality requirements, security boundaries, private-material restrictions, or applicable third-party licenses.
+
+<!-- STAGE387_AUTHORITATIVE_REBIND_START -->
+## Stage387 Authoritative PQC Multi-Implementation Interoperability Re-verification
+
+Stage387 now contains an append-only authoritative re-verification lane that binds the final Stage386 authoritative evidence without rewriting the historical Stage387 record.
+
+Current authoritative result:
+
+- decision: `authoritative_pqc_multi_implementation_interoperability_verified`
+- verification_status: `verified`
+- algorithm: `ML-DSA-65` / FIPS 204
+- OpenSSL verification: `true`
+- Cloudflare CIRCL v1.6.5 verification: `true`
+- cross-implementation result match: `true`
+- authoritative checks: `28/28`
+- failed checks: `0`
+- critical failures: `0`
+- fail-closed regression: `16/16`
+- canonical restoration verified: `true`
+- file mode restoration verified: `true`
+- historical Stage387 record rewritten: `false`
+
+Evidence hashes:
+
+- authoritative result SHA-256: `e6bc2f2619159da19a499d5df53d7fa674feb99c21a19edc55ffc8f513667efb`
+- fail-closed report SHA-256: `fee535829f38dca3bb6b5f62d85a8db680124c21591970fb8b78e82f49a6a532`
+- authoritative package manifest SHA-256: `cec69e4c55b8b10c7bedee5b4cf3bf344fe269596c134c39fef065029e19b855`
+- authoritative workflow SHA-256: `b5d9e234d03cab0a140f1fdf37a04a4526b094c8a325841a7905e182bd3d9bfa`
+
+Public authoritative evidence:
+
+- [Stage387 authoritative Stage386 binding](https://mokkunsuzuki-code.github.io/stage387/verification/stage387/authoritative-rebind/stage387_authoritative_stage386_binding_manifest.json)
+- [Stage387 authoritative baseline](https://mokkunsuzuki-code.github.io/stage387/verification/stage387/authoritative-rebind/stage387_authoritative_interoperability_baseline.json)
+- [Stage387 authoritative result](https://mokkunsuzuki-code.github.io/stage387/verification/stage387/authoritative-rebind/stage387_authoritative_interoperability_result.json)
+- [Stage387 fail-closed report](https://mokkunsuzuki-code.github.io/stage387/verification/stage387/authoritative-rebind/stage387_authoritative_fail_closed_report.json)
+- [Stage387 authoritative package manifest](https://mokkunsuzuki-code.github.io/stage387/verification/stage387/authoritative-rebind/stage387_authoritative_package_manifest.json)
+
+Explicit non-guarantees:
+
+- `entire_system_quantum_safe=false`
+- `formal_acceptance_eligible=false`
+- `formal_acceptance_issued=false`
+- `formal_acceptance=false`
+- `pipeline_completed=false`
+- `public_release_allowed=false`
+- `qkd_hardware_verified=false`
+- `external_certification_completed=false`
+
+Publishing verification evidence through GitHub Pages does not change these semantic non-guarantees.
+<!-- STAGE387_AUTHORITATIVE_REBIND_END -->
