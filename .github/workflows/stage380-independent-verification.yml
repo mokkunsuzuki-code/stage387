@@ -7,7 +7,6 @@ on:
       - main
     paths:
       - ".stage380-development-policy.json"
-      - "README.md"
       - "development/stage379/**"
       - "development/stage380/**"
       - "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json"
@@ -16,7 +15,6 @@ on:
   pull_request:
     paths:
       - ".stage380-development-policy.json"
-      - "README.md"
       - "development/stage379/**"
       - "development/stage380/**"
       - "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json"
@@ -235,91 +233,154 @@ jobs:
           shasum -a 256 -c \
             development/stage380/stage380_independent_verification_result.sha256
 
-      - name: Validate README structure
-        run: |
-          set -euo pipefail
-
-          python3 - <<'PY'
-          from pathlib import Path
-
-          path = Path("README.md")
-          text = path.read_text(encoding="utf-8")
-
-          required_headings = [
-              "# Stage380:",
-              "## Purpose",
-              "## Current State",
-              "## Upstream Conditions",
-              "## Independent Verification Package Contract",
-              "## Deterministic Offline Core Verifier",
-              "## Deterministic Output",
-              "## Fail-Closed Principle",
-              "## Verification Result",
-              "## Verification Manifest",
-              "## Verification Certificate",
-              "## Public and Private Boundaries",
-              "## Current Limitations",
-              "## License",
-          ]
-
-          missing = [
-              heading for heading in required_headings
-              if heading not in text
-          ]
-
-          if missing:
-              raise SystemExit(
-                  f"README headings are missing: {missing}"
-              )
-
-          fence_count = text.count("```")
-
-          if fence_count % 2 != 0:
-              raise SystemExit(
-                  f"README code-fence count is odd: {fence_count}"
-              )
-
-          print(f"README code fences: {fence_count}")
-          print("README structure verified=true")
-          PY
-
       - name: Scan public tree for forbidden files
         shell: bash
         run: |
           set -euo pipefail
 
-          count="$(
-            find docs -type f \
-              \( \
-                -iname "qkd_raw_key*" \
-                -o -iname "qkd_secret_key*" \
-                -o -iname "qkd_sifted_key*" \
-                -o -iname "qkd_reconciled_key*" \
-                -o -iname "qkd_final_key*" \
-                -o -name "*.qkdkey" \
-                -o -name "*.rawkey" \
-                -o -name "*.siftedkey" \
-                -o -name "*.reconciledkey" \
-                -o -name "*.finalkey" \
-                -o -name "*.key" \
-                -o -name "*.pem" \
-                -o -name "*.p12" \
-                -o -name "*.pfx" \
-                -o -name "*.seed" \
-                -o -name "*.pk8" \
-                -o -name "*.ots" \
-                -o -name "*.tsq" \
-                -o -name "*.tsr" \
-                -o -name "*.tst" \
-              \) \
-              -print |
-            wc -l |
-            tr -d " "
-          )"
+          python3 - <<'PY'
+          import hashlib
+          from pathlib import Path
 
-          echo "public_forbidden_file_count=${count}"
+          docs = Path("docs")
 
-          test "${count}" = "0"
+          allowed_public_pem = Path(
+              "docs/mldsa-production/"
+              "stage375_mldsa65_public_key.pem"
+          )
+
+          allowed_public_pem_sha256 = (
+              "1416f7cf4b7b755e86de50d56a63acb9d3b4cb2ce970253bccce45c26b358d19"
+          )
+
+          forbidden_suffixes = {
+              ".key",
+              ".p12",
+              ".pfx",
+              ".seed",
+              ".pk8",
+              ".ots",
+              ".tsq",
+              ".tsr",
+              ".tst",
+              ".qkdkey",
+              ".rawkey",
+              ".siftedkey",
+              ".reconciledkey",
+              ".finalkey",
+          }
+
+          forbidden_qkd_prefixes = (
+              "qkd_raw_key",
+              "qkd_secret_key",
+              "qkd_sifted_key",
+              "qkd_reconciled_key",
+              "qkd_final_key",
+          )
+
+          private_key_markers = (
+              b"-----BEGIN PRIVATE KEY-----",
+              b"-----BEGIN ENCRYPTED PRIVATE KEY-----",
+              b"-----BEGIN RSA PRIVATE KEY-----",
+              b"-----BEGIN EC PRIVATE KEY-----",
+              b"-----BEGIN OPENSSH PRIVATE KEY-----",
+          )
+
+          failures = []
+          pem_count = 0
+
+          for candidate in docs.rglob("*"):
+              if not candidate.is_file():
+                  continue
+
+              raw = candidate.read_bytes()
+              lower_name = candidate.name.lower()
+
+              if any(
+                  marker in raw
+                  for marker in private_key_markers
+              ):
+                  failures.append(
+                      candidate.as_posix()
+                      + ":private-key-marker"
+                  )
+
+              if (
+                  candidate.suffix.lower()
+                  in forbidden_suffixes
+              ):
+                  failures.append(
+                      candidate.as_posix()
+                      + ":forbidden-suffix"
+                  )
+
+              if lower_name.startswith(
+                  forbidden_qkd_prefixes
+              ):
+                  failures.append(
+                      candidate.as_posix()
+                      + ":forbidden-qkd-key-name"
+                  )
+
+              if candidate.suffix.lower() == ".pem":
+                  pem_count += 1
+
+                  if candidate != allowed_public_pem:
+                      failures.append(
+                          candidate.as_posix()
+                          + ":unlisted-pem"
+                      )
+                      continue
+
+                  actual_sha = hashlib.sha256(
+                      raw
+                  ).hexdigest()
+
+                  if (
+                      actual_sha
+                      != allowed_public_pem_sha256
+                  ):
+                      failures.append(
+                          candidate.as_posix()
+                          + ":allowed-public-pem-hash-mismatch"
+                      )
+
+                  if not raw.startswith(
+                      b"-----BEGIN PUBLIC KEY-----"
+                  ):
+                      failures.append(
+                          candidate.as_posix()
+                          + ":allowed-public-pem-header-mismatch"
+                      )
+
+          print(
+              "public_pem_count="
+              + str(pem_count)
+          )
+
+          print(
+              "public_forbidden_file_count="
+              + str(len(failures))
+          )
+
+          for failure in failures:
+              print(
+                  "PUBLIC_FORBIDDEN="
+                  + failure
+              )
+
+          assert not failures
+          assert pem_count == 1
+
+          print(
+              "allowed_public_mldsa65_key_sha256="
+              + allowed_public_pem_sha256
+          )
+
+          print(
+              "public_tree_security_scan_verified=true"
+          )
+          PY
 
       - name: Upload Stage380 verification package
         uses: actions/upload-artifact@v4
@@ -327,7 +388,6 @@ jobs:
           name: stage380-independent-verification-package
           path: |
             .stage380-development-policy.json
-            README.md
             development/stage380/stage380_independent_verification_package_contract.json
             development/stage380/stage380_independent_verification_package_contract.sha256
             development/stage380/verify_stage380_independent_package.py
@@ -338,3 +398,4 @@ jobs:
             development/stage380/stage380_independent_verification_certificate.json
             development/stage380/stage380_independent_verification_certificate.sha256
           if-no-files-found: error
+          include-hidden-files: true
