@@ -25,6 +25,9 @@ jobs:
   stage387-authoritative-interoperability:
     runs-on: ubuntu-latest
 
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -40,13 +43,44 @@ jobs:
           go-version: '1.26.5'
           cache-dependency-path: development/stage387/go.sum
 
-      - name: Validate Python syntax
+      - name: Validate Python syntax without bytecode artifacts
         run: |
           set -euo pipefail
 
-          python -m py_compile \
-            development/stage387/authoritative-rebind/verify_stage387_authoritative_interoperability.py \
-            development/stage387/authoritative-rebind/test_stage387_authoritative_fail_closed.py
+          python - <<'PY'
+          from pathlib import Path
+
+          paths = [
+              Path(
+                  "development/stage387/authoritative-rebind/"
+                  "verify_stage387_authoritative_interoperability.py"
+              ),
+              Path(
+                  "development/stage387/authoritative-rebind/"
+                  "test_stage387_authoritative_fail_closed.py"
+              ),
+          ]
+
+          for path in paths:
+              source = path.read_text(
+                  encoding="utf-8"
+              )
+
+              compile(
+                  source,
+                  path.as_posix(),
+                  "exec",
+              )
+
+              print(
+                  "syntax_verified="
+                  + path.as_posix()
+              )
+
+          print(
+              "python_bytecode_generated=false"
+          )
+          PY
 
       - name: Verify CIRCL dependency
         run: |
@@ -438,6 +472,168 @@ jobs:
 
           print(
               "public_tree_security_scan_verified=true"
+          )
+          PY
+
+      - name: Verify authoritative artifact package hygiene
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          from pathlib import Path
+
+          source = Path(
+              "development/stage387/authoritative-rebind"
+          )
+
+          public = Path(
+              "docs/verification/stage387/authoritative-rebind"
+          )
+
+          expected_source = {
+              "stage387_authoritative_fail_closed_report.json",
+              "stage387_authoritative_fail_closed_report.sha256",
+              "stage387_authoritative_interoperability_baseline.json",
+              "stage387_authoritative_interoperability_baseline.sha256",
+              "stage387_authoritative_interoperability_result.json",
+              "stage387_authoritative_interoperability_result.sha256",
+              "stage387_authoritative_package_manifest.json",
+              "stage387_authoritative_package_manifest.sha256",
+              "stage387_authoritative_stage386_binding_manifest.json",
+              "stage387_authoritative_stage386_binding_manifest.sha256",
+              "test_stage387_authoritative_fail_closed.py",
+              "verify_stage387_authoritative_interoperability.py",
+              "upstream-stage386/stage386_authoritative_fail_closed_report.json",
+              "upstream-stage386/stage386_authoritative_fail_closed_report.sha256",
+              "upstream-stage386/stage386_authoritative_package_manifest.json",
+              "upstream-stage386/stage386_authoritative_package_manifest.sha256",
+              "upstream-stage386/stage386_authoritative_pqc_reverification_baseline.json",
+              "upstream-stage386/stage386_authoritative_pqc_reverification_baseline.sha256",
+              "upstream-stage386/stage386_authoritative_pqc_reverification_result.json",
+              "upstream-stage386/stage386_authoritative_pqc_reverification_result.sha256",
+              "upstream-stage386/stage386_authoritative_rebind_binding_manifest.json",
+              "upstream-stage386/stage386_authoritative_rebind_binding_manifest.sha256",
+          }
+
+          expected_public = {
+              "stage387_authoritative_fail_closed_report.json",
+              "stage387_authoritative_fail_closed_report.sha256",
+              "stage387_authoritative_interoperability_baseline.json",
+              "stage387_authoritative_interoperability_baseline.sha256",
+              "stage387_authoritative_interoperability_result.json",
+              "stage387_authoritative_interoperability_result.sha256",
+              "stage387_authoritative_package_manifest.json",
+              "stage387_authoritative_package_manifest.sha256",
+              "stage387_authoritative_stage386_binding_manifest.json",
+              "stage387_authoritative_stage386_binding_manifest.sha256",
+          }
+
+          actual_source = {
+              path.relative_to(
+                  source
+              ).as_posix()
+              for path in source.rglob("*")
+              if path.is_file()
+          }
+
+          actual_public = {
+              path.relative_to(
+                  public
+              ).as_posix()
+              for path in public.rglob("*")
+              if path.is_file()
+          }
+
+          source_extra = sorted(
+              actual_source
+              - expected_source
+          )
+
+          source_missing = sorted(
+              expected_source
+              - actual_source
+          )
+
+          public_extra = sorted(
+              actual_public
+              - expected_public
+          )
+
+          public_missing = sorted(
+              expected_public
+              - actual_public
+          )
+
+          for item in source_extra:
+              print(
+                  "SOURCE_EXTRA="
+                  + item
+              )
+
+          for item in source_missing:
+              print(
+                  "SOURCE_MISSING="
+                  + item
+              )
+
+          for item in public_extra:
+              print(
+                  "PUBLIC_EXTRA="
+                  + item
+              )
+
+          for item in public_missing:
+              print(
+                  "PUBLIC_MISSING="
+                  + item
+              )
+
+          assert not source_extra
+          assert not source_missing
+          assert not public_extra
+          assert not public_missing
+
+          assert len(actual_source) == 22
+          assert len(actual_public) == 10
+
+          cache_files = sorted(
+              item
+              for item in (
+                  actual_source
+                  | actual_public
+              )
+              if (
+                  "__pycache__" in Path(item).parts
+                  or item.endswith(".pyc")
+              )
+          )
+
+          for item in cache_files:
+              print(
+                  "CACHE_FILE="
+                  + item
+              )
+
+          assert not cache_files
+
+          print(
+              "authoritative_source_files=22"
+          )
+
+          print(
+              "authoritative_public_files=10"
+          )
+
+          print(
+              "authoritative_artifact_files=32"
+          )
+
+          print(
+              "authoritative_artifact_cache_files=0"
+          )
+
+          print(
+              "authoritative_artifact_package_hygiene_verified=true"
           )
           PY
 
